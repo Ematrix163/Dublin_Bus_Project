@@ -1,0 +1,14 @@
+
+
+# Ignore specific folders
+data/ # This contains the DublinBus data
+anaconda3/
+backup/
+downloads/
+
+Ignore all log files in repository
+*.logs
+
+# Ignore all hidden files in repository
+.*
+!.gitignore
