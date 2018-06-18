@@ -1,7 +1,8 @@
 
 
 # Ignore specific folders
-data/ # This contains the DublinBus data
+data/
+data_analysis/
 anaconda3/
 backup/
 downloads/
