@@ -4,6 +4,7 @@ import {withScriptjs, withGoogleMap, GoogleMap, Marker, StandaloneSearchBox} fro
 
 // const { SearchBox } = require("react-google-maps/lib/components/places/StandaloneSearchBox");
 
+//search box for station view for user to be able to search for stations
 const SearchBox = compose(withProps({
     googleMapURL: "https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=AIzaSyDjRsP2Z4JM86ag3hkbRMmfS1a72YBlD8w", loadingElement: <div style={{
             height: `100%`

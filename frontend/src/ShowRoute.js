@@ -1,7 +1,7 @@
 import React from 'react';
 import start from './image/start.png'
 
-
+// function to show the user the route between stations with in between stations shown also
 class ShowRoute extends React.Component {
 	render() {
 		return (

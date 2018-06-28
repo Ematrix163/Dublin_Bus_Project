@@ -3,7 +3,7 @@ import Select from 'react-select';
 import 'react-select/dist/react-select.css';
 
 
-
+//Select box for user to select route number/stop
 class SelectBox extends React.Component {
   state = {
     selectedOption: '',

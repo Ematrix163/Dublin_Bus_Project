@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { compose, withProps } from "recompose"
 import { withScriptjs, withGoogleMap, GoogleMap, Marker, } from "react-google-maps"
 
-
+{/*Loading map of Dublin onto page*/}
 const MyMapComponent = compose(
     withProps({
         googleMapURL: "https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=AIzaSyDjRsP2Z4JM86ag3hkbRMmfS1a72YBlD8w",
@@ -22,7 +22,7 @@ const MyMapComponent = compose(
 )
 
 
-
+{/*Handling marker click so that when it is clicked it disappears*/}
 class Map extends React.PureComponent {
     state = {
         isMarkerShown: false,
