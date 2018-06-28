@@ -1,6 +1,7 @@
 *{
     box-sizing: border-box;
-    margin: 0
+    margin: 0;
+	font-family: 'Libre Franklin', sans-serif;
 }
 
 
@@ -16,6 +17,7 @@
 	background-color: white;
     flex: none;
     z-index: 100;
+	overflow-y: auto;
 }
 
 
@@ -66,8 +68,8 @@
 }
 
 .logo {
-    width: 300px;
-    margin-bottom: 30px;
+    width: 80%;
+    margin: 35px 0 0 30px;
 }
 
 .logo img{
@@ -106,20 +108,29 @@
     margin: 0;
     border: none;
     color: white;
-    background-color: #4190eb;
+    background-color: #c3c3c3 ;
     font-size: 18px;
 }
 
 .button-view:hover {
     cursor: pointer;
-    background-color: #37aaff;
+    background-color: #b4b4b4;
+}
+
+.button-view-activate:hover {
+	cursor: pointer;
 }
 
 .button-view-activate {
-    background-color: #37aaff;
+	display: inline;
+    width: 49%;
+    height: 40px;
+    margin: 0;
+    border: none;
+    color: white;
+    background-color: #b4b4b4;
+    font-size: 18px;
 }
-
-
 
 
 .input-container {
@@ -128,4 +139,25 @@
 
 .selectbox {
 	margin: 20px;
+}
+
+
+
+
+
+
+.show-route {
+	margin-top: 20px;
+	border: 1px solid #1d53cb;
+    border-radius: 20px;
+    padding: 20px;
+}
+
+.show-route ul {
+	list-style-type: none;
+}
+
+.start {
+	color: green;
+	font-weight: bold;
 }
