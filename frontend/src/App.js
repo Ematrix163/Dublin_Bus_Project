@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 
 import SideBar from './SideBar'
 import Map from './Map'
-import './App.css';
+import './css/App.css';
+
 
 class App extends React.Component {
 	render() {

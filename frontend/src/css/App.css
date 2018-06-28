@@ -94,3 +94,38 @@
     height: 100vh;
     z-index: 999;
 }
+
+.view {
+    margin-top: 20px;
+}
+
+.button-view {
+    display: inline;
+    width: 49%;
+    height: 40px;
+    margin: 0;
+    border: none;
+    color: white;
+    background-color: #4190eb;
+    font-size: 18px;
+}
+
+.button-view:hover {
+    cursor: pointer;
+    background-color: #37aaff;
+}
+
+.button-view-activate {
+    background-color: #37aaff;
+}
+
+
+
+
+.input-container {
+	text-align: center;
+}
+
+.selectbox {
+	margin: 20px;
+}
