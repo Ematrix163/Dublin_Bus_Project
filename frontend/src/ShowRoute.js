@@ -7,14 +7,22 @@ class ShowRoute extends React.Component {
 		return (
 			<div className="show-route">
 				<p><i className="fas fa-bus"></i><span className="start"> Bus Line: 46A</span></p>
+				<p className="from-to">From <span className="stop-name">Crofton Road</span></p>
+				<p className="from-to">To <span className="stop-name">Kill Lane Business Park</span></p>
+				<p><i class="far fa-clock"></i> &nbsp; 20 miniutes</p>
 				<hr/>
-				<p>UCD</p>
+				<p>Crofton Road<span className="stops-num">9 Stops</span></p>
 				<ul>
-					<li>Station 1</li>
-					<li>Station 2</li>
-					<li>Station 3</li>
+					<li>Marine Road	</li>
+					<li>George's St</li>
+					<li>York Road</li>
+					<li>York Road</li>
+					<li>Mounttown Rd</li>
+					<li>Kill Avenue	Carriglea Avenue</li>
+					<li>Kill Avenue	Kill O The Grange</li>
+					<li>Kill Avenue	Church</li>
 				</ul>
-				<p>TCD</p>
+				<p>Kill Lane Business Park</p>
 			</div>
 		)
 	}

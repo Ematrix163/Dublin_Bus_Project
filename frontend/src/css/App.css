@@ -23,8 +23,8 @@
 
 .sidebar-container {
     display: inline-block;
-    margin: 50px 0 0 30px;
-    width: 80%;
+	padding: 40px 40px 0 40px;
+    width: 100%;
 }
 
 
@@ -101,7 +101,7 @@
 
 .button-view {
     display: inline;
-    width: 49%;
+    width: 50%;
     height: 40px;
     margin: 0;
     border: none;
@@ -121,7 +121,7 @@
 
 .button-view-activate {
 	display: inline;
-    width: 49%;
+    width: 50%;
     height: 40px;
     margin: 0;
     border: none;
@@ -149,9 +149,35 @@
 
 .show-route ul {
 	list-style-type: none;
+	margin: 0;
+	padding: 0;
+}
+
+.show-route li {
+	color: rgb(180, 180, 180);
+	font-size: 13px;
+	padding-bottom: 4px;
 }
 
 .start {
 	color: green;
 	font-weight: bold;
+}
+
+
+.stops-num {
+	float: right;
+	color: rgb(107, 147, 233);
+	font-size: 15px;
+}
+
+.from-to {
+
+	font-size: 14px;
+	margin-bottom: 7px;
+}
+
+.stop-name {
+	font-weight: bold;
+	color: rgb(30, 97, 190);
 }
