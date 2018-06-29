@@ -1,146 +1,91 @@
 import pandas as pd
-import os, sys
-import datetime
-import csv, itertools
-import subprocess
-
-class DataPrep:
-
-    def __init__(self, file_path, dtypes, file_name, sample_file_path):
-        self._file_path = file_path
-        self._dtypes = dtypes
-        self._sample_file_path = sample_file_path
-        self._file_name = file_name
-        self._df = None
-
-    @property
-    def file_name(self):
-        return self._file_name
-
-    @property
-    def file_path(self):
-        return self._file_path
-
-    @property
-    def df(self):
-        return self._df
-
-    @staticmethod
-    def types_trips():
-        dtypes = {'datasource': str,
-                 'dayofservice': object,
-                 'tripid': int, 'lineid': object,
-                 'routeid': object,
-                 'direction': object,
-                 'plannedtime_arr': object,
-                 'plannedtime_dep': object,
-                 'actualtime_arr': object,
-                 'actualtime_dep': object,
-                 'basin': object,
-                 'tenderlot': object,
-                 'suppressed': str,
-                 'justificationid': object,
-                 'lastupdate': str,
-                 'note': str}
-
-        return dtypes
-
-    def create_df(self):
-        self._df = pd.read_csv(self._file_path, header=0, delimiter=';', nrows= 500)
-
-    def save_csv(self):
-        # Save data frame to a CSV file
-        self._df.to_csv(self._sample_file_path, index = False)
-
-    def df_stats(self):
-        # Print the number of rows in csv data-frame
-        print('Rows (cardinality):', ("{:,}".format(len(self.df))),'and columns:', ("{:,}".format(len(self.df.columns))))
-
-
-
-    def extract_route_sample(self):
-        os.system('/home/student/data_analytics/sample_files/./bus66.sh')
-        # bashCommand = ['awk -F', '{ if ($4 == "+"66"+") print $0 }' '/home/student/data_analytics/sample_files/sample_trips.csv >> test.csv']
-        # process = subprocess.Popen(bashCommand.split(), stdout=subprocess.PIPE)
-        # output, error = process.communicate()
-        print('Done')
-
-    def extract_route(self):
-        print("executing shell script")
-        os.system('/home/student/data_analytics/./bus66.sh')
-        # bashCommand = ['awk -F', '{ if ($4 == "+"66"+") print $0 }' '/home/student/data_analytics/sample_files/sample_trips.csv >> test.csv']
-        # process = subprocess.Popen(bashCommand.split(), stdout=subprocess.PIPE)
-        # output, error = process.communicate()
-        print('extracted from full file')
-
-
+from sklearn.linear_model import LinearRegression
+from sklearn.model_selection import train_test_split
 
 
 class PredictionModel:
 
-    def __init__(self, data_file_path, dtypes, file_name):
-        # Variables to store OWM connection data:
-        self._data_file_path = file_path
-        self._dtypes = dtypes
-        self._file_name = file_name
-        self._df = None
-        #self.save_csv()
-        # self.df_info()
+    def __init__(self, input_file_path, output_path, output_file_name, y):
+        self._file_path = input_file_path
+        self._output_path = output_path
+        self._output_file_name = output_file_name
+        # Creates df upon instance initialization:
+        self._df = pd.read_csv(self._file_path, header=0, delimiter=',')
+        # Drop all columns that aren't required features for training:
+        self.drop_attributes()
+        # y is the Dependent variable (Target Feature)
+        self._y = self.df[y]
+        # X are the independent variables (features)
+        self._X = self._df.drop(y, axis=1)
+        # Creates train, test and cross validation data frames upon instance initialization:
+        self._df_train_X = None
+        self._df_train_y = None
+        self._df_test_X = None
+        self._df_test_y = None
+        self._df_cross = self.df
 
-    # Python Class Encapsulation - Properties (getter), setters
     @property
-    def file_path(self):
-        return self._file_path
+    def input_file_path(self):
+        return self._input_file_path
 
     @property
-    def dtypes(self):
-        return self._dtypes
+    def input_file_path(self):
+        return self._output_path
 
     @property
-    def file_name(self):
-        return self._file_name
+    def output_file_name(self):
+        return self._output_file_name
 
     @property
     def df(self):
         return self._df
 
-    @staticmethod
-    def types_leavetimes():
-        dtypes = {}
+    @property
+    def y(self):
+        return self._y
 
-        return dtypes
+    @property
+    def X(self):
+        return self._X
+
+    # Target Feature (Time difference), Features (Dayofweek, Timeofday, weather)
+
+    def drop_attributes(self):
+        features = ['dayofservice', 'actualtime_arr_leave']
+        self._df = self._df[features]
+
+    # Split the data-frame into the train x, train y, test x and test y sets:
+    def split_df(self):
+        self._df_train_X, self._df_train_y, self._df_test_X, self._df_test_y = train_test_split(self._X, self._y, test_size=0.25, random_state=1)
+
+    # Initialize the regression model:
+    def initialize_model(self):
+
+        regression_model = LinearRegression()
+        regression_model.fit(self._df_train_X, self._df_train_y)
 
 
 
-data_file_lt_2017 = '/home/student/data/db_historic/rt_leavetimes_2017_I_DB.txt'
-data_file_lt_2016 = '/home/student/data/db_historic/rt_leavetimes_2016_I_DB.txt'
-data_file_trips_2017 = '/home/student/data/db_historic/rt_trips_2017_I_DB.txt'
-data_file_trips_2016 = '/home/student/data/db_historic/rt_trips_2016_I_DB.txt'
-
-# Call the types_trips() function to get data types
-trips_dtypes = DataPrep.types_trips()
+# Define inputs for creation of instance
+clean_file_path = '/home/student/data_analytics/individual_bus_lines/route66Clean.csv'
+output_path = '/data_analytics/prediction_model/'
+output_file_name = 'bus66.csv'
+y = "actualtime_arr_leave"
 
 
-# Routes to create
-route66_trips = '/home/student/data_analytics/individual_bus_lines/route66_trips.csv'
-sample_trips = '/home/student/data_analytics/sample_files/sample_trips.csv'
+# Create instance
+instance = PredictionModel(clean_file_path, output_path, output_file_name, y)
 
-# Route names:
-route_name = '66'
+print(instance.df.shape)
+print(instance.df.dtypes)
+# print(instance.y)
+# print(instance.X)
+instance.split_df()
+print(instance.initialize_model())
 
-# Create instances for each file
-summary_trips_2017 = DataPrep(data_file_trips_2017, trips_dtypes, route66_trips, sample_trips)
-# summary_trips_2016 = DataPrep(trips_2016, trips_dtypes, 'samples/sample_trips_2016')
-# summary_leavetimes_2017 = DataPrep(lt_2017, leavetimes_dtypes, 'samples/sample_leavetimes_2017')
-# summary_leavetimes_2016 = DataPrep(lt_2016, leavetimes_dtypes, 'samples/sample_leavetimes_2016')
 
-route66_trips_2017 = DataPrep(data_file_trips_2017, trips_dtypes, route66_trips, sample_trips)
 
-print(route66_trips_2017.file_path)
-print(route66_trips_2017.file_name)
 
-# route66_trips_2017.create_df()
-# route66_trips_2017.df_stats()
-# route66_trips_2017.save_csv()
-route66_trips_2017.extract_route()
-#route66_trips_2017.extract_route()
+
+
+
