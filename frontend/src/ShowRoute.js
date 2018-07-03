@@ -9,7 +9,7 @@ class ShowRoute extends React.Component {
 				<p><i className="fas fa-bus"></i><span className="start"> Bus Line: 46A</span></p>
 				<p className="from-to">From <span className="stop-name">Crofton Road</span></p>
 				<p className="from-to">To <span className="stop-name">Kill Lane Business Park</span></p>
-				<p><i class="far fa-clock"></i> &nbsp; 20 miniutes</p>
+				<p><i className="far fa-clock"></i> &nbsp; 20 miniutes</p>
 				<hr/>
 				<p>Crofton Road<span className="stops-num">9 Stops</span></p>
 				<ul>
