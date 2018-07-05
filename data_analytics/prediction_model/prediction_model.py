@@ -1,8 +1,8 @@
-#trying to make changes
 import pandas as pd
 from sklearn.linear_model import LinearRegression
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import mean_squared_error
+
 
 class PredictionModel:
 
@@ -52,7 +52,8 @@ class PredictionModel:
     # Target Feature (Duration), Features (Dayofweek, Timeofday, weather)
 
     def drop_attributes(self):
-        features = ['duration','arrive_time','dayofweek','month','temp']
+        
+        features = ['duration','arrive_time','dayofweek','month','temp','Sky is Clear','broken clouds','few clouds','fog','drizzle','light intensity drizzle','light intensity drizzle rain','light intensity shower rain','light rain','light shower sleet','mist','moderate rain','overcast clouds','proximity shower rain','scattered clouds','shower rain']
         self._df = self._df[features]
 
     # Split the data-frame into the train x, train y, test x and test y sets:
