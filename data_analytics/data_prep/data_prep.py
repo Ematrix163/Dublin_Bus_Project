@@ -42,9 +42,25 @@ class DataPrep:
     def create_df_dask(self):
         self._df = dd.read_csv(self.file_path, delimiter=';')
 
+
     def save_csv(self):
         # Save data frame to a CSV file
-        self.df.to_csv(self.file_name+'.csv', sep=';')
+        #self.df.to_csv(self.file_name+'.csv', sep=';')
+        #dd.to_csv(self.df, self.file_name+'.csv', columns=['dayofservice', 'tripid', 'progrnumber', 'stoppointid', 'plannedtime_arr', 'plannedtime_dep',
+                          # 'actualtime_arr', 'actualtime_dep', 'distance', 'suppressed'], header=True, index=False)
+        #self.df.to_csv('test.csv', columns=['dayofservice', 'tripid', 'progrnumber', 'stoppointid', 'plannedtime_arr', 'plannedtime_dep',
+                      #     'actualtime_arr', 'actualtime_dep', 'distance', 'suppressed'], header=True, index=False)
+        self.df.to_csv('/home/student/data_analytics/data_prep/samples.*.csv')
+        from glob import glob
+        filenames = glob('/home/student/data_analytics/data_prep/samples.*.csv', columns=['dayofservice', 'tripid', 'progrnumber', 'stoppointid', 'plannedtime_arr', 'plannedtime_dep',
+                          'actualtime_arr', 'actualtime_dep', 'distance', 'suppressed'], header=True, index=False)
+        with open('outfile.csv', 'w') as out:
+            for fn in filenames:
+                with open(fn) as f:
+                    out.write(f.read())
+
+
+
 
     @staticmethod
     def types_trips():
@@ -100,4 +116,4 @@ summary_leavetimes_2017 = DataPrep(lt_2017, leavetimes_dtypes, 'samples/sample_l
 summary_leavetimes_2017.create_df_dask()
 print("tst")
 summary_leavetimes_2017.df_info()
-
+summary_leavetimes_2017.save_csv()

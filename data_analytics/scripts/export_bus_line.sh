@@ -1,11 +1,22 @@
 #!/bin/bash
 
+#
+
+if [ $# -lt 1 ] ; then
+        echo "Bus LineID required as a parameter"
+        exit 1
+fi
+
+LineID=$1
+
+echo "Creating files for bus LineID $LineID"
+
 # Define file paths:
-pathLT="/home/student/data/db_historic/rt_leavetimes_2017_I_DB.txt"
-path_trips_df="/home/student/data/db_historic/rt_trips_2017_I_DB.txt"
-pathBusTrips="/home/student/data_analytics/bus_lines/bus66_trips.csv"
-pathBusLT="/home/student/data_analytics/bus_lines/bus66_lt.csv"
-pathTripID="/home/student/data_analytics/bus_lines/bus66_tripID.csv"
+pathLT="/home/student/data/clean_data/leave17.csv"
+path_trips_df="/home/student/data/clean_data/trips17.csv"
+pathBusTrips="/home/student/data_analytics/bus_lines/bus_"$LineID"_trips.csv"
+pathBusLT="/home/student/data_analytics/bus_lines/bus_"$LineID"_lt.csv"
+pathTripID="/home/student/data_analytics/bus_lines/bus_"$LineID"_tripID.csv"
 
 # Create function for printing file sizes:
 print_file_sizes () {
@@ -22,6 +33,10 @@ print_file_sizes () {
     echo "$FileSize_trips_df"
     echo "$FileSize_BusLT"
     echo "$FileSize_BusTrips"
+
+    now=$(date +%Y%m%d%H%M%S)
+    printf '%(%a %b %d %T %Z %Y)T:%s\n' -1 $(hostname)
+    echo "$LineID files created - $now"
 }
 
 # Function to delete all files that have previously been made by this script:
@@ -61,19 +76,24 @@ delete_files
 echo "Exporting bus line files ..."
 # Use awk to search column 4 for the bus line and append to $pathLine
 head -n 1 $path_trips_df >> $pathBusTrips
-awk -F';' '{ if ($4 == "66") print $0 }' $path_trips_df | sort -t';' -k2,2n >> $pathBusTrips
+# awk -F -v LineID="$LineID" 'BEGIN { if ($3 == LineID) print $0 }' $path_trips_df | sort -S 50% --parallel=4 -t',' -k1,1 -k2,2n -k4,4n >> $pathBusTrips
+awk -F',' '{ if ($3 ==LineID) print $0 }' LineID="$LineID" $path_trips_df | sort -S 50% --parallel=4 -t',' -k1,1 -k2,2n -k4,4n >> $pathBusTrips
 echo "File created: $pathBusTrips"
 
 # Find all trip ids and create temporary file
-awk -F';' '{ print $3 }' $pathBusTrips >> $pathTripID
+awk -F',' '{ print $2 }' $pathBusTrips >> $pathTripID
 echo "File created: $pathTripID"
 
+# Copy the first line of the full leavetimes file to the LineID only
+head -n 1 $pathLT >> $pathBusLT
 # Use tripID file to search for each trip ID in the bus's leavetimes bus line file, create bus's leavetimes file
-LC_ALL=C grep -f $pathTripID $pathLT | sort -t';' -k2,2n -k3,3n > $pathBusLT
+LC_ALL=C grep -f $pathTripID $pathLT | sort -t',' -k1,1 -k2,2n -k3,3 | sed '$ d' >> $pathBusLT
 echo "File created: $pathBusLT"
 
 # Call function to delete temporary files
 delete_temp_files
 
-# Invoke the function to print file sizes:
+# Invoke the function to print summary info:
 print_file_sizes
+
+# 4084264
