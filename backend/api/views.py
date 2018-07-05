@@ -16,8 +16,6 @@ class RouteIdView(APIView):
 		return Response(route_ser.data)
 
 
-
-
 # class StationView(View):
 #     def get(self, request):
 #         data = '{"station":[{"name":"Crofton Road Railway Station", "id":"100", "lat":"50", "lng": "100"}]}'
