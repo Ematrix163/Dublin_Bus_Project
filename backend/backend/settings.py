@@ -38,7 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'api',
-    'corsheaders'
+    'corsheaders',
+	'rest_framework'
 ]
 
 MIDDLEWARE = [
@@ -82,10 +83,11 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'testschema'),
-        'USER': 'root',
-        'NAME': 'root',
-        'PASSWORD: '
+        'NAME': 'dublinBus',
+        'USER': 'front_end',
+        'PASSWORD': '12345',
+		'HOST': 'localhost',
+		'PORT': '3333'
     }
 }
 
