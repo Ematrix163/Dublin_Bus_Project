@@ -7,7 +7,7 @@ data_analysis/
 data_analytics/individual_bus_lines/
 data_analytics/sample_files/
 data_analytics/bus_lines/*
-data_analytics/bus_line_cleanse/*
+
 
 Ignore all log files in repository
 *.logs
@@ -17,7 +17,7 @@ Ignore all log files in repository
 
 # Exceptions to the rules above (gitkeep keeps a directory)
 !data_analytics/bus_lines/.gitkeep
-!data_analytics/bus_line_cleanse/.gitkeep 
+
 
 
 !.gitignore
