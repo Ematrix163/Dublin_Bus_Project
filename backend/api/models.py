@@ -75,16 +75,6 @@ class Routes(models.Model):
         db_table = 'routes'
 
 
-class RoutesStopid(models.Model):
-    busroute = models.CharField(primary_key=True, max_length=15)
-    stopid = models.IntegerField()
-
-    class Meta:
-        managed = False
-        db_table = 'routes_stopid'
-        unique_together = (('busroute', 'stopid'),)
-
-
 class Stopsstatic(models.Model):
     index = models.IntegerField(blank=True, null=True)
     stop_id = models.CharField(primary_key=True, max_length=12)
@@ -96,6 +86,18 @@ class Stopsstatic(models.Model):
     class Meta:
         managed = False
         db_table = 'stopsStatic'
+
+
+class RoutesStopid(models.Model):
+    busroute = models.CharField(primary_key=True, max_length=15)
+    # stopid = models.CharField(primary_key=True, max_length=12)
+    stopid = models.ForeignKey(Stopsstatic,on_delete=models.CASCADE)
+
+    class Meta:
+        managed = False
+        db_table = 'routes_stopid'
+        unique_together = (('busroute', 'stopid'),)
+
 
 
 class Trips(models.Model):

@@ -29,7 +29,7 @@ class SideBar extends React.Component {
     componentDidMount() {
 		let temp = [];
 		WebAPI.getAllRoute().then(r => r.map((each) => {
-			temp.push({value:each, label:each})
+			temp.push({value:each.routes, label:each.routes})
 		}))
 		this.setState({routes: temp})
 	}

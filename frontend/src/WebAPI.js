@@ -11,7 +11,6 @@ const headers = {
 export const getAllRoute = () =>
 	fetch(`${api}/allroutes`, {headers})
 		.then(res => res.json())
-		.then(res => res.route)
 
 
 export const getStation = (routeid) =>

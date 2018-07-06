@@ -1,19 +1,30 @@
 # Create your views here.
 
+# Use django restful framework
 
 from rest_framework.views import APIView
 from rest_framework.response import Response
 
 from .models import Routes, RoutesStopid, Stopsstatic
-from .serializers import RouteSerializer
+from .serializers import RouteSerializer, RoutesStopidSerializer
 
 
 class RouteIdView(APIView):
 	def get(self, request):
 		route = Routes.objects.all()
 		route_ser = RouteSerializer(route, many = True)
-		print(route_ser.data)
 		return Response(route_ser.data)
+
+
+class RoutesStopidView(APIView):
+	def get(self, request):
+		routeid = request.GET.get("route", "")
+		if routeid:
+			# stop = RoutesStopid.objects.filter(busroute=routeid)
+			stop = Stopsstatic.objects.filter(routesstopid__busroute=routeid)
+			stop_ser = RoutesStopidSerializer(stop, many=True)
+			return Response(stop_ser.data)
+
 
 
 # class StationView(View):

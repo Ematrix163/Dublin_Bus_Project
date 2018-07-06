@@ -17,11 +17,11 @@ from django.contrib import admin
 from django.urls import path
 
 
-from api.views import RouteIdView
+from api.views import RouteIdView, RoutesStopidView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/allroutes', RouteIdView.as_view()),
-    # path('api/station', StationView.as_view()),
+    path('api/station', RoutesStopidView.as_view()),
     # path('api/weather', WeatherView.as_view())
 ]
