@@ -35,13 +35,15 @@ class SideBar extends React.Component {
 	}
 
 	routeChange = (val) => {
-		let temp = [];
-		this.setState({selectedOption:val})
-		WebAPI.getStation(val).then(s => {
-			s.map(each => {temp.push({value:each.name, label:each.name})});
-			this.setState({station: temp});
-			console.log(temp);
-		})
+		if (val) {
+			let temp = [];
+			this.setState({selectedOption:val})
+			WebAPI.getStation(val).then(s => {
+					s.map(each => {temp.push({value:each.stop_name, label:each.stop_name})});
+					this.setState({station: temp});
+			})
+		}
+
 	}
 
 	startChange = (val) => {
@@ -77,7 +79,7 @@ class SideBar extends React.Component {
                         ? <div className="input-container">
 						  	<Select className="selectbox" name="form-field-name" placeholder="Please Select a bus line"
 								value={this.state.selectedOption} options={this.state.routes} onChange={this.routeChange}/>
-							<Select className="selectbox" name="form-field-name" placeholder="Sstart Stop"
+							<Select className="selectbox" name="form-field-name" placeholder="Start Stop"
   								value={this.state.start_stop} options={this.state.station} onChange={this.startChange}/>
 							<Select className="selectbox" name="form-field-name" placeholder="Destination stop"
 								value={this.state.end_stop} options={this.state.station} onChange={this.endChange}/>

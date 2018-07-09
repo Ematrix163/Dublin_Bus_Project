@@ -3,7 +3,7 @@
 # Use django restful framework
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from .models import Routes, RoutesStopid, Stopsstatic
+from .models import Routes, Allstops
 from .serializers import RouteSerializer, RoutesStopidSerializer
 
 
@@ -16,8 +16,7 @@ class RouteIdView(APIView):
 
 class RoutesStopidView(APIView):
     def get(self, request):
-        # routeid = request.GET.get("route", "")
-        # allstops = RoutesStopid.objects.all()
-        # # for stop in allstops:
-        # #     print(stop)
-        pass
+        routeid = request.GET.get("route", "")
+        allstops = Allstops.objects.filter(busroute=routeid)
+        allstops_ser = RoutesStopidSerializer(allstops, many=True)
+        return Response(allstops_ser.data)

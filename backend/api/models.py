@@ -114,3 +114,18 @@ class Trips(models.Model):
         managed = False
         db_table = 'trips'
         unique_together = (('dayofservice', 'tripid'),)
+
+
+class Allstops(models.Model):
+    index = models.IntegerField(blank=True, null=True)
+    stop_id = models.CharField( max_length=12)
+    stop_name = models.CharField(max_length=100, blank=True, null=True)
+    stop_lat = models.DecimalField(max_digits=25, decimal_places=20, blank=True, null=True)
+    stop_long = models.DecimalField(max_digits=25, decimal_places=20, blank=True, null=True)
+    true_stop_id = models.IntegerField(primary_key=True, blank=True)
+    busroute = models.CharField(primary_key=True,max_length=15)
+    stopid = models.IntegerField()
+
+    class Meta:
+        managed = False
+        db_table = 'allstops'
