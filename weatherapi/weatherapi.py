@@ -28,7 +28,6 @@ class Weather:
         self.dictionary=None
 
     def api_request(self):
-        """perform api request to get weather info. change json into dictionary, then return it"""
         url = "http://api.openweathermap.org/data/2.5/weather?id=" + self.cityid + "&APPID=" + self.key
         response = requests.get(url)
         print("Status code: ", response.status_code)
@@ -36,8 +35,6 @@ class Weather:
         return self.dictionary
 
     def read_api_response(self, dictionary):
-        """put values from api response dictionary into variables, then add them to the table currentWeather
-        on the VM database"""
         self.weather = self.dictionary['weather'][0]
         self.weather_main = self.weather['main']
         self.weather_description = self.weather['description']
@@ -53,14 +50,17 @@ class Weather:
         self.clouds_all = self.dictionary['clouds']['all']
         self.dt = self.dictionary['dt']
         self.city_id = self.dictionary['id']
+        print("city id ", self.city_id)
+        print("weather description ", self.weather_description)
         dbconnect.weather_writer(self.dt, self.weather_main, self.weather_description, self.city_id, self.temp, self.temp_min, self.temp_max, self.pressure,
                                  self.humidity, self.wind_speed, self.wind_deg, self.clouds_all, self.weather_id, self.weather_icon)
 
     def timer(self):
-        """use time.sleep to get weather data from openweather map at hourly intervals"""
+        """ get weather data from openweather map at hourly intervals"""
 
         while True:
             try:
+                sleep(120) # 2 min pause so it won't keep sending repeat requests if error has occurred
                 dict = weather.api_request()
                 weather.read_api_response(dict)
                 sleep(3600)

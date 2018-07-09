@@ -39,13 +39,14 @@ def establishConnection():
 
 
 def weather_writer(dt, weather_main, weather_description, city_id, temp, temp_min, temp_max, pressure, humidity, wind_speed, wind_deg, clouds_all, weather_id, weather_icon):
-    """This function writes the current weather from openweathermap api call to the table currentWeather on our DB."""
+    """This function writes the current weather from openweathermap api call to the table currentWeather on our DB. If table has data, it will update it. If table is emtpy
+    it will leave data there"""
     establishConnection()
     query = "SELECT COUNT(*) from dublinBus.currentWeather"
     cursor.execute(query)
     result = cursor.fetchone()
     rows = result[0]  # total rows
-    # if table has data, empty it, so there will only ever be one row of current weather data.
+    print("number of rows", rows)
     if rows>0:
         cursor.execute('truncate table dublinBus.currentWeather')
     if rows==0:
