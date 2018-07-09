@@ -89,7 +89,7 @@ class Stopsstatic(models.Model):
 
 class RoutesStopid(models.Model):
     busroute = models.CharField(max_length=15)
-    stopid = models.ForeignKey(Stopsstatic, on_delete=models.SET_NULL, null=True, to_field=Stopsstatic.true_stop_id)
+    stopid = models.ForeignKey(Stopsstatic, on_delete=models.CASCADE)
 
     class Meta:
         managed = False
