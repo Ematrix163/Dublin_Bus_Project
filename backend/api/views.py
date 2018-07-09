@@ -16,7 +16,8 @@ class RouteIdView(APIView):
 
 class RoutesStopidView(APIView):
     def get(self, request):
-        routeid = request.GET.get("route", "")
-        allstops = RoutesStopid.objects.all()
-        # for stop in allstops:
-        #     print(stop)
+        # routeid = request.GET.get("route", "")
+        # allstops = RoutesStopid.objects.all()
+        # # for stop in allstops:
+        # #     print(stop)
+        pass
