@@ -69,7 +69,6 @@ class Leavetimes(models.Model):
 
 class Routes(models.Model):
     routes = models.CharField(primary_key=True, max_length=10)
-
     class Meta:
         managed = False
         db_table = 'routes'
@@ -77,11 +76,11 @@ class Routes(models.Model):
 
 class Stopsstatic(models.Model):
     index = models.IntegerField(blank=True, null=True)
-    stop_id = models.CharField(primary_key=True, max_length=12)
+    stop_id = models.CharField(max_length=12)
     stop_name = models.CharField(max_length=100, blank=True, null=True)
     stop_lat = models.DecimalField(max_digits=25, decimal_places=20, blank=True, null=True)
     stop_long = models.DecimalField(max_digits=25, decimal_places=20, blank=True, null=True)
-    true_stop_id = models.IntegerField(blank=True, null=True)
+    true_stop_id = models.IntegerField(primary_key=True)
 
     class Meta:
         managed = False
@@ -89,9 +88,8 @@ class Stopsstatic(models.Model):
 
 
 class RoutesStopid(models.Model):
-    busroute = models.CharField(primary_key=True, max_length=15)
-    # stopid = models.CharField(primary_key=True, max_length=12)
-    stopid = models.ForeignKey(Stopsstatic,on_delete=models.CASCADE)
+    busroute = models.CharField(max_length=15)
+    stopid = models.ForeignKey(Stopsstatic, on_delete=models.SET_NULL, null=True, to_field=Stopsstatic.true_stop_id)
 
     class Meta:
         managed = False

@@ -5,4 +5,10 @@ class RouteSerializer(serializers.Serializer):
 
 
 class RoutesStopidSerializer(serializers.Serializer):
-	stopid = serializers.IntegerField(required=True)
+	index = serializers.IntegerField()
+	stop_id = serializers.CharField(max_length=12)
+	stop_name = serializers.CharField(max_length=100)
+	stop_lat = serializers.DecimalField(max_digits=25, decimal_places=20)
+	stop_long = serializers.DecimalField(max_digits=25, decimal_places=20)
+	true_stop_id = serializers.IntegerField()
+
