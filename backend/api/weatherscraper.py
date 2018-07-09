@@ -1,15 +1,18 @@
+
+
+
+from rest_framework.views import APIView
+from rest_framework.response import Response
+
+from .models import Currentweather
+
+import requests
 import requests
 import json
 import sys
 import dbconnect
 from time import sleep
-import logging
 
-
-print("this has started....")
-
-# create log file to register errors
-logging.basicConfig(filename='weatherApi.log',level=logging.INFO, format='%(asctime)s %(message)s', datefmt='%m/%d/%Y %I:%M:%S %p')
 
 
 
@@ -20,6 +23,8 @@ def connecting_method():
     cityid='2964574'
     return Weather(apikey,cityid)
 
+
+
 class Weather:
 
     def __init__(self, apikey, cityid):
@@ -27,12 +32,22 @@ class Weather:
         self.cityid=cityid
         self.dictionary=None
 
+
+    def __init__(self, apikey, cityid):
+        self.key = apikey
+        self.cityid = cityid
+        self.dictionary = None
+
+
     def api_request(self):
+        # url = 'http://api.openweathermap.org/data/2.5/weather?id=2964574&APPID=66040549d2cc38abfa2a0be1019ad3b5'
+
         url = "http://api.openweathermap.org/data/2.5/weather?id=" + self.cityid + "&APPID=" + self.key
         response = requests.get(url)
         print("Status code: ", response.status_code)
         self.dictionary = response.json()
         return self.dictionary
+
 
     def read_api_response(self, dictionary):
         self.weather = self.dictionary['weather'][0]
@@ -51,26 +66,16 @@ class Weather:
         self.dt = self.dictionary['dt']
         self.city_id = self.dictionary['id']
         print("city id ", self.city_id)
-        print("weather description ", self.weather_description)
-        dbconnect.weather_writer(self.dt, self.weather_main, self.weather_description, self.city_id, self.temp, self.temp_min, self.temp_max, self.pressure,
-                                 self.humidity, self.wind_speed, self.wind_deg, self.clouds_all, self.weather_id, self.weather_icon)
-
-    def timer(self):
-        """ get weather data from openweather map at hourly intervals"""
-
-        while True:
-            try:
-                sleep(120) # 2 min pause so it won't keep sending repeat requests if error has occurred
-                dict = weather.api_request()
-                weather.read_api_response(dict)
-                sleep(3600)
-
-            except Exception as ex:
-                logging.error('error at ' + str(ex))
-                print("Error!!!!: ", ex)
+        print("city id ", self.weather_description)
+        w = Currentweather(weather_main=self.weather_main)
+        w.save()
 
 
 weather = connecting_method()
-weather.timer()
+dict = weather.api_request()
+weather.read_api_response(dict)
 
+
+w = Currentweather(weather_main=weather_main)
+w.save()
 
