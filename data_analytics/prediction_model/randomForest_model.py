@@ -67,24 +67,26 @@ class RandomForestModel:
     # Initialize the random forest model:
     def initialize_model(self):
         self._X = np.array(self._X)
-        self._rf = RandomForestRegressor(random_state = 0, n_estimators=150)
+        self._rf = RandomForestRegressor(random_state = 0, n_estimators=80)
         self._rf.fit(self._df_train_X, self._df_train_y.values.ravel())
 
     #gets the results for the regression model
     def getResults(self):
 
         #Use model on test data
-        self._predictions = self._rf.predict(self._df_test_X)
+        #self._predictions = self._rf.predict(self._df_test_X)
         #cal absolute errors
-        self._errors = abs(self._predictions - self._df_test_y)
+        #self._errors = abs(self._predictions - self._df_test_y)
         #Mean Absolute Error
-        self._mae = round(np.mean(self._errors), 2)
+        #self._mae = round(np.mean(self._errors), 2)
         #Mean absolute percentage error
-        self._mape = 100 * (self._errors /self._df_test_y)
+        #self._mape = 100 * (self._errors /self._df_test_y)
         #Calculate Accuracy 
-        self._accuracy = 100 - np.mean(self._mape)
-
-
+        #self._accuracy = 100 - np.mean(self._mape)
+	#Calculate Score
+        self._scoreTrain = self._rf.score(self._df_train_X, self._df_train_y)
+        self._scoreTest = self._rf.score(self._df_test_X, self._df_test_y)
+        
 # Define inputs for creation of instance
 clean_file_path = '/home/student/data_analytics/bus_lines/result_of_66-dir1Model.csv'
 output_path = '/data_analytics/prediction_model/'
@@ -95,6 +97,8 @@ y = 'duration'
 instance = RandomForestModel(clean_file_path, output_path, output_file_name, y)
 instance.split_df()
 instance.initialize_model()
-
+instance.getResults()
+print(instance._scoreTrain)
+print(instance._scoreTest)
 
 

@@ -17,7 +17,7 @@ class PredictionModel:
         # Creates df upon instance initialization:
         self._df = pd.read_csv(self._file_path, header=0, delimiter=',')
         # Drop all columns that aren't required features for training:
-        self.drop_attributes()
+        # self.drop_attributes()
         # X are the independent variables (features)
         self._X = self._df.drop(y, axis=1)
         # y is the Dependent variable (Target Feature)
@@ -36,7 +36,7 @@ class PredictionModel:
         return self._input_file_path
 
     @property
-    def output_file_path(self):
+    def input_file_path(self):
         return self._output_path
 
     @property
@@ -68,8 +68,6 @@ class PredictionModel:
                     '3958', '3959', '3960', '3961', '3962', '3963', '3964', '3965', '3966', '3968', '4401', '4599',
                     '5113', '5114', '7078', '7186', '7187', '7239', '7391']
         self._df = self._df[features]
-        print(self._df.head())
-        print(self._df.shape)
 
     # Split the data-frame into the train x, train y, test x and test y sets:
     def split_df(self):
@@ -90,7 +88,8 @@ class PredictionModel:
     # gets the accuracy scores of Linear model
     def getResultsLR(self):
         self._intercept = self._regression_model.intercept_[0]
-        self._RSquared = self._regression_model.score(self._df_test_X, self._df_test_y)
+        self._RSquaredTest = self._regression_model.score(self._df_test_X, self._df_test_y)
+        self._RSquaredTrain = self._regression_model.score(self._df_train_X, self._df_train_y)
         self._y_predict = self._regression_model.predict(self._df_test_X)
         self._regression_model_mse = mean_squared_error(self._y_predict, self._df_test_y)
 
@@ -99,7 +98,7 @@ class PredictionModel:
 clean_file_path = '/home/student/data_analytics/bus_lines/result_of_66-dir1Model.csv'
 output_path = '/data_analytics/prediction_model/'
 output_file_name = 'bus66.csv'
-y = 'delay'
+y = 'duration'
 
 # Create instance
 instance = PredictionModel(clean_file_path, output_path, output_file_name, y)
@@ -112,8 +111,9 @@ instance.split_df()
 # print(instance.initialize_model())
 instance.initialize_model()
 instance.getResultsLR()
-print("Intercept of Model ", instance._intercept)
-print("R Squared Value ", instance._RSquared)
-print("Mean Squared Error", instance._regression_model_mse)
+# print("Intercept of Model ", instance._intercept)
+print("R Squared Value Test ", instance._RSquaredTest)
+print("R Squared Value Train ", instance._RSquaredTrain)
+# print("Mean Squared Error", instance._regression_model_mse)
 # instance.getCoefficients()
 
