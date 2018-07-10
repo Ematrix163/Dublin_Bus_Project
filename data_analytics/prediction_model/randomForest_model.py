@@ -1,4 +1,4 @@
-mport pandas as pd
+import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import mean_squared_error
 from scipy.stats import zscore
@@ -18,10 +18,10 @@ class RandomForestModel:
         #self.drop_attributes()
         # X are the independent variables (features)
         self._X = self._df.drop(y, axis=1)
-        self._X = np.array(self._X)
+        #self._X = np.array(self._X)
         #y is the Dependent variable (Target Feature)
         self._y = self.df[[y]]
-        self._y = np.array(self.df[y])
+        #self._y = np.array(self.df[y])
         #normalise data
         self._df = self._df.apply(zscore)
 
@@ -67,8 +67,8 @@ class RandomForestModel:
     # Initialize the random forest model:
     def initialize_model(self):
         self._X = np.array(self._X)
-        self._rf = RandomForestRegressor(n_estimators = 1000, random_state = 42)
-        self._rf.fit(self._df_train_X, self._df_train_y)
+        self._rf = RandomForestRegressor(random_state = 0, n_estimators=150)
+        self._rf.fit(self._df_train_X, self._df_train_y.values.ravel())
 
     #gets the results for the regression model
     def getResults(self):
@@ -89,10 +89,10 @@ class RandomForestModel:
 clean_file_path = '/home/student/data_analytics/bus_lines/result_of_66-dir1Model.csv'
 output_path = '/data_analytics/prediction_model/'
 output_file_name = 'bus66.csv'
-y = 'delay'
+y = 'duration'
 
 # Create instance
-instance = PredictionModel(clean_file_path, output_path, output_file_name, y)
+instance = RandomForestModel(clean_file_path, output_path, output_file_name, y)
 instance.split_df()
 instance.initialize_model()
 
