@@ -122,7 +122,7 @@ cut -d, -f2-10,13-15 $pathmerge > tmp && mv tmp $pathmerge
 re-order_columns () {
 
 echo "Re-ordering columns"
-awk -F',' 'BEGIN {OFS = FS} {print $10, $12, $11, $1, $2, $3, $4, $5, $6, $7, $8, $9;}' $pathmerge > tmp && mv tmp $pathmerge
+awk -F',' 'BEGIN {OFS = FS} {print $10, $12, $11, $1, $2, $3, $4, $5, $6, $7, $8}' $pathmerge > tmp && mv tmp $pathmerge
 
 }
 
