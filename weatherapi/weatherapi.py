@@ -28,7 +28,7 @@ class Weather:
         self.dictionary=None
 
     def api_request(self):
-        url = "http://api.openweathermap.org/data/2.5/weather?id=" + self.cityid + "&APPID=" + self.key
+        url = "http://api.openweathermap.org/data/2.5/weather?id=" + self.cityid + "&APPID=" + self.key + "&units=metric"
         response = requests.get(url)
         print("Status code: ", response.status_code)
         self.dictionary = response.json()
