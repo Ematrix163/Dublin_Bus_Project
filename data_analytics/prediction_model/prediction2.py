@@ -6,6 +6,16 @@ from scipy.stats import zscore
 import numpy as np
 import math
 from sklearn.ensemble import RandomForestRegressor
+#from sklearn.cross_validation import train_test_split
+from sklearn import metrics
+#from sklearn.cross_validation import cross_val_score
+
+from sklearn.model_selection import KFold# import KFold
+from sklearn.model_selection import RepeatedKFold
+
+#from sklearn.cross_validation import cross_val_score, cross_val_predict
+#from sklearn import metrics
+
 
 
 class PredictionModel:
@@ -20,6 +30,8 @@ class PredictionModel:
         # self.drop_attributes()
         # X are the independent variables (features)
         self._X = self._df.drop(y, axis=1)
+        # drop unnecessary 'unnamed' column...
+        self._X = self._df.drop('Unnamed: 0', axis=1)
         # y is the Dependent variable (Target Feature)
         self._y = self.df[[y]]
         # normalise data
@@ -31,12 +43,13 @@ class PredictionModel:
         self._df_test_y = None
         self._df_cross = self.df
 
+
     @property
     def input_file_path(self):
         return self._input_file_path
 
     @property
-    def input_file_path(self):
+    def output_file_path(self):
         return self._output_path
 
     @property
@@ -80,6 +93,7 @@ class PredictionModel:
         self._regression_model = LinearRegression()
         self._regression_model.fit(self._df_train_X, self._df_train_y)
 
+
     # get the Coefficients of Linear model
     def getCoefficientsLR(self):
         for idx, col_name in enumerate(self._df_train_X.columns):
@@ -92,6 +106,21 @@ class PredictionModel:
         self._RSquaredTrain = self._regression_model.score(self._df_train_X, self._df_train_y)
         self._y_predict = self._regression_model.predict(self._df_test_X)
         self._regression_model_mse = mean_squared_error(self._y_predict, self._df_test_y)
+        #self.doCrossVal()
+
+    def doCrossVal(self):
+        #self.kf = KFold(n_splits=5)  # Define the split - into 5 folds
+        self.kf = RepeatedKFold(n_splits=5, n_repeats=10, random_state=None)
+        self._df.head()
+        #self.kf.get_n_splits(self._X)  # returns the number of splitting iterations in the cross-validator
+        print("this is self.kf: ", self.kf)
+        for train_index, test_index in self.kf.split(self._X):
+            print("Train:", train_index, "Validation:", test_index)
+            X_train, X_test = self._X[train_index], self._X[test_index]
+            y_train, y_test = self._y[train_index], self._y[test_index]
+
+
+
 
 
 # Define inputs for creation of instance
@@ -103,16 +132,19 @@ y = 'duration'
 # Create instance
 instance = PredictionModel(clean_file_path, output_path, output_file_name, y)
 
-# print(instance.df.shape)
+print(instance.df.shape)
 # print(instance.df.dtypes)
+print(instance.df.head())
 # print(instance.y)
 # print(instance.X)
 instance.split_df()
 # print(instance.initialize_model())
 instance.initialize_model()
 instance.getResultsLR()
+instance.doCrossVal()
 # print("Intercept of Model ", instance._intercept)
 print("R Squared Value Test ", instance._RSquaredTest)
+print("R Squared Value Train ", instance._RSquaredTrain)
 print("R Squared Value Train ", instance._RSquaredTrain)
 # print("Mean Squared Error", instance._regression_model_mse)
 # instance.getCoefficients()

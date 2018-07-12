@@ -1,11 +1,10 @@
 import pandas as pd
-from sklearn.linear_model import LinearRegression
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import mean_squared_error
 from scipy.stats import zscore
 import numpy as np
 import math
-from sklearn.ensemble import RandomForestRegressor
+from sklearn.linear_model import LinearRegression
 
 class PredictionModel:
 
@@ -81,7 +80,7 @@ class PredictionModel:
         self._intercept = self._regression_model.intercept_[0]
         self._RSquaredTest = self._regression_model.score(self._df_test_X, self._df_test_y)
         self._RSquaredTrain = self._regression_model.score(self._df_train_X, self._df_train_y)
-	self._y_predict = self._regression_model.predict(self._df_test_X)
+        self._y_predict = self._regression_model.predict(self._df_test_X)
         self._regression_model_mse = mean_squared_error(self._y_predict, self._df_test_y)
 
     
@@ -106,6 +105,6 @@ instance.getResultsLR()
 #print("Intercept of Model ", instance._intercept)
 print("R Squared Value Test ", instance._RSquaredTest)
 print("R Squared Value Train ", instance._RSquaredTrain)
-#print("Mean Squared Error", instance._regression_model_mse)
+print("Mean Squared Error", instance._regression_model_mse)
 #instance.getCoefficients()
 
