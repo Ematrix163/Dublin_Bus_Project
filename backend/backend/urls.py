@@ -19,7 +19,6 @@ from django.urls import path
 
 
 from api.views import RouteIdView, RoutesStopidView
-""" Added by Tom """
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 urlpatterns = [
