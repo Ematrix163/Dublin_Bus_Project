@@ -19,6 +19,8 @@ from django.urls import path
 
 
 from api.views import RouteIdView, RoutesStopidView
+""" Added by Tom """
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 urlpatterns = [
 	path('', TemplateView.as_view(template_name="index.html"), name="index"),
@@ -26,3 +28,5 @@ urlpatterns = [
     path('api/allroutes', RouteIdView.as_view()),
     path('api/station', RoutesStopidView.as_view())
 ]
+
+urlpatterns += staticfiles_urlpatterns()
