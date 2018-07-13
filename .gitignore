@@ -18,6 +18,7 @@ Ignore all log files in repository
 
 # Exceptions to the rules above (gitkeep keeps a directory)
 !data_analytics/bus_lines/.gitkeep
+!data_analytics/clean_files/.gitkeep
 
 
 
