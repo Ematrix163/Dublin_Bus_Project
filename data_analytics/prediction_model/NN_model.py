@@ -63,7 +63,7 @@ class NeuralNetworkModel:
     #initialize model
     def initialize_model(self):
 
-        self._clf = MLPRegressor(hidden_layer_sizes=(300,300,300), activation='relu',solver='adam', alpha=0.0001, random_state=1, learning_rate='adaptive', max_iter=300)
+        self._clf = MLPRegressor()
         self._clf.fit(self._df_train_X, self._df_train_y.values.ravel())
 
 
