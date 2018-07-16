@@ -131,6 +131,11 @@ USE_TZ = True
 
 CORS_ORIGIN_ALLOW_ALL = True
 
-STATIC_URL = 'home/student/backend/static/'
+# Make a tuple of strings instead of a string
+STATICFILES_DIRS = ("/home/student/backend/static", )
 
+# Is the URL where the static files will be served
+STATIC_URL = '/static/'
+
+# Is the directory where static files will be placed when manage.py collectstatic is run
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
