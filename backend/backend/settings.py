@@ -25,7 +25,7 @@ SECRET_KEY = '&b5fsz^0&^kbxla3ku9)#rn+1x$yp+1_-#uq)09c#$a$wn-zy9'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', 'www.dublinroute.com', 'csi420-01-vm2.ucd.ie','127.0.0.1']
+ALLOWED_HOSTS = ['wwww.dublinroute.com', 'csi420-01-vm2.ucd.ie', 'localhost', '127.0.0.1',]
 
 
 # Application definition
@@ -87,7 +87,7 @@ DATABASES = {
         'USER': 'front_end',
         'PASSWORD': '12345',
 		'HOST': 'localhost',
-		'PORT': '3333'
+		'PORT': '3306'
     }
 }
 
@@ -131,7 +131,10 @@ USE_TZ = True
 
 CORS_ORIGIN_ALLOW_ALL = True
 
+# Make a tuple of strings instead of a string
+STATICFILES_DIRS = ("/home/student/backend/static", )
 
+# Is the URL where the static files will be served
 STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "static"),

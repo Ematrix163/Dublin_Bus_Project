@@ -18,7 +18,14 @@ from django.contrib import admin
 from django.urls import path
 
 
+<<<<<<< HEAD
 from api.views import RouteIdView, RoutesStopidView, PredictTimeView
+=======
+from api.views import RouteIdView, RoutesStopidView
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+>>>>>>> 19d2f2830253eb70d1066c27b7d19284204ef002
 
 urlpatterns = [
 	path('', TemplateView.as_view(template_name="index.html"), name="index"),
@@ -27,3 +34,5 @@ urlpatterns = [
     path('api/station', RoutesStopidView.as_view()),
     path('api/time', PredictTimeView.as_view())
 ]
+
+urlpatterns += staticfiles_urlpatterns()

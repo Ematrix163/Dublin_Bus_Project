@@ -1,11 +1,10 @@
 import pandas as pd
-from sklearn.linear_model import LinearRegression
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import mean_squared_error
 from scipy.stats import zscore
 import numpy as np
 import math
-from sklearn.ensemble import RandomForestRegressor
+from sklearn.linear_model import LinearRegression
 
 class PredictionModel:
 
@@ -79,7 +78,8 @@ class PredictionModel:
     #gets the accuracy scores of Linear model
     def getResultsLR(self):
         self._intercept = self._regression_model.intercept_[0]
-        self._RSquared = self._regression_model.score(self._df_test_X, self._df_test_y)
+        self._RSquaredTest = self._regression_model.score(self._df_test_X, self._df_test_y)
+        self._RSquaredTrain = self._regression_model.score(self._df_train_X, self._df_train_y)
         self._y_predict = self._regression_model.predict(self._df_test_X)
         self._regression_model_mse = mean_squared_error(self._y_predict, self._df_test_y)
 
@@ -88,7 +88,7 @@ class PredictionModel:
 clean_file_path = '/home/student/data_analytics/bus_lines/result_of_66-dir1Model.csv'
 output_path = '/data_analytics/prediction_model/'
 output_file_name = 'bus66.csv'
-y = 'delay'
+y = 'duration'
 
 
 # Create instance
@@ -102,8 +102,9 @@ instance.split_df()
 #print(instance.initialize_model())
 instance.initialize_model()
 instance.getResultsLR()
-print("Intercept of Model ", instance._intercept)
-print("R Squared Value ", instance._RSquared)
+#print("Intercept of Model ", instance._intercept)
+print("R Squared Value Test ", instance._RSquaredTest)
+print("R Squared Value Train ", instance._RSquaredTrain)
 print("Mean Squared Error", instance._regression_model_mse)
 #instance.getCoefficients()
-)
+
