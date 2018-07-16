@@ -8,10 +8,9 @@ class cleanFile:
     """Class that takes merged trips and leave times file and finds duration from one stop to another and merges with  historic weather data
     """
 
-    def __init__(self, input_file_path, output_path, output_file_name, weather_file, direction):
+    def __init__(self, input_file_path, output_path, weather_file, direction):
         self._file_path = input_file_path
         self._output_path = output_path
-        self._output_file_name = output_file_name
         self._weather = weather_file
         self._direction = direction
         # Creates df upon instance initialization:
@@ -19,6 +18,9 @@ class cleanFile:
         self._weatherdf = pd.read_csv(weather_file, delimiter=',')
         self.drop_attributes()
         self.isolate_direction()
+        self._lineID = self._df['LineID'].iloc[1]
+        self._output_file_name = self._lineID + "-" + str(direction)
+
 
         self._u = None
         self._a = None
@@ -42,9 +44,6 @@ class cleanFile:
         # creating a new column which is a combination of the unique keys
         self._df['comb'] = self._df['DayOfService'].map(str) + self._df['TripID'].map(str)
         self._u = self._df['comb'].unique()
-
-        # self._trip = self._df['TripID'].unique()
-        # self._date = self._df['DayOfService'].unique()
 
         self._result = pd.DataFrame(
             columns=['dt', 'dayofweek', 'month', 'day', 'arrive_time', 'start_point', 'end_point', 'duration'])
@@ -96,17 +95,18 @@ class cleanFile:
 
     # save result to a csv file
     def save_result(self):
-        self._result.to_csv(self._output_path + self._output_file_name)
+        self._result.to_csv(self._output_path + self._output_file_name +'.csv')
 
+'''
 #Define inputs for creation of instance
-input_file_path = '/home/student/data_analytics/bus_lines/bus_66_merge.csv'
+input_file_path = '/home/student/data_analytics/bus_lines/bus_25_merge.csv'
 output_path = '/home/student/data_analytics/clean_files/'
-output_file_name = 'result_of_66-dir1Model.csv'
 weather_file ='/home/student/data/weather/2017weatherClean.csv'
-direction = 1
+direction = 2
 
-instance = cleanFile(input_file_path, output_path, output_file_name, weather_file, direction)
+instance = cleanFile(input_file_path, output_path, weather_file, direction)
 #print(instance._df)
 instance.create_model_file()
 instance.save_result()
 print('finished')
+'''

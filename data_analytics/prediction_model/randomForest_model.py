@@ -65,6 +65,7 @@ class RandomForestModel:
 
         # binary coding of start stops
         binary_start_stops = pd.get_dummies(self._df['start_point'])
+        binary_end_stops = pd.get_dummies(self._df['end_point'])
 
         # binary coding of weather
         binary_weather = pd.get_dummies(self._df['weather_description'])
@@ -77,7 +78,7 @@ class RandomForestModel:
 
         self._df = pd.concat(
             [self._df['duration'], df_continuous, binary_weather,
-             binary_start_stops, binary_dayofweek,
+             binary_start_stops, binary_end_stops, binary_dayofweek,
              binary_arrive_time], axis=1)
 
     def remove_outliers(self):
@@ -91,7 +92,7 @@ class RandomForestModel:
 
     # Initialize the random forest model:
     def initialize_model(self):
-        self._rf = RandomForestRegressor(random_state=0, n_estimators=40, n_jobs=-1)
+        self._rf = RandomForestRegressor(random_state=0, n_estimators=80, n_jobs=-1)
         self._rf.fit(self._df_train_X, self._df_train_y.values.ravel())
 
     # gets the results for the regression model
@@ -105,9 +106,9 @@ class RandomForestModel:
 
 
 # Define inputs for creation of instance
-clean_file_path = '/home/student/data_analytics/clean_files/result_of_66-dir1Model.csv'
-output_file_path = '/home/student/data_analytics/prediction_model/pickle_files'
-output_file = '66-1.pkl'
+clean_file_path = '/home/student/data_analytics/clean_files/result_of_25-dir1Model.csv'
+output_file_path = '/home/student/data_analytics/prediction_model/pickle_files/'
+output_file = '25-2.pkl'
 y = 'duration'
 
 # Create instance
