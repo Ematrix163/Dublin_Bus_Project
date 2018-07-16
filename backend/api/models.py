@@ -9,6 +9,27 @@ from django.db import models
 
 
 
+class Forecastweather(models.Model):
+    dt = models.IntegerField(primary_key=True)
+    timestamp = models.DateTimeField()
+    temp = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True)
+    temp_min = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True)
+    temp_max = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True)
+    pressure = models.IntegerField(blank=True, null=True)
+    humidity = models.IntegerField(blank=True, null=True)
+    wind_speed = models.IntegerField(blank=True, null=True)
+    wind_deg = models.IntegerField(blank=True, null=True)
+    clouds_all = models.IntegerField(blank=True, null=True)
+    weather_id = models.IntegerField(blank=True, null=True)
+    weather_main = models.CharField(max_length=50, blank=True, null=True)
+    weather_description = models.CharField(max_length=80, blank=True, null=True)
+    weather_icon = models.CharField(max_length=10, blank=True, null=True)
+    dt_txt = models.DateTimeField(blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'forecastWeather'
+
 
 class Currentweather(models.Model):
     dt = models.IntegerField(blank=True, null=True)
@@ -38,6 +59,15 @@ class Currentweather(models.Model):
     class Meta:
         managed = False
         db_table = 'currentWeather'
+
+
+class ColumnSequence(models.Model):
+    id = models.IntegerField(primary_key=True)
+    number_46a = models.CharField(db_column='46a', max_length=45, blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'column_sequence'
 
 
 class Holidays(models.Model):
@@ -75,7 +105,6 @@ class Routes(models.Model):
 
 
 class Stopsstatic(models.Model):
-    index = models.IntegerField(blank=True, null=True)
     stop_id = models.CharField(max_length=12)
     stop_name = models.CharField(max_length=100, blank=True, null=True)
     stop_lat = models.DecimalField(max_digits=25, decimal_places=20, blank=True, null=True)

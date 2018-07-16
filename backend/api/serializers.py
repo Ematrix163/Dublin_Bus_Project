@@ -14,3 +14,10 @@ class RoutesStopidSerializer(serializers.Serializer):
     busroute = serializers.CharField(max_length=15)
     stopid = serializers.IntegerField()
 
+
+class StopInfoSerializer(serializers.Serializer):
+    stop_name = serializers.CharField(max_length=100)
+    true_stop_id = serializers.IntegerField()
+    stop_lat = serializers.DecimalField(max_digits=25, decimal_places=20)
+    stop_long = serializers.DecimalField(max_digits=25, decimal_places=20)
+    stop_id = serializers.CharField(max_length=12)

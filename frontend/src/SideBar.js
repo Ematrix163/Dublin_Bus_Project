@@ -11,7 +11,6 @@ import 'react-datepicker/dist/react-datepicker.css';
 import Select from 'react-select';
 import 'react-select/dist/react-select.css';
 
-
 import * as Datetime from 'react-datetime';
 //the side the webpage for user to enter journey details and to show route info
 
@@ -25,7 +24,6 @@ class SideBar extends React.Component {
 		start_stop: '',
 		end_stop: '',
     }
-
     componentDidMount() {
 		let temp = [];
 		WebAPI.getAllRoute().then(r => r.map((each) => {
@@ -33,30 +31,28 @@ class SideBar extends React.Component {
 		}))
 		this.setState({routes: temp})
 	}
-
 	routeChange = (val) => {
 		if (val) {
 			let temp = [];
 			this.setState({selectedOption:val})
 			WebAPI.getStation(val).then(s => {
-					s.map(each => {temp.push({value:each.stop_name, label:each.stop_name})});
+					s.map(each => {temp.push({value:each, label:each})});
 					this.setState({station: temp});
 			})
 		}
-
 	}
-
-	startChange = (val) => {
-		this.setState({start_stop:val})
+	startChange = (val) => this.setState({start_stop:val})
+	endChange = (val) => this.setState({end_stop: val})
+    switchView = (value) => this.setState({view: value})
+	routeSubmit = () => {
+		if (this.state.selectedOption && this.state.start_stop && this.state.end_stop) {
+			WebAPI.getTime(this.state.selectedOption, this.state.start_stop,this.state.end_stop).then(r => {
+				console.log(r);
+			});
+		} else {
+			console.log('error');
+		}
 	}
-
-	endChange = (val) => {
-		this.setState({end_stop: val})
-	}
-
-    switchView = (value) => {
-        this.setState({view: value})
-    }
 
     render() {
         return (<div className="sidebar">
@@ -83,7 +79,9 @@ class SideBar extends React.Component {
   								value={this.state.start_stop} options={this.state.station} onChange={this.startChange}/>
 							<Select className="selectbox" name="form-field-name" placeholder="Destination stop"
 								value={this.state.end_stop} options={this.state.station} onChange={this.endChange}/>
-                            <button type="button" className="btn btn-primary btn-blocky">Search</button>
+							<div><Datetime inputProps={{ placeholder: 'Choose The Time' }}/></div>
+                            <button type="button" className="btn btn-primary btn-blocky" onClick={this.routeSubmit}>Search</button>
+
                           </div>
                         //station view elements
                         // user chooses departure and arrival stop

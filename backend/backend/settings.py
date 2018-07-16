@@ -25,7 +25,7 @@ SECRET_KEY = '&b5fsz^0&^kbxla3ku9)#rn+1x$yp+1_-#uq)09c#$a$wn-zy9'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost', 'www.dublinroute.com', 'csi420-01-vm2.ucd.ie','127.0.0.1']
 
 
 # Application definition
@@ -136,3 +136,5 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "static"),
 )
+
+MODEL_URL = os.path.join(BASE_DIR, 'model')

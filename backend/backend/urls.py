@@ -18,11 +18,12 @@ from django.contrib import admin
 from django.urls import path
 
 
-from api.views import RouteIdView, RoutesStopidView
+from api.views import RouteIdView, RoutesStopidView, PredictTimeView
 
 urlpatterns = [
 	path('', TemplateView.as_view(template_name="index.html"), name="index"),
     path('admin/', admin.site.urls),
     path('api/allroutes', RouteIdView.as_view()),
-    path('api/station', RoutesStopidView.as_view())
+    path('api/station', RoutesStopidView.as_view()),
+    path('api/time', PredictTimeView.as_view())
 ]
