@@ -25,7 +25,7 @@ SECRET_KEY = '&b5fsz^0&^kbxla3ku9)#rn+1x$yp+1_-#uq)09c#$a$wn-zy9'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['csi420-01-vm2.ucd.ie', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['wwww.dublinroute.com', 'csi420-01-vm2.ucd.ie', 'localhost', '127.0.0.1',]
 
 
 # Application definition
@@ -131,8 +131,6 @@ USE_TZ = True
 
 CORS_ORIGIN_ALLOW_ALL = True
 
+STATIC_URL = 'home/student/backend/static/'
 
-STATIC_URL = '/static/'
-STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, "static"),
-)
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
