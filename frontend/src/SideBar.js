@@ -79,8 +79,8 @@ class SideBar extends React.Component {
 		if (this.state.selectedOption && this.state.start_stop && this.state.end_stop && this.state.time) {
 			// Call the api to predict the time
 			WebAPI.getTime(this.state.selectedOption.value, this.state.start_stop.value, this.state.end_stop.value, this.state.time, this.state.direction.value).then(r => {
-				console.log(r);
-				if (r.status = 'success') {
+				if (r.status == 'success') {
+					console.log(1111);
 					this.setState({prediction: r.data, showroute:true});
 				} else {
 					console.log('fail!');

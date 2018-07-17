@@ -50,9 +50,7 @@ class DirectionView(APIView):
         return Response(result)
 
 
-
 class PredictTimeView(APIView):
-
     def getInfo(self, start_id, end_id, route, direction='1'):
         # Read local JSON File to get all stops sequence of one bus route
         path = settings.STATICFILES_DIRS[0]+'\\stopSeq\\' + route + '_' + direction +'.json'
@@ -63,7 +61,6 @@ class PredictTimeView(APIView):
         end_index = allkeys.index(end_id)
         keys = allkeys[start_index:end_index + 1]
         return keys
-
 
     def get(self, request):
         # Get the request paramaters
@@ -96,7 +93,6 @@ class PredictTimeView(APIView):
                 to_predict[feature][0] = each[feature]
         dayofweek = datetime.datetime.fromtimestamp(time).weekday()
         pd.set_option('display.max_columns', 500)
-        print(to_predict)
         category_time = str(round((time % 86400)/1800))
         to_predict['arrivetime_'+category_time] = 1
         to_predict['dayofweek_'+str(dayofweek)] = 1
@@ -111,15 +107,18 @@ class PredictTimeView(APIView):
         detail = []; total_time = 0
         category_time = str(round((time % 86400) / 1800))
         to_predict['arrivetime_' + category_time] = 1
-
-        for index in range(length-1):
-            to_predict['start_stop_' + stops[index]][0] = 1
-            to_predict['end_stop_' + stops[index+1]][0] = 1
-            duration = clf.predict(to_predict)[0]
-            total_time += duration
-            detail.append(duration)
-            to_predict['start_stop_' + stops[index]][0] = 0
-            to_predict['end_stop_' + stops[index+1]][0] = 0
+        try:
+            for index in range(length-1):
+                to_predict['start_stop_' + stops[index]][0] = 1
+                to_predict['end_stop_' + stops[index+1]][0] = 1
+                duration = clf.predict(to_predict)[0]
+                total_time += duration
+                detail.append(duration)
+                to_predict['start_stop_' + stops[index]][0] = 0
+                to_predict['end_stop_' + stops[index+1]][0] = 0
+        except ValueError:
+            # If the bus is not in running time
+            return Response({"status":"fail", "message":"Sorry, the bus is not in service at that time!"})
 
         total_time = int(total_time/60)
         result = {
