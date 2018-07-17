@@ -97,7 +97,7 @@ class cleanFile:
     def save_result(self):
         self._result.to_csv(self._output_path + self._output_file_name +'.csv')
 
-
+"""
 #Define inputs for creation of instance
 input_file_path = '/home/student/data_analytics/bus_lines/single_bus_line/bus_66_merge.csv'
 output_path = '/home/student/data_analytics/clean_files/'
@@ -109,3 +109,4 @@ instance = cleanFile(input_file_path, output_path, weather_file, direction)
 instance.create_model_file()
 instance.save_result()
 print('finished')
+"""

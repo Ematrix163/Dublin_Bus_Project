@@ -109,6 +109,7 @@ class RandomForestModel:
         joblib.dump(self._rf, self._output_file_path + self._output_file + ".pkl")
 
 
+"""
 # Define inputs for creation of instance
 clean_file_path = '/home/student/data_analytics/clean_files/66_1.csv'
 output_file_path = '/home/student/data_analytics/prediction_model/pickle_files/'
@@ -123,3 +124,4 @@ print(instance._scoreTrain)
 print(instance._scoreTest)
 instance.save_model()
 print("finished")
+"""
