@@ -11,12 +11,12 @@ class ShowRoute extends React.Component {
 				<p className="from-to">To <span className="stop-name">{this.props.end}</span></p>
 				<p className="from-to">Depart At: 10.00 a.m</p>
 				<p className="from-to">Estimated Arrive At: 10.30 a.m</p>
-				<p className="from-to"><i className="far fa-clock"></i> &nbsp; Duration: 20 miniutes</p>
+				<p className="from-to"><i className="far fa-clock"></i> &nbsp; Duration: {this.props.prediction.totalDuration} miniutes</p>
 				<hr/>
-				<p className="from-to"><span className="stops-num">9 Stops</span></p>
+				<p className="from-to"><span className="stops-num">{this.props.prediction.stopsNum} Stops</span></p>
 				<ul>
 					{this.props.prediction.stopInfo.map(each => (
-						<p key={each.stop_id} className="from-to">{each.stop_name}</p>
+						<p key={each.stop_id} className="from-to">· {each.stop_name}</p>
 					))}
 				</ul>
 

@@ -1,0 +1,556 @@
+{
+    "busNo": [
+        {
+            "route": "1",
+            "destination": "From Santry (Shanard Rd.) To Sandymount (St. John's Church)"
+        },
+        {
+            "route": "4 ",
+            "destination": "From Harristown To Monkstown Avenue"
+        },
+        {
+            "route": "7 ",
+            "destination": "From Mountjoy Sq. Towards Brides Glen Luas Stop"
+        },
+        {
+            "route": "7a",
+            "destination": "From Mountjoy Sq. Towards Loughlinstown"
+        },
+        {
+            "route": "7b ",
+            "destination": "From Mountjoy Sq. Towards Shankill"
+        },
+        {
+            "route": "7d ",
+            "destination": "From Mountjoy Sq. Towards Dalkey"
+        },
+        {
+            "route": "7n",
+            "destination": "From D'Olier St. Towards Shankill "
+        },
+        {
+            "route": "9",
+            "destination": "From Charlestown To Limekiln Ave."
+        },
+        {
+            "route": "11",
+            "destination": "From Wadelai Park To Sandyford Business District"
+        },
+        {
+            "route": "13",
+            "destination": "From Harristown To Grange Castle"
+        },
+        {
+            "route": "14",
+            "destination": "From Beaumont (Ardlea Rd.) To Dundrum Luas Station"
+        },
+        {
+            "route": "15",
+            "destination": "From Clongriffin To Ballycullen Rd."
+        },
+        {
+            "route": "15a",
+            "destination": "From Ringsend Road (Barrow Street) Towards Limekiln Ave."
+        },
+        {
+            "route": "15d",
+            "destination": "From Ringsend Road (Barrow Street) Towards Whitechurch"
+        },
+        {
+            "route": "15d",
+            "destination": "From Ringsend Road (Barrow Street) Towards Whitechurch"
+        },
+        {
+            "route": "15n",
+            "destination": "From D'Olier St. Towards Ellensborough "
+        },
+        {
+            "route": "16",
+            "destination": "From Dublin Airport Towards Ballinteer (Kingston)"
+        },
+        {
+            "route": "17",
+            "destination": "From Rialto To Blackrock"
+        },
+        {
+            "route": "17a",
+            "destination": "From Blanchardstown Centre To Kilbarrack"
+        },
+        {
+            "route": "18",
+            "destination": "From Palmerstown (Old Lucan Rd.) Towards Sandymount"
+        },
+        {
+            "route": "25",
+            "destination": "From Merrion Sq. To Lucan (Dodsboro)"
+        },
+        {
+            "route": "25a",
+            "destination": "From Merrion Sq. To Lucan (Esker Church)"
+        },
+        {
+            "route": "25b",
+            "destination": "From Merrion Sq. To Adamstown Rail Station"
+        },
+        {
+            "route": "25d",
+            "destination": "From Merrion Sq. Towards Adamstown Rail Station"
+        },
+        {
+            "route": "25n",
+            "destination": "From Westmoreland St. Towards Adamstown"
+        },
+        {
+            "route": "25x",
+            "destination": "From UCD Belfield To Lucan"
+        },
+        {
+            "route": "26",
+            "destination": "From Merrion Sq. To Palmerstown (Cemetery)"
+        },
+        {
+            "route": "27",
+            "destination": "From Clare Hall To Jobstown"
+        },
+        {
+            "route": "27a",
+            "destination": "From Eden Quay Towards Blunden Drive"
+        },
+        {
+            "route": "27b",
+            "destination": "From Eden Quay Towards Harristown"
+        },
+        {
+            "route": "27x ",
+            "destination": "From UCD Belfield To Clare Hall "
+        },
+        {
+            "route": "29a",
+            "destination": "From Lwr. Abbey St. To Baldoyle (Coast Rd.)"
+        },
+        {
+            "route": "29n",
+            "destination": "From D'Olier St. Towards Baldoyle Road "
+        },
+        {
+            "route": "31/a ",
+            "destination": "From Talbot St. To Howth Summit"
+        },
+        {
+            "route": "31b ",
+            "destination": "From Talbot St. To Howth Summit"
+        },
+        {
+            "route": "31d",
+            "destination": "From DCU Towards Baldoyle "
+        },
+        {
+            "route": "31n",
+            "destination": "From D'Olier St. To Howth "
+        },
+        {
+            "route": "32",
+            "destination": "From Talbot St. To Malahide"
+        },
+        {
+            "route": "32x ",
+            "destination": "From Malahide Towards UCD Belfield"
+        },
+        {
+            "route": "33",
+            "destination": "From Lower Abbey St. To Balbriggan "
+        },
+        {
+            "route": "33a",
+            "destination": "From Swords Towards Skerries / Balbriggan "
+        },
+        {
+            "route": "33b",
+            "destination": "From Swords Towards Portrane"
+        },
+        {
+            "route": "33d",
+            "destination": "From Custom House Quay / St. Stephen's Green Towards Portrane"
+        },
+        {
+            "route": "33n",
+            "destination": "From Westmoreland St. To Balbriggan "
+        },
+        {
+            "route": "33x ",
+            "destination": "From Custom House Quay / St. Stephen's Green To Skerries "
+        },
+        {
+            "route": "37",
+            "destination": "From Baggot St. / Wilton Terrace Towards Blanchardstown Centre"
+        },
+        {
+            "route": "38",
+            "destination": "From Burlington Rd. Towards Damastown"
+        },
+        {
+            "route": "38a",
+            "destination": "From Burlington Rd. To Damastown"
+        },
+        {
+            "route": "38b ",
+            "destination": "From Burlington Rd. To Damastown"
+        },
+        {
+            "route": "39",
+            "destination": "From Burlington Rd. Towards Ongar"
+        },
+        {
+            "route": "39a",
+            "destination": "From UCD Belfield Towards Ongar"
+        },
+        {
+            "route": "39x ",
+            "destination": "From Burlington Road Towards Ongar"
+        },
+        {
+            "route": "39n",
+            "destination": "From Westmoreland St. Towards Tyrrelstown "
+        },
+        {
+            "route": "40",
+            "destination": "From Charlestown Shopping Centre To Liffey Valley Shopping Centre"
+        },
+        {
+            "route": "40b",
+            "destination": "From Parnell St. Towards Toberburr"
+        },
+        {
+            "route": "40d",
+            "destination": "From Parnell St. To Tyrrelstown "
+        },
+        {
+            "route": "41",
+            "destination": "From Lower Abbey St. Towards Swords Manor"
+        },
+        {
+            "route": "41b",
+            "destination": "From Lower Abbey St. To Rolestown "
+        },
+        {
+            "route": "41c",
+            "destination": "From Lower Abbey St. Towards Swords Manor"
+        },
+        {
+            "route": "41n",
+            "destination": "From Westmoreland St. Towards Swords Manor "
+        },
+        {
+            "route": "41x",
+            "destination": "From UCD Belfield Towards Knocksedan"
+        },
+        {
+            "route": "42",
+            "destination": "From Talbot St. To Sand's Hotel (Portmarnock)"
+        },
+        {
+            "route": "42d",
+            "destination": "From DCU Towards Portmarnock"
+        },
+        {
+            "route": "42n",
+            "destination": "From D'Olier St. Towards Portmarnock"
+        },
+        {
+            "route": "43",
+            "destination": "From Talbot St. Towards Swords Business Park"
+        },
+        {
+            "route": "44",
+            "destination": "From DCU To Enniskerry"
+        },
+        {
+            "route": "44b",
+            "destination": "From Dundrum Luas Station To Glencullen"
+        },
+        {
+            "route": "45a",
+            "destination": "From Dún Laoghaire (Rail Station) Towards Kilmacanogue"
+        },
+        {
+            "route": "46a",
+            "destination": "From Phoenix Park To Dun Laoghaire"
+        },
+        {
+            "route": "46e ",
+            "destination": "From Blackrock Station Towards Mountjoy Sq."
+        },
+        {
+            "route": "46n",
+            "destination": "From D'Olier St. Towards Dundrum "
+        },
+        {
+            "route": "47 ",
+            "destination": "From Poolbeg St. To Belarmine"
+        },
+        {
+            "route": "49",
+            "destination": "From Pearse Street Towards Tallaght (The Square)"
+        },
+        {
+            "route": "49n",
+            "destination": "From D'Olier St. Towards Tallaght (Kilnamanagh) "
+        },
+        {
+            "route": "51d ",
+            "destination": "From Aston Quay Towards Clondalkin "
+        },
+        {
+            "route": "51x",
+            "destination": "From Dunawley To UCD Belfield "
+        },
+        {
+            "route": "53 ",
+            "destination": "From Talbot St. Towards Dublin Ferryport"
+        },
+        {
+            "route": "54a",
+            "destination": "From Pearse St.Towards Ellensborough / Kiltipper Way\t"
+        },
+        {
+            "route": "56a ",
+            "destination": "From Ringsend Rd. Towards Tallaght (The Square)"
+        },
+        {
+            "route": "59 ",
+            "destination": "From Dún Laoghaire Towards Killiney (Druids Chair)"
+        },
+        {
+            "route": "61",
+            "destination": "From Eden Quay To Whitechurch"
+        },
+        {
+            "route": "63 ",
+            "destination": "From Dun Laoghaire To Kilternan"
+        },
+        {
+            "route": "65",
+            "destination": "From Poolbeg St. Towards Blessington / Ballymore"
+        },
+        {
+            "route": "65b",
+            "destination": "From Poolbeg Street Towards Citywest"
+        },
+        {
+            "route": "66",
+            "destination": "From Merrion Sq. Towards Maynooth"
+        },
+        {
+            "route": "66a",
+            "destination": "From Merrion Sq. To Leixlip (Captain's Hill) "
+        },
+        {
+            "route": "66b ",
+            "destination": "From Merrion Sq. To Leixlip (Castletown)"
+        },
+        {
+            "route": "66n",
+            "destination": "From Westmoreland St.  Towards Leixlip (Louisa Bridge) via Glen Easton "
+        },
+        {
+            "route": "66x",
+            "destination": "From UCD Belfield To Maynooth"
+        },
+        {
+            "route": "67",
+            "destination": "From Merrion Sq. Towards Maynooth"
+        },
+        {
+            "route": "67n",
+            "destination": "From Westmoreland St. Towards Celbridge / Maynooth "
+        },
+        {
+            "route": "67x",
+            "destination": "From UCD Belfield To Celbridge (Salesian College)"
+        },
+        {
+            "route": "68/a",
+            "destination": "From Hawkins St. Towards Newcastle / Greenogue Business Park"
+        },
+        {
+            "route": "68x ",
+            "destination": "From Newcastle / Greenogue Business Park To Hawkins Street"
+        },
+        {
+            "route": "69",
+            "destination": "From Hawkins St. Towards Rathcoole"
+        },
+        {
+            "route": "69n",
+            "destination": "From Westmoreland St. Towards Saggart"
+        },
+        {
+            "route": "69x ",
+            "destination": "From Hawkins St. To Rathcoole"
+        },
+        {
+            "route": "70",
+            "destination": "From Burlington Rd. Towards Dunboyne"
+        },
+        {
+            "route": "70d",
+            "destination": "From DCU Towards Dunboyne"
+        },
+        {
+            "route": "70n",
+            "destination": "From Westmoreland St. Towards Dunboyne "
+        },
+        {
+            "route": "75",
+            "destination": "From The Square Tallaght Towards Dun Laoghaire"
+        },
+        {
+            "route": "76",
+            "destination": "From Chapelizod Towards Tallaght (The Square)"
+        },
+        {
+            "route": "76a",
+            "destination": "From Blanchardstown Centre Towards Tallaght (The Square)"
+        },
+        {
+            "route": "77a ",
+            "destination": "From Ringsend Rd. To Citywest"
+        },
+        {
+            "route": "77n",
+            "destination": "From D'Olier St. Towards Tallaght (Westbrook Estate) "
+        },
+        {
+            "route": "77x",
+            "destination": "From Citywest To UCD Belfield"
+        },
+        {
+            "route": "79/a",
+            "destination": "From Aston Quay To Spiddal Park / Park West (79a)"
+        },
+        {
+            "route": "83",
+            "destination": "From Harristown To Kimmage"
+        },
+        {
+            "route": "84/a",
+            "destination": "From Blackrock Towards Newcastle"
+        },
+        {
+            "route": "84n",
+            "destination": "From D'Olier St. Towards Greystones "
+        },
+        {
+            "route": "84x ",
+            "destination": "From Hawkins Street Towards Newcastle / Kilcoole"
+        },
+        {
+            "route": "88n",
+            "destination": "From Westmoreland St. Towards Ashbourne "
+        },
+        {
+            "route": "90",
+            "destination": "From Heuston Station To International Financial Services Centre "
+        },
+        {
+            "route": "102",
+            "destination": "From Sutton Station To Dublin Airport "
+        },
+        {
+            "route": "104",
+            "destination": "From Clontarf Rd. (Conquer Hill) To DCU"
+        },
+        {
+            "route": "111 ",
+            "destination": "From Brides Glen Luas Station Towards Dalkey"
+        },
+        {
+            "route": "114",
+            "destination": "From Ticknock Towards Blackrock Station"
+        },
+        {
+            "route": "116",
+            "destination": "From Parnell Sq. To Whitechurch "
+        },
+        {
+            "route": "118",
+            "destination": "From Kilternan Towards Eden Quay"
+        },
+        {
+            "route": "120 ",
+            "destination": "From Parnell St. To Ashtown Rail Station "
+        },
+        {
+            "route": "122",
+            "destination": "From Ashington Towards Drimnagh Rd."
+        },
+        {
+            "route": "123",
+            "destination": "From Walkinstown (Kilnamanagh Rd.) To  Marino"
+        },
+        {
+            "route": "130",
+            "destination": "From Lwr. Abbey St. Towards Castle Ave."
+        },
+        {
+            "route": "140",
+            "destination": "From Palmerston Park Towards Finglas (Ikea)"
+        },
+        {
+            "route": "142",
+            "destination": "From Portmarnock Towards UCD Belfield"
+        },
+        {
+            "route": "145",
+            "destination": "From Heuston Rail Station To Ballywaltrim"
+        },
+        {
+            "route": "150 ",
+            "destination": "From Hawkins St. Towards Rossmore"
+        },
+        {
+            "route": "151",
+            "destination": "From Docklands (East Rd.) To Foxborough (Balgaddy Rd.)"
+        },
+        {
+            "route": "161",
+            "destination": "From Dundrum Luas Station To Rockbrook/Tibradden"
+        },
+        {
+            "route": "184",
+            "destination": "From Bray Rail Station Towards Newtownmountkennedy"
+        },
+        {
+            "route": "185 ",
+            "destination": "From Bray Rail Station Towards Shop River "
+        },
+        {
+            "route": "220",
+            "destination": "From Ballymun (Shangan Rd.) Towards Lady's Well Rd. "
+        },
+        {
+            "route": "236",
+            "destination": "From Blanchardstown Centre To Damastown"
+        },
+        {
+            "route": "238",
+            "destination": "From Tyrrelstown Towards Lady's Well Rd."
+        },
+        {
+            "route": "239",
+            "destination": "From Blanchardstown Centre Towards Liffey Valley Shopping Centre "
+        },
+        {
+            "route": "270",
+            "destination": "From Blanchardstown Centre Towards Dunboyne"
+        },
+        {
+            "route": "747",
+            "destination": "From Heuston Rail Station To Dublin Airport"
+        },
+        {
+            "route": "757",
+            "destination": "From Camden Street To Dublin Airport"
+        }
+    ]
+}

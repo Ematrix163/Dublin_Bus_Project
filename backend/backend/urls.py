@@ -19,7 +19,7 @@ from django.urls import path
 
 
 
-from api.views import RouteIdView, RoutesStopidView, PredictTimeView
+from api.views import RouteIdView, RoutesStopidView, PredictTimeView, DirectionView
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 
@@ -29,6 +29,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/allroutes', RouteIdView.as_view()),
     path('api/station', RoutesStopidView.as_view()),
+    path('api/direction',DirectionView.as_view()),
     path('api/time', PredictTimeView.as_view())
 ]
 
