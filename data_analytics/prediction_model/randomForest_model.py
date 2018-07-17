@@ -13,14 +13,18 @@ class RandomForestModel:
     Class that initializes a random forest model on a csv file
     """
 
-    def __init__(self, input_file_path, output_file_path, output_file, y):
+    def __init__(self, input_file_path, output_file_path, y):
         self._file_path = input_file_path
         self._output_file_path = output_file_path
-        self._output_file = output_file
         # Creates df upon instance initialization:
         self._df = pd.read_csv(self._file_path, header=0, delimiter=',')
+        # Create name for output file
+        self._lineID = self._df['lineid'].iloc[1]
+        self._dir = self._df['direction'].iloc[1]
+        self._output_file = str(self._lineID) + "_" + str(self._dir)
         # Drop all columns that aren't required features for training:
         self.set_features()
+        self.remove_outliers()
         # X are the independent variables (features)
         self._X = self._df.drop(y, axis=1)
         # y is the Dependent variable (Target Feature)
@@ -102,17 +106,16 @@ class RandomForestModel:
         self._scoreTest = self._rf.score(self._df_test_X, self._df_test_y)
 
     def save_model(self):
-        joblib.dump(self._rf, self._output_file_path + self._output_file)
+        joblib.dump(self._rf, self._output_file_path + self._output_file + ".pkl")
 
 
 # Define inputs for creation of instance
-clean_file_path = '/home/student/data_analytics/clean_files/result_of_25-dir1Model.csv'
+clean_file_path = '/home/student/data_analytics/clean_files/66_1.csv'
 output_file_path = '/home/student/data_analytics/prediction_model/pickle_files/'
-output_file = '25-2.pkl'
 y = 'duration'
 
 # Create instance
-instance = RandomForestModel(clean_file_path, output_file_path, output_file, y)
+instance = RandomForestModel(clean_file_path, output_file_path, y)
 instance.split_df()
 instance.initialize_model()
 instance.get_results()

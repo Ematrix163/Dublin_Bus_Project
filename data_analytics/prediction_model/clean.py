@@ -19,8 +19,8 @@ class cleanFile:
         self.drop_attributes()
         self.isolate_direction()
         self._lineID = self._df['LineID'].iloc[1]
-        self._output_file_name = self._lineID + "-" + str(direction)
-
+        self._dir = self._df['Direction'].iloc[1]
+        self._output_file_name = str(self._lineID) + "_" + str(self._dir)
 
         self._u = None
         self._a = None
@@ -46,7 +46,7 @@ class cleanFile:
         self._u = self._df['comb'].unique()
 
         self._result = pd.DataFrame(
-            columns=['dt', 'dayofweek', 'month', 'day', 'arrive_time', 'start_point', 'end_point', 'duration'])
+            columns=['lineid', 'direction', 'dt', 'dayofweek', 'month', 'day', 'arrive_time', 'start_point', 'end_point', 'duration'])
 
         for date_trip in self._u:
             day_trip = self._df.loc[(self._df['comb'] == date_trip)].sort_values(by=['ProgrNumber'])
@@ -76,10 +76,10 @@ class cleanFile:
 
             # merge columns
             self._a = pd.concat(
-                [datetime, dayofweek, month, day, day_trip['ActualTime_Arr'], day_trip['StopPointID'],
+                [day_trip['LineID'], day_trip['Direction'], datetime, dayofweek, month, day, day_trip['ActualTime_Arr'], day_trip['StopPointID'],
                  end_point, time], axis=1)
             # Change the name of columns
-            self._a.columns = ['dt', 'dayofweek', 'month', 'day', 'arrive_time', 'start_point', 'end_point',
+            self._a.columns = ['lineid', 'direction', 'dt', 'dayofweek', 'month', 'day', 'arrive_time', 'start_point', 'end_point',
                                'duration']
             self._a.drop(self._a.tail(1).index, inplace=True)
 
@@ -97,16 +97,15 @@ class cleanFile:
     def save_result(self):
         self._result.to_csv(self._output_path + self._output_file_name +'.csv')
 
-'''
+
 #Define inputs for creation of instance
-input_file_path = '/home/student/data_analytics/bus_lines/bus_25_merge.csv'
+input_file_path = '/home/student/data_analytics/bus_lines/single_bus_line/bus_66_merge.csv'
 output_path = '/home/student/data_analytics/clean_files/'
 weather_file ='/home/student/data/weather/2017weatherClean.csv'
-direction = 2
+direction = 1
 
 instance = cleanFile(input_file_path, output_path, weather_file, direction)
 #print(instance._df)
 instance.create_model_file()
 instance.save_result()
 print('finished')
-'''
