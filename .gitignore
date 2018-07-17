@@ -8,6 +8,7 @@ data_analytics/individual_bus_lines/
 data_analytics/sample_files/
 data_analytics/bus_lines/*
 data_analytics/clean_files/*
+data_analytics/prediction_model/pickle_files/*
 
 
 Ignore all log files in repository
