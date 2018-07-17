@@ -6,23 +6,20 @@ class ShowRoute extends React.Component {
 	render() {
 		return (
 			<div className="show-route">
-				<p><i className="fas fa-bus"></i><span className="start"> Bus Line: 46A</span></p>
-				<p className="from-to">From <span className="stop-name">Crofton Road</span></p>
-				<p className="from-to">To <span className="stop-name">Kill Lane Business Park</span></p>
-				<p><i className="far fa-clock"></i> &nbsp; 20 miniutes</p>
+				<p><i className="fas fa-bus"></i><span className="start"> Bus Line: {this.props.routeid}</span></p>
+				<p className="from-to">From <span className="stop-name">{this.props.start}</span></p>
+				<p className="from-to">To <span className="stop-name">{this.props.end}</span></p>
+				<p className="from-to">Depart At: 10.00 a.m</p>
+				<p className="from-to">Estimated Arrive At: 10.30 a.m</p>
+				<p className="from-to"><i className="far fa-clock"></i> &nbsp; Duration: 20 miniutes</p>
 				<hr/>
-				<p>Crofton Road<span className="stops-num">9 Stops</span></p>
+				<p className="from-to"><span className="stops-num">9 Stops</span></p>
 				<ul>
-					<li>Marine Road	</li>
-					<li>George's St</li>
-					<li>York Road</li>
-					<li>York Road</li>
-					<li>Mounttown Rd</li>
-					<li>Kill Avenue	Carriglea Avenue</li>
-					<li>Kill Avenue	Kill O The Grange</li>
-					<li>Kill Avenue	Church</li>
+					{this.props.prediction.stopInfo.map(each => (
+						<p key={each.stop_id} className="from-to">{each.stop_name}</p>
+					))}
 				</ul>
-				<p>Kill Lane Business Park</p>
+
 			</div>
 		)
 	}

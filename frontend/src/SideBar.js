@@ -16,13 +16,15 @@ import * as Datetime from 'react-datetime';
 
 class SideBar extends React.Component {
     state = {
-        view: 'station',
-        showroute: true,
+        view: 'route',
+        showroute: false,
         routes: [],
 		station: [],
 		selectedOption: '',
 		start_stop: '',
 		end_stop: '',
+		time: '',
+		prediction: {}
     }
     componentDidMount() {
 		let temp = [];
@@ -31,23 +33,42 @@ class SideBar extends React.Component {
 		}))
 		this.setState({routes: temp})
 	}
+	// When user Choose different route, the stop should be updated
 	routeChange = (val) => {
 		if (val) {
 			let temp = [];
 			this.setState({selectedOption:val})
 			WebAPI.getStation(val).then(s => {
-					s.map(each => {temp.push({value:each, label:each})});
+					s.map(each => {temp.push({value:each.stop_name, label:each.stop_name, id: each.true_stop_id})});
 					this.setState({station: temp});
 			})
 		}
 	}
-	startChange = (val) => this.setState({start_stop:val})
+
+	// If time change, modify the time state
+	timeOnchange = (val) => {
+		let time = val.format();
+		let unixtime = moment(new Date(time)).format('x')/1000;
+		this.setState({time: unixtime});
+	}
+	// If the start stop change
+	startChange = (val,a) => this.setState({start_stop:val})
+	// If the end stop change
 	endChange = (val) => this.setState({end_stop: val})
+	// When user choose another view
     switchView = (value) => this.setState({view: value})
+	// In route View, when user click submit button
 	routeSubmit = () => {
-		if (this.state.selectedOption && this.state.start_stop && this.state.end_stop) {
-			WebAPI.getTime(this.state.selectedOption, this.state.start_stop,this.state.end_stop).then(r => {
+		// Check all these fields are not blank
+		if (this.state.selectedOption && this.state.start_stop && this.state.end_stop && this.state.time) {
+			// Call the api to predict the time
+			WebAPI.getTime(this.state.selectedOption.value, this.state.start_stop.id,this.state.end_stop.id, this.state.time).then(r => {
 				console.log(r);
+				if (r.status = 'success') {
+					this.setState({showroute:true, prediction: r.data});
+				} else {
+					console.log('fail!');
+				}
 			});
 		} else {
 			console.log('error');
@@ -79,7 +100,7 @@ class SideBar extends React.Component {
   								value={this.state.start_stop} options={this.state.station} onChange={this.startChange}/>
 							<Select className="selectbox" name="form-field-name" placeholder="Destination stop"
 								value={this.state.end_stop} options={this.state.station} onChange={this.endChange}/>
-							<div><Datetime inputProps={{ placeholder: 'Choose The Time' }}/></div>
+							<div><Datetime onChange={this.timeOnchange} inputProps={{ placeholder: 'Choose The Time' }}/></div>
                             <button type="button" className="btn btn-primary btn-blocky" onClick={this.routeSubmit}>Search</button>
 
                           </div>
@@ -96,11 +117,14 @@ class SideBar extends React.Component {
                                 </form>
                             </div>
                 }
-
                 {
                     //calls function show route to show the route details
                     this.state.showroute
-                        ? <ShowRoute/>
+                        ? <ShowRoute
+							prediction={this.state.prediction}
+							start={this.state.start_stop.label}
+							end={this.state.end_stop.label}
+							routeid={this.state.selectedOption.label}/>
                         : ''
                 }
             </div>

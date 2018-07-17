@@ -49,9 +49,8 @@ class PredictTimeView(APIView):
         return result
 
 
-
     def get(self, request):
-        routeid = request.GET.get("routeid", "")
+        routeid = request.GET.get("routeid", "").lower()
         start_stop = request.GET.get("start_stop", "")
         end_stop = request.GET.get("end_stop", "")
         time = int(request.GET.get("datetime", ""))
@@ -87,6 +86,7 @@ class PredictTimeView(APIView):
         stops = info['stops']
 
         stopInfo = Stopsstatic.objects.filter(true_stop_id__in=stops)
+
         stopInfo_ser = StopInfoSerializer(stopInfo, many=True)
 
 
@@ -104,15 +104,14 @@ class PredictTimeView(APIView):
             to_predict['start_stop_' + stops[index]][0] = 0
             to_predict['end_stop_' + stops[index+1]][0] = 0
 
-
+        total_time = int(total_time/60)
         result = {
             "status":"success",
             "data":{
                 "detail": detail,
                 "totalDuration": total_time,
                 "stopsNum": length,
-                "stopInfo": stopInfo_ser.data,
-                "stopSeq": stops
+                "stopInfo": stopInfo_ser.data
         }}
 
         return Response(result)

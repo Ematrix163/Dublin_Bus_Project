@@ -19,12 +19,13 @@ export const getStation = (routeid) =>
 
 
 //Get the predict time
-export const getTime = (routeid, start_stop, end_stop) =>
-	fetch(`${api}/routetime`, {
+export const getTime = (routeid, start_stop, end_stop, time) =>
+	fetch(`${api}/time?routeid=${routeid}&start_stop=${start_stop}&end_stop=${end_stop}&datetime=${time}`, {
 		methods: 'GET',
-		body: {
-			'routeid': routeid,
-			'start_stop': start_stop,
-			'end_stop': end_stop
-		}
+		// body: {
+		// 	'routeid': routeid,
+		// 	'start_stop': start_stop,
+		// 	'end_stop': end_stop,
+		// 	'datetime': time
+		// }
 	}).then(res => res.json())
