@@ -5,29 +5,34 @@ from scipy.stats import zscore
 import numpy as np
 import math
 from sklearn.linear_model import LinearRegression
+from sklearn.externals import joblib
 
 class PredictionModel:
 
-    def __init__(self, input_file_path, output_path, output_file_name, y):
+    def __init__(self, input_file_path, output_path, y):
         self._file_path = input_file_path
         self._output_path = output_path
-        self._output_file_name = output_file_name
+        #self._output_file_name = output_file_name
         # Creates df upon instance initialization:
         self._df = pd.read_csv(self._file_path, header=0, delimiter=',')
-	# Drop all columns that aren't required features for training:
-        #self.drop_attributes()
+        self._lineID = self._df['lineid'].iloc[1]
+        self._dir = self._df['direction'].iloc[1]
+        self._output_file = str(self._lineID) + "_" + str(self._dir)
+        self.remove_outliers()
+        self.set_features()
+        # normalise data
+        self._df = self._df.apply(zscore)
         # X are the independent variables (features)
         self._X = self._df.drop(y, axis=1)
-	#y is the Dependent variable (Target Feature)
+	    #y is the Dependent variable (Target Feature)
         self._y = self.df[[y]]
-	#normalise data
-        self._df = self._df.apply(zscore)
          # Creates train, test and cross validation data frames upon instance initialization:
         self._df_train_X = None
         self._df_train_y = None
         self._df_test_X = None
         self._df_test_y = None
         self._df_cross = self.df
+
 
     @property
     def input_file_path(self):
@@ -53,12 +58,31 @@ class PredictionModel:
     def X(self):
         return self._X
 
-    # Target Feature (Duration), Features (Dayofweek, Timeofday, weather)
-    #this needs to be tidied 
-    def drop_attributes(self):
-        
-        features = ['delay','time','dayofweek','month','temp','Sky is Clear','broken clouds','few clouds','fog','drizzle','light intensity drizzle','light intensity drizzle rain','light intensity shower rain','light rain','light shower sleet','mist','moderate rain','overcast clouds','proximity shower rain','scattered clouds','shower rain', '312','317','346','400', '493', '494', '495', '1444','1445','1449','1450','1451','2191','2192', '2193','2194','2195','2196','2197','2198','2193','2200','2201','2213','2214','2215','2216','2217','2218','2219','3365','3366','3367','3886','3887','3888','3918','3954','3955','3956','3957','3958','3959','3960','3961','3962','3963','3964','3965','3966','3968','4401','4599','5113','5114','7078','7186','7187','7239','7391' ]
-        self._df = self._df[features]
+    def set_features(self):
+        # numeric features chosen for model [see 46A notebook for feature selection]
+        continuous = ['temp', 'clouds_all', 'wind_speed', 'wind_deg', 'pressure', 'humidity']
+        df_continuous = self._df[continuous]
+
+        # binary coding of start stops
+        binary_start_stops = pd.get_dummies(self._df['start_point'])
+        binary_end_stops = pd.get_dummies(self._df['end_point'])
+
+        # binary coding of weather
+        binary_weather = pd.get_dummies(self._df['weather_description'])
+
+        # binary Coding of dayofweek
+        binary_dayofweek = pd.get_dummies(self._df['dayofweek'])
+
+        # Binary Coding of arrive time
+        binary_arrive_time = pd.get_dummies(self._df['arrive_time'].divide(1800).round())
+
+        self._df = pd.concat(
+            [self._df['duration'], df_continuous, binary_weather,
+             binary_start_stops, binary_end_stops, binary_dayofweek,
+             binary_arrive_time], axis=1)
+
+    def remove_outliers(self):
+        self._df = self._df[self._df.duration < 3000]
 
     # Split the data-frame into the train x, train y, test x and test y sets:
     def split_df(self):
@@ -83,16 +107,18 @@ class PredictionModel:
         self._y_predict = self._regression_model.predict(self._df_test_X)
         self._regression_model_mse = mean_squared_error(self._y_predict, self._df_test_y)
 
+    def save_model(self):
+        joblib.dump(self._regression_model, self._output_path + self._output_file + ".pkl")
+
     
 # Define inputs for creation of instance
-clean_file_path = '/home/student/data_analytics/bus_lines/result_of_66-dir1Model.csv'
-output_path = '/data_analytics/prediction_model/'
-output_file_name = 'bus66.csv'
+clean_file_path = '/home/student/data_analytics/clean_files/66_1.csv'
+output_path = '/home/student/data_analytics/prediction_model/'
 y = 'duration'
 
 
 # Create instance
-instance = PredictionModel(clean_file_path, output_path, output_file_name, y)
+instance = PredictionModel(clean_file_path, output_path, y)
 
 #print(instance.df.shape)
 #print(instance.df.dtypes)
@@ -107,4 +133,5 @@ print("R Squared Value Test ", instance._RSquaredTest)
 print("R Squared Value Train ", instance._RSquaredTrain)
 print("Mean Squared Error", instance._regression_model_mse)
 #instance.getCoefficients()
+instance.save_model()
 

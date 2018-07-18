@@ -22,9 +22,10 @@ class RouteIdView(APIView):
 
 class RoutesStopidView(APIView):
     def get(self, request):
-        routeid = request.GET.get("route", "")
+        routeid = request.GET.get("route", "").lower()
+        print(routeid)
         direction = request.GET.get("direction", "")
-        path = settings.STATICFILES_DIRS[0] + '\\stopSeq\\' + routeid + '_' + direction + '.json'
+        path = settings.STATICFILES_DIRS[0] + '/stopSeq/' + routeid + '_' + direction + '.json'
         with open(path, 'r') as f:
             data = json.load(f)
         allkeys = list(data.keys())
@@ -41,19 +42,21 @@ class RoutesStopidView(APIView):
 
 
 class DirectionView(APIView):
-
+    # Return the direction of a bus route
     def get(self, request):
         routeid = request.GET.get("routeid", "").lower()
-        with open(settings.STATICFILES_DIRS[0]+'\\stopSeq\\directions.json', 'r') as f:
+        with open(settings.STATICFILES_DIRS[0]+'/stopSeq/directions.json', 'r') as f:
             data = json.load(f)
-        result = data[routeid]
+        print(data)
+        result = data[str(routeid)]
+
         return Response(result)
 
 
 class PredictTimeView(APIView):
     def getInfo(self, start_id, end_id, route, direction='1'):
         # Read local JSON File to get all stops sequence of one bus route
-        path = settings.STATICFILES_DIRS[0]+'\\stopSeq\\' + route + '_' + direction +'.json'
+        path = settings.STATICFILES_DIRS[0]+'/stopSeq/' + route + '_' + direction +'.json'
         with open(path, 'r') as f:
             data = json.load(f)
         allkeys = list(data.keys())
@@ -97,7 +100,7 @@ class PredictTimeView(APIView):
         to_predict['arrivetime_'+category_time] = 1
         to_predict['dayofweek_'+str(dayofweek)] = 1
         # Load the pkl file
-        path = settings.MODEL_URL + '\\' + routeid + '_' + direction + '.pkl'
+        path = settings.MODEL_URL + '/' + routeid + '_' + direction + '.pkl'
         clf = joblib.load(path)
         # Get All stops between these two stops
         stops = self.getInfo(start_stop, end_stop, routeid, direction=direction)
