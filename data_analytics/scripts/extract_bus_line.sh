@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Make functions.sh file accessible by this script:
-source export_functions.sh
+source extract_functions.sh
 
 
 # If input parameters are less than one echo "parameter required"
@@ -17,7 +17,7 @@ LineID=$1
 #print a new line:
 printf "%s\n\n" ""
 
-echo "Exporting files for bus LineID $LineID..."
+echo "Extracting files for bus LineID $LineID..."
 
 # Define file paths:
 pathLT="/home/student/data/clean_data/leave17.csv"
@@ -29,7 +29,7 @@ pathMerge="/home/student/data_analytics/prediction_model/extracted/bus_"$LineID"
 
 
 # Call function to remove previously exported files
-delete_files
+delete_previous_files
 
 # Call function to create the "exported" folder if it doesn't already exist
 create_folder
@@ -42,9 +42,6 @@ export_TripID_file
 
 # Call function to export all TripIDs for LineID
 export_LeaveTimes_file
-
-#print a new line:
-printf "%s\n\n" ""
 
 # Add unique columns
 add_unique_columns
@@ -71,4 +68,4 @@ print_file_sizes
 delete_temp_files
 
 # Count the merged files's lines:
-# wc -l $pathmerge
+wc -l $pathMerge

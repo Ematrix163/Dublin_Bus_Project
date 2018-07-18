@@ -56,7 +56,7 @@ print_file_sizes () {
 }
 
 # Function to delete all files that have previously been made by this script:
-delete_files () {
+delete_previous_files () {
 
     if [ -f $pathBusLT ]
     then
@@ -85,6 +85,13 @@ delete_temp_files () {
     if [ -f $pathTripID ]
     then
         rm -f $pathTripID;
+        # Increase counter by one
+        counter=$((counter+1));
+    fi
+
+    if [ -f $pathBusTrips ]
+    then
+        rm -f $pathBusTrips;
         # Increase counter by one
         counter=$((counter+1));
     fi
