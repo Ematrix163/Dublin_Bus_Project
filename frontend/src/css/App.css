@@ -12,7 +12,7 @@
 
 
 .sidebar {
-	width: 400px;
+	width: 450px;
 	height: 100vh;
 	background-color: white;
     flex: none;
@@ -183,9 +183,16 @@
 }
 
 
+.timepicker {
+	width: 90%;
+	margin-left: 20px;
+}
 
 
-
+.route-button {
+	margin: 20px 0 0 20px;
+	width: 90%;
+}
 
 
 

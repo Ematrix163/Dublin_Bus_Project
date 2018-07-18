@@ -2,15 +2,12 @@ import React from 'react';
 import ShowRoute from './ShowRoute'
 import * as WebAPI from './WebAPI'
 import logo from './image/logo.jpg'
-
 import SearchBox from './StandaloneSearchBox'
 import DatePicker from 'react-datepicker';
 import moment from 'moment';
 import 'react-datepicker/dist/react-datepicker.css';
-
 import Select from 'react-select';
 import 'react-select/dist/react-select.css';
-
 import * as Datetime from 'react-datetime';
 //the side the webpage for user to enter journey details and to show route info
 
@@ -24,7 +21,9 @@ class SideBar extends React.Component {
 		start_stop: '',
 		end_stop: '',
 		time: '',
-		prediction: {}
+		prediction: {},
+		allDirections: [],
+		direction: ''
     }
     componentDidMount() {
 		let temp = [];
@@ -33,17 +32,34 @@ class SideBar extends React.Component {
 		}))
 		this.setState({routes: temp})
 	}
-	// When user Choose different route, the stop should be updated
+	// When user Choose different route, the directions should be updated
 	routeChange = (val) => {
 		if (val) {
-			let temp = [];
 			this.setState({selectedOption:val})
-			WebAPI.getStation(val).then(s => {
-					s.map(each => {temp.push({value:each.stop_name, label:each.stop_name, id: each.true_stop_id})});
+			let temp = [];
+			WebAPI.getDirection(val.value).then(r => {
+				this.setState({allDirections: [{label: r.dir1, value: 1},{label: r.dir2, value: 2}]});
+			})
+		}
+
+	}
+	//When user choose different directions, will show all related stops
+	dirChange = (val) => {
+		if (val) {
+			this.setState({direction:val})
+			let temp = [];
+			WebAPI.getStation(this.state.selectedOption.value, val.value).then(s => {
+				if (s['status'] == "success") {
+					let data = s.data;
+					data.map(each => {temp.push({value:each.true_stop_id, label:each.stop_name})});
 					this.setState({station: temp});
+				}
+
 			})
 		}
 	}
+
+
 
 	// If time change, modify the time state
 	timeOnchange = (val) => {
@@ -62,10 +78,10 @@ class SideBar extends React.Component {
 		// Check all these fields are not blank
 		if (this.state.selectedOption && this.state.start_stop && this.state.end_stop && this.state.time) {
 			// Call the api to predict the time
-			WebAPI.getTime(this.state.selectedOption.value, this.state.start_stop.id,this.state.end_stop.id, this.state.time).then(r => {
-				console.log(r);
-				if (r.status = 'success') {
-					this.setState({showroute:true, prediction: r.data});
+			WebAPI.getTime(this.state.selectedOption.value, this.state.start_stop.value, this.state.end_stop.value, this.state.time, this.state.direction.value).then(r => {
+				if (r.status == 'success') {
+					console.log(1111);
+					this.setState({prediction: r.data, showroute:true});
 				} else {
 					console.log('fail!');
 				}
@@ -96,12 +112,14 @@ class SideBar extends React.Component {
                         ? <div className="input-container">
 						  	<Select className="selectbox" name="form-field-name" placeholder="Please Select a bus line"
 								value={this.state.selectedOption} options={this.state.routes} onChange={this.routeChange}/>
+							<Select className="selectbox" name="form-field-name" placeholder="Please Choose A Direction"
+									value={this.state.direction} options={this.state.allDirections} onChange={this.dirChange}/>
 							<Select className="selectbox" name="form-field-name" placeholder="Start Stop"
   								value={this.state.start_stop} options={this.state.station} onChange={this.startChange}/>
 							<Select className="selectbox" name="form-field-name" placeholder="Destination stop"
 								value={this.state.end_stop} options={this.state.station} onChange={this.endChange}/>
-							<div><Datetime onChange={this.timeOnchange} inputProps={{ placeholder: 'Choose The Time' }}/></div>
-                            <button type="button" className="btn btn-primary btn-blocky" onClick={this.routeSubmit}>Search</button>
+							<div><Datetime className="timepicker" onChange={this.timeOnchange} inputProps={{ placeholder: 'Choose The Time' }}/></div>
+                            <button type="button" className="route-button btn btn-primary btn-lg btn-block" onClick={this.routeSubmit}>Search</button>
 
                           </div>
                         //station view elements
