@@ -14,22 +14,25 @@ fi
 # Assign parameter one to a variable
 LineID=$1
 
+#print a new line:
+printf "%s\n\n" ""
+
 echo "Exporting files for bus LineID $LineID..."
 
 # Define file paths:
 pathLT="/home/student/data/clean_data/leave17.csv"
 path_trips_df="/home/student/data/clean_data/trips17.csv"
-pathBusTrips="/home/student/data_analytics/bus_lines/bus_"$LineID"_trips.csv"
-pathBusLT="/home/student/data_analytics/bus_lines/bus_"$LineID"_lt.csv"
-pathTripID="/home/student/data_analytics/bus_lines/bus_"$LineID"_tripID.csv"
-pathmerge="/home/student/data_analytics/bus_lines/bus_"$LineID"_merge.csv"
-
-
-
+pathBusTrips="/home/student/data_analytics/prediction_model/extracted/bus_"$LineID"_trips.csv"
+pathBusLT="/home/student/data_analytics/prediction_model/extracted/bus_"$LineID"_lt.csv"
+pathTripID="/home/student/data_analytics/prediction_model/extracted/bus_"$LineID"_tripID.csv"
+pathMerge="/home/student/data_analytics/prediction_model/extracted/bus_"$LineID"_merge.csv"
 
 
 # Call function to remove previously exported files
 delete_files
+
+# Call function to create the "exported" folder if it doesn't already exist
+create_folder
 
 # Call function to export trips file for LineID
 export_trips_file
@@ -39,14 +42,6 @@ export_TripID_file
 
 # Call function to export all TripIDs for LineID
 export_LeaveTimes_file
-
-# Call function to delete temporary files
-delete_temp_files
-
-#print a new line:
-printf "%s\n\n" ""
-# Call the function to print summary info
-print_file_sizes
 
 #print a new line:
 printf "%s\n\n" ""
@@ -69,4 +64,11 @@ sort_columns
 #print a new line:
 printf "%s\n\n" ""
 
-wc -l $pathmerge
+# Call the function to print summary info
+print_file_sizes
+
+# Delete temporary files
+delete_temp_files
+
+# Count the merged files's lines:
+# wc -l $pathmerge
