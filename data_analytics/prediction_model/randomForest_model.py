@@ -69,7 +69,7 @@ class RandomForestModel:
 
         # binary coding of start stops
         binary_start_stops = pd.get_dummies(self._df['start_point'])
-        binary_end_stops = pd.get_dummies(self._df['end_point'])
+        #binary_end_stops = pd.get_dummies(self._df['end_point'])
 
         # binary coding of weather
         binary_weather = pd.get_dummies(self._df['weather_description'])
@@ -82,7 +82,7 @@ class RandomForestModel:
 
         self._df = pd.concat(
             [self._df['duration'], df_continuous, binary_weather,
-             binary_start_stops, binary_end_stops, binary_dayofweek,
+             binary_start_stops, binary_dayofweek,
              binary_arrive_time], axis=1)
 
     def remove_outliers(self):
