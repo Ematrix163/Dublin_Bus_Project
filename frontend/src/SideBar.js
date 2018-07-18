@@ -13,6 +13,7 @@ import * as Datetime from 'react-datetime';
 
 class SideBar extends React.Component {
 
+
     render() {
         return (<div className="sidebar">
             <div className="logo">

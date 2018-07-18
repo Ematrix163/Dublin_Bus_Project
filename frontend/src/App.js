@@ -1,11 +1,8 @@
 import React, { Component } from 'react';
-
 import SideBar from './SideBar'
 import Map from './Map'
 import './css/App.css';
-
 import * as WebAPI from './WebAPI'
-
 import moment from 'moment';
 
 class App extends React.Component {
@@ -19,7 +16,7 @@ class App extends React.Component {
 		start_stop: '',
 		end_stop: '',
 		time: '',
-		prediction: {},
+		prediction: {"stopInfo":[]},
 		allDirections: [],
 		direction: ''
     }
@@ -84,7 +81,7 @@ class App extends React.Component {
 			// Call the api to predict the time
 			WebAPI.getTime(this.state.selectedOption.value, this.state.start_stop.value, this.state.end_stop.value, this.state.time, this.state.direction.value).then(r => {
 				if (r.status === 'success') {
-					console.log(1111);
+					console.log('success');
 					this.setState({prediction: r.data, showroute:true});
 				} else {
 					console.log('fail!');
@@ -123,7 +120,7 @@ class App extends React.Component {
 
 				<div className="main">
 					<div id="map">
-						<Map/>
+						<Map stops={this.state.prediction.stopInfo}/>
 					</div>
 				</div>
 			</div>

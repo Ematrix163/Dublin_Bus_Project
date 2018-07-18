@@ -2,7 +2,7 @@
 This is all api methods
 */
 
-const api = "http://localhost:8000/api"
+const api = "/api"
 
 const headers = {
   'Accept': 'application/json',
@@ -16,7 +16,7 @@ export const getAllRoute = () =>
 export const getStation = (routeid, direction) =>
 	fetch(`${api}/station?route=${routeid}&direction=${direction}`, {headers})
 		.then(res => res.json())
-		
+
 
 
 //Get different directions
