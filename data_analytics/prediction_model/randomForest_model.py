@@ -23,8 +23,8 @@ class RandomForestModel:
         self._dir = self._df['direction'].iloc[1]
         self._output_file = str(self._lineID) + "_" + str(self._dir)
         # Drop all columns that aren't required features for training:
-        self.set_features()
         self.remove_outliers()
+        self.set_features()
         # X are the independent variables (features)
         self._X = self._df.drop(y, axis=1)
         # y is the Dependent variable (Target Feature)
@@ -69,7 +69,7 @@ class RandomForestModel:
 
         # binary coding of start stops
         binary_start_stops = pd.get_dummies(self._df['start_point'])
-        #binary_end_stops = pd.get_dummies(self._df['end_point'])
+        binary_end_stops = pd.get_dummies(self._df['end_point'])
 
         # binary coding of weather
         binary_weather = pd.get_dummies(self._df['weather_description'])
@@ -82,10 +82,11 @@ class RandomForestModel:
 
         self._df = pd.concat(
             [self._df['duration'], df_continuous, binary_weather,
-             binary_start_stops, binary_dayofweek,
+             binary_start_stops, binary_end_stops, binary_dayofweek,
              binary_arrive_time], axis=1)
 
     def remove_outliers(self):
+        self._df = self._df[self._df.month == 4]
         self._df = self._df[self._df.duration < 3000]
 
     # Split the data-frame into the train x, train y, test x and test y sets:
@@ -96,7 +97,7 @@ class RandomForestModel:
 
     # Initialize the random forest model:
     def initialize_model(self):
-        self._rf = RandomForestRegressor(random_state=0, n_estimators=80, n_jobs=-1)
+        self._rf = RandomForestRegressor(random_state=0, n_estimators=20, n_jobs=-1)
         self._rf.fit(self._df_train_X, self._df_train_y.values.ravel())
 
     # gets the results for the regression model
@@ -109,10 +110,10 @@ class RandomForestModel:
         joblib.dump(self._rf, self._output_file_path + self._output_file + ".pkl")
 
 
-"""
+
 # Define inputs for creation of instance
 clean_file_path = '/home/student/data_analytics/clean_files/66_1.csv'
-output_file_path = '/home/student/data_analytics/prediction_model/pickle_files/'
+output_file_path = '/home/student/data_analytics/prediction_model/'
 y = 'duration'
 
 # Create instance
@@ -124,4 +125,3 @@ print(instance._scoreTrain)
 print(instance._scoreTest)
 instance.save_model()
 print("finished")
-"""

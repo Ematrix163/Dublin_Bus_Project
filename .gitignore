@@ -11,8 +11,11 @@ data_analytics/clean_files/*
 data_analytics/prediction_model/pickle_files/
 
 
-Ignore all log files in repository
+# Ignore all log files in repository
 *.logs
+
+# Ignore all pkl files 
+*.pkl
 
 # Ignore all hidden files in repository
 .*
