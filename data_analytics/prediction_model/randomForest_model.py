@@ -6,6 +6,7 @@ import numpy as np
 import math
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.externals import joblib
+from sklearn.metrics import accuracy_score
 
 
 class RandomForestModel:
@@ -97,7 +98,7 @@ class RandomForestModel:
 
     # Initialize the random forest model:
     def initialize_model(self):
-        self._rf = RandomForestRegressor(random_state=0, n_estimators=20, n_jobs=-1)
+        self._rf = RandomForestRegressor(random_state=0, n_estimators=20, max_features=10, max_depth=75, min_samples_split=5, n_jobs=-1)
         self._rf.fit(self._df_train_X, self._df_train_y.values.ravel())
 
     # gets the results for the regression model
@@ -121,6 +122,7 @@ instance = RandomForestModel(clean_file_path, output_file_path, y)
 instance.split_df()
 instance.initialize_model()
 instance.get_results()
+#print('Accuracy',instance._accuracy)
 print(instance._scoreTrain)
 print(instance._scoreTest)
 instance.save_model()
