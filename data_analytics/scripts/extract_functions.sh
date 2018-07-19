@@ -126,9 +126,9 @@ add_unique_columns () {
 merge_files () {
 
     echo "Merging files"
-    sort -t , -k 10,10 $pathBusLT > sort1.csv
-    sort -t , -k 10,10 $pathBusTrips > sort2.csv
-    join -t',' -j1 10 -j2 10 sort1.csv sort2.csv -a1 > $pathMerge
+    sort -t , -k 10,10 $pathBusLT > tmp && mv tmp $pathBusLT
+    sort -t , -k 10,10 $pathBusTrips > tmp && mv tmp $pathBusTrips
+    join -t',' -j1 10 -j2 10 $pathBusLT $pathBusTrips -a1 > $pathMerge
     echo "Copy header from last line of file"
     header=$(tail -n 1 $pathMerge)
 
