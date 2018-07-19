@@ -5,6 +5,9 @@ import './css/App.css';
 import * as WebAPI from './WebAPI'
 import moment from 'moment';
 
+import SweetAlert from 'sweetalert2-react';
+
+
 class App extends React.Component {
 
 	state = {
@@ -18,7 +21,8 @@ class App extends React.Component {
 		time: '',
 		prediction: {"stopInfo":[]},
 		allDirections: [],
-		direction: ''
+		direction: '',
+		show: false
     }
 
 
@@ -33,7 +37,7 @@ class App extends React.Component {
 	// When user Choose different route, the directions should be updated
 	routeChange = (val) => {
 		if (val) {
-			this.setState({selectedOption:val})
+			this.setState({selectedOption:val, start_stop:'', end_stop:'', direction:''})
 			WebAPI.getDirection(val.value).then(r => {
 				this.setState({allDirections: [{label: r.dir1, value: 1},{label: r.dir2, value: 2}]});
 			})
@@ -49,10 +53,9 @@ class App extends React.Component {
 			WebAPI.getStation(this.state.selectedOption.value, val.value).then(s => {
 				if (s['status'] === "success") {
 					let data = s.data;
-					data.map(each => {temp.push({value:each.true_stop_id, label:each.stop_name})});
+					data.map(each => {temp.push({value:each.true_stop_id, label:each.stop_name, lat:each.stop_lat, lng: each.stop_long, name: each.stop_name})});
 					this.setState({station: temp});
 				}
-
 			})
 		}
 	}
@@ -81,14 +84,13 @@ class App extends React.Component {
 			// Call the api to predict the time
 			WebAPI.getTime(this.state.selectedOption.value, this.state.start_stop.value, this.state.end_stop.value, this.state.time, this.state.direction.value).then(r => {
 				if (r.status === 'success') {
-					console.log('success');
-					this.setState({prediction: r.data, showroute:true});
+					this.setState({prediction: r.data, showroute:true, view:'result'});
 				} else {
-					console.log('fail!');
+
 				}
 			});
 		} else {
-			console.log('error');
+			this.setState({show:true})
 		}
 	}
 
@@ -97,6 +99,7 @@ class App extends React.Component {
 		return (
 			<div className="base-container">
 				<SideBar
+					search={this.state.search}
 					view={this.state.view}
 					showroute={this.state.showroute}
 					routes={this.state.routes}
@@ -117,10 +120,18 @@ class App extends React.Component {
 					timeOnchange={this.timeOnchange}
 					/>
 
+					<SweetAlert
+	        			show={this.state.show}
+						type='error'
+	        			title="Please fill out the form!"
+	        			onConfirm={() => this.setState({ show: false })}
+	      			/>
 
 				<div className="main">
 					<div id="map">
-						<Map stops={this.state.prediction.stopInfo}/>
+						<Map
+							stops={this.state.prediction.stopInfo}
+							station={this.state.station}/>
 					</div>
 				</div>
 			</div>

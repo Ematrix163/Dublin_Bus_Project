@@ -2,7 +2,7 @@
 This is all api methods
 */
 
-const api = "/api"
+const api = "http://localhost:8000/api"
 
 const headers = {
   'Accept': 'application/json',
