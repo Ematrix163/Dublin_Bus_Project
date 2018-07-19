@@ -16,8 +16,9 @@ class cleanFile:
         # Creates df upon instance initialization:
         self._df = pd.read_csv(self._file_path, delimiter=',')
         self._weatherdf = pd.read_csv(weather_file, delimiter=',')
-        self.drop_attributes()
+        self.drop_weather_attributes()
         self.isolate_direction()
+        #self.isolate_one_month()
         self._lineID = self._df['LineID'].iloc[1]
         self._dir = self._df['Direction'].iloc[1]
         self._output_file_name = str(self._lineID) + "_" + str(self._dir)
@@ -28,7 +29,7 @@ class cleanFile:
         self._result = None
 
     # keep only the weather features needed in model
-    def drop_attributes(self):
+    def drop_weather_attributes(self):
 
         features = ['dt', 'temp', 'pressure', 'humidity', 'wind_speed', 'weather_description', 'clouds_all', 'wind_deg']
         self._weatherdf = self._weatherdf[features]
@@ -37,6 +38,9 @@ class cleanFile:
     def isolate_direction(self):
 
         self._df = self._df.loc[(self._df['Direction'] == self._direction)]
+
+    def isolate_one_month(self):
+        self._df = self._df[self._df.month == 4]
 
     # Creating the target feature duration and merging in the weather file
     def create_model_file(self):
@@ -90,8 +94,6 @@ class cleanFile:
             self._r = pd.merge_asof(self._a, self._weatherdf.sort_values('dt'), on="dt", direction='nearest')
 
             self._result = pd.concat([self._r, self._result], sort = True)
-
-
 
     # save result to a csv file
     def save_result(self):
