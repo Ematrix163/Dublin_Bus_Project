@@ -23,9 +23,9 @@ class RouteIdView(APIView):
 class RoutesStopidView(APIView):
     def get(self, request):
         routeid = request.GET.get("route", "").lower()
-        print(routeid)
         direction = request.GET.get("direction", "")
         path = settings.STATICFILES_DIRS[0] + '/stopSeq/' + routeid + '_' + direction + '.json'
+
         with open(path, 'r') as f:
             data = json.load(f)
         allkeys = list(data.keys())
@@ -35,7 +35,7 @@ class RoutesStopidView(APIView):
         # Sort the result by program number
         length = len(result)
         for i in range(length):
-            for j in range(i, length-1):
+            for j in range(i, length):
                 if data[str(result[i]['true_stop_id'])] > data[str(result[j]['true_stop_id'])]:
                     result[i], result[j] = result[j], result[i]
         return Response({"status":"success","data": result})
@@ -47,9 +47,7 @@ class DirectionView(APIView):
         routeid = request.GET.get("routeid", "").lower()
         with open(settings.STATICFILES_DIRS[0]+'/stopSeq/directions.json', 'r') as f:
             data = json.load(f)
-        print(data)
         result = data[str(routeid)]
-
         return Response(result)
 
 
@@ -65,6 +63,7 @@ class PredictTimeView(APIView):
         keys = allkeys[start_index:end_index + 1]
         return keys
 
+
     def get(self, request):
         # Get the request paramaters
         routeid = request.GET.get("routeid", "").lower()
@@ -72,15 +71,12 @@ class PredictTimeView(APIView):
         end_stop = request.GET.get("end_stop", "")
         time = int(request.GET.get("datetime", ""))
         direction = str(request.GET.get("direction", ""))
-
         # Inilize the dataframe
         column_seq = ColumnSequence.objects.values_list('number_'+ routeid, flat=True)
         to_predict = pd.DataFrame(columns=column_seq, index=[0])
         to_predict.iloc[0] = [0] * len(column_seq)
-
         # Get the weather from the database
         weather = Forecastweather.objects.all().order_by('dt').values('dt','temp','clouds_all', 'wind_speed', 'wind_deg', 'pressure', 'humidity')
-
         # Select all continuos features
         continuous_list = ['temp', 'clouds_all', 'wind_speed', 'wind_deg', 'pressure', 'humidity']
         # Find the nearest time
@@ -122,7 +118,6 @@ class PredictTimeView(APIView):
         except ValueError:
             # If the bus is not in running time
             return Response({"status":"fail", "message":"Sorry, the bus is not in service at that time!"})
-
         total_time = int(total_time/60)
         result = {
             "status":"success",
