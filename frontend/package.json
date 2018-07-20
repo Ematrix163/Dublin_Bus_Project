@@ -12,6 +12,7 @@
     "react-google-maps": "^9.4.5",
     "react-moment": "^0.7.9",
     "react-router": "^4.3.1",
+    "react-router-dom": "^4.3.1",
     "react-scripts": "1.1.4",
     "react-select": "^1.2.1",
     "sweetalert2": "^7.25.6",

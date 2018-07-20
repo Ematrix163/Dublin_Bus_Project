@@ -36,6 +36,11 @@
     flex: 1;
 }
 
+.header {
+	width: 100%;
+	height: 60px;
+	background-color: rgb(31,48,76);
+}
 
 .menu {
     width: 100%;
@@ -45,9 +50,26 @@
 
 #map {
     width: 100%;
-    height: 100%;
+    height: calc(100vh - 60px);
 }
 
+
+.navigator {
+	color: rgb(120,133,155);
+	list-style-type: none;
+	margin: 0;
+}
+
+.navigator li {
+	color: rgb(212,212,212);
+	padding: 20px 0 0 30px;
+	float: left;
+}
+
+.navigator li:hover {
+	color: white;
+	cursor: pointer;
+}
 
 .sign-button {
     position: absolute;

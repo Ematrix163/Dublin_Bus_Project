@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import SideBar from './SideBar'
+import Login from './Login'
 import Map from './Map'
 import './css/App.css';
 import * as WebAPI from './WebAPI'
 import moment from 'moment';
 
 import SweetAlert from 'sweetalert2-react';
+import { Link, Route } from 'react-router-dom'
 
 
 class App extends React.Component {
@@ -97,43 +99,54 @@ class App extends React.Component {
 
 	render() {
 		return (
-			<div className="base-container">
-				<SideBar
-					search={this.state.search}
-					view={this.state.view}
-					showroute={this.state.showroute}
-					routes={this.state.routes}
-					station={this.state.station}
-					selectedOption={this.state.selectedOption}
-					startStop={this.state.start_stop}
-					endStop={this.state.end_stop}
-					time={this.state.time}
-					prediction={this.state.prediction}
-					allDirections={this.state.allDirections}
-					direction={this.state.direction}
-					routeChange={this.routeChange}
-					startChange={this.startChange}
-					endChange={this.endChange}
-					switchView={this.switchView}
-					dirChange={this.dirChange}
-					routeSubmit={this.routeSubmit}
-					timeOnchange={this.timeOnchange}
-					/>
+		<div>
+			<Route exact path="/" render={() => (
+				<div className="base-container">
+					<SideBar
+						search={this.state.search}
+						view={this.state.view}
+						showroute={this.state.showroute}
+						routes={this.state.routes}
+						station={this.state.station}
+						selectedOption={this.state.selectedOption}
+						startStop={this.state.start_stop}
+						endStop={this.state.end_stop}
+						time={this.state.time}
+						prediction={this.state.prediction}
+						allDirections={this.state.allDirections}
+						direction={this.state.direction}
+						routeChange={this.routeChange}
+						startChange={this.startChange}
+						endChange={this.endChange}
+						switchView={this.switchView}
+						dirChange={this.dirChange}
+						routeSubmit={this.routeSubmit}
+						timeOnchange={this.timeOnchange}
+						/>
 
-					<SweetAlert
-	        			show={this.state.show}
-						type='error'
-	        			title="Please fill out the form!"
-	        			onConfirm={() => this.setState({ show: false })}
-	      			/>
-
-				<div className="main">
-					<div id="map">
-						<Map
-							stops={this.state.prediction.stopInfo}
-							station={this.state.station}/>
+						<SweetAlert
+							show={this.state.show}
+							type='error'
+							title="Please fill out the form!"
+							onConfirm={() => this.setState({ show: false })}
+						/>
+						<div className="main">
+						<div className="header">
+							<ul className="navigator">
+								<Link to='/login'><li>Login In</li></Link>
+								<Link to='/'><li>About Us</li></Link>
+							</ul>
+						</div>
+						<div id="map">
+							<Map stops={this.state.prediction.stopInfo} station={this.state.station}/>
+						</div>
+						</div>
 					</div>
-				</div>
+				)}/>
+
+			<Route exact path="/login" render={() => (
+					<Login/>
+				)}/>
 			</div>
 		)
 	}
