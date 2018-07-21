@@ -1,8 +1,8 @@
 #!/bin/bash
 
 pathDf="/home/student/data/db_historic/rt_trips_2017_I_DB.txt"
-outputPath="/home/student/data_analytics/prediction_model/extraction_job_master"
-outputFile="/home/student/data_analytics/prediction_model/extraction_job_master/bus_lineIDs.csv"
+outputPath="/home/student/data_analytics/prediction_model/extracted/tmp"
+outputFile="/home/student/data_analytics/prediction_model/extracted/tmp/bus_lineIDs.csv"
 
 # Make directory (-p does not output error if it already exists)
 mkdir -p $outputPath
