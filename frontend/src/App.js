@@ -63,6 +63,7 @@ class App extends React.Component {
 	}
 
 
+
 	// If time change, modify the time state
 	timeOnchange = (val) => {
 		let time = val.format();
@@ -83,6 +84,7 @@ class App extends React.Component {
 	routeSubmit = () => {
 		// Check all these fields are not blank
 		if (this.state.selectedOption && this.state.start_stop && this.state.end_stop && this.state.time) {
+			this.setState({view:'loading'});
 			// Call the api to predict the time
 			WebAPI.getTime(this.state.selectedOption.value, this.state.start_stop.value, this.state.end_stop.value, this.state.time, this.state.direction.value).then(r => {
 				if (r.status === 'success') {
@@ -133,7 +135,7 @@ class App extends React.Component {
 						<div className="main">
 						<div className="header">
 							<ul className="navigator">
-								<Link to='/login'><li>Login In</li></Link>
+								<Link to='/login'><li>Sign In</li></Link>
 								<Link to='/'><li>About Us</li></Link>
 							</ul>
 						</div>

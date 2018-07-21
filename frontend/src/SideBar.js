@@ -63,7 +63,7 @@ class SideBar extends React.Component {
 
             case 'result':
                 left_content = <div className="sidebar">
-					<div className="route-result"><i className="fas fa-arrow-left" onClick={this.props.switchView.bind(this,'route')}></i><div className='back'>Back</div></div>
+					<div className="route-result"><i className="fas fa-arrow-left" onClick={this.props.switchView.bind(this,'route')}></i></div>
                     <div className="sidebar-container">
                         <ShowRoute
 							prediction={this.props.prediction}
@@ -74,6 +74,17 @@ class SideBar extends React.Component {
                     </div>
                 </div>
                 break;
+
+			case 'loading':
+				left_content =
+							<div className="sidebar">
+								<div class="cssload-thecube">
+									<div class="cssload-cube cssload-c1"></div>
+									<div class="cssload-cube cssload-c2"></div>
+									<div class="cssload-cube cssload-c4"></div>
+									<div class="cssload-cube cssload-c3"></div>
+								</div>
+							</div>
 
         }
 

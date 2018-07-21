@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.views.generic import TemplateView
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, re_path
 
 
 
@@ -29,6 +29,11 @@ urlpatterns = [
     path('api/station', RoutesStopidView.as_view()),
     path('api/direction',DirectionView.as_view()),
     path('api/time', PredictTimeView.as_view())
+]
+
+# This is to avoid the conflicts with react router
+urlpatterns += [
+    re_path(r'^.*/', TemplateView.as_view(template_name="index.html"), name='base')
 ]
 
 urlpatterns += staticfiles_urlpatterns()
