@@ -14,7 +14,8 @@ data_analytics/prediction_model/pickle_files/
 *.logs
 *.pkl
 *.pyc
-
+*.csv
+*.txt
 # Ignore all hidden files in repository
 .*
 
