@@ -7,10 +7,25 @@ class ShowRoute extends React.Component {
 	render() {
 		let start_date = new Date(this.props.time*1000);
 		let start_minutes = "0" + start_date.getMinutes();
-		let start_formattedTime = start_date.getHours() + ':' + start_minutes.substr(-2)
+		let start_hours = start_date.getHours();
+		// Fix the Bug of timepicker
+		if (start_hours == 0)
+			start_hours = 12;
+		else if (start_hours == 12)
+			start_hours = 12;
+			
+		let start_formattedTime = start_hours + ':' + start_minutes.substr(-2)
 		let end_date = new Date((this.props.time + this.props.prediction.totalDuration*60)*1000);
+		let end_hours = start_date.getHours();
+
+		// Fix the Bug of timepicker
+		if (end_hours == 0)
+			end_hours = 12;
+		else if (end_hours == 12)
+			end_hours = 12;
 		let end_minutes = "0" + end_date.getMinutes();
-		let end_formattedTime = end_date.getHours() + ':' + end_minutes.substr(-2)
+		let end_formattedTime = end_hours + ':' + end_minutes.substr(-2)
+
 		return (
 			<div className="show-route">
 				<p><i className="fas fa-bus"></i><span className="start"> Bus Line: {this.props.routeid}</span></p>

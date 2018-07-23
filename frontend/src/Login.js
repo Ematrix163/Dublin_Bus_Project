@@ -8,9 +8,7 @@ class Login extends React.Component {
 
 	render() {
 		return (
-
 			<div className="limiter">
-
 			<div className="container-login100">
 			<div className="wrap-login100">
 
