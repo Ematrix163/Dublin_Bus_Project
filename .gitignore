@@ -10,16 +10,12 @@ data_analytics/bus_lines/*
 data_analytics/clean_files/*
 data_analytics/prediction_model/pickle_files/
 
-# Ignore all log files in repository
+# Ignore file extensions
 *.logs
-
-
-
-
-
-# Ignore all pkl files 
 *.pkl
-
+*.pyc
+*.csv
+*.txt
 # Ignore all hidden files in repository
 .*
 
