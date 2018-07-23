@@ -60,10 +60,10 @@ else
         fi
 
 
-        #if [ $count -eq 2 ]; then
-        #echo "Count is two"
-        #exit
-        #fi
+        if [ $count -eq 2 ]; then
+            echo "Count is two"
+            exit
+        fi
 
     done
     # Print out all elements in array
