@@ -22,9 +22,9 @@ echo "Extracting files for bus LineID $LineID..."
 # Define file paths:
 pathLT="/home/student/data/clean_data/leave17.csv"
 path_trips_df="/home/student/data/clean_data/trips17.csv"
-pathBusTrips="/home/student/data_analytics/prediction_model/extracted/bus_"$LineID"_trips.csv"
-pathBusLT="/home/student/data_analytics/prediction_model/extracted/bus_"$LineID"_lt.csv"
-pathTripID="/home/student/data_analytics/prediction_model/extracted/bus_"$LineID"_tripID.csv"
+pathBusTrips="/home/student/data_analytics/prediction_model/extracted/tmp/bus_"$LineID"_trips.csv"
+pathBusLT="/home/student/data_analytics/prediction_model/extracted/tmp/bus_"$LineID"_lt.csv"
+pathTripID="/home/student/data_analytics/prediction_model/extracted/tmp/bus_"$LineID"_tripID.csv"
 pathMerge="/home/student/data_analytics/prediction_model/extracted/bus_"$LineID"_merge.csv"
 
 
