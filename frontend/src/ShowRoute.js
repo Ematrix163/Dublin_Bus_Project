@@ -1,5 +1,4 @@
 import React from 'react';
-import start from './image/start.png'
 
 // function to show the user the route between stations with in between stations shown also
 class ShowRoute extends React.Component {
@@ -9,19 +8,19 @@ class ShowRoute extends React.Component {
 		let start_minutes = "0" + start_date.getMinutes();
 		let start_hours = start_date.getHours();
 		// Fix the Bug of timepicker
-		if (start_hours == 0)
+		if (start_hours === 0)
 			start_hours = 12;
-		else if (start_hours == 12)
+		else if (start_hours === 12)
 			start_hours = 12;
-			
+
 		let start_formattedTime = start_hours + ':' + start_minutes.substr(-2)
 		let end_date = new Date((this.props.time + this.props.prediction.totalDuration*60)*1000);
 		let end_hours = start_date.getHours();
 
 		// Fix the Bug of timepicker
-		if (end_hours == 0)
+		if (end_hours === 0)
 			end_hours = 12;
-		else if (end_hours == 12)
+		else if (end_hours === 12)
 			end_hours = 12;
 		let end_minutes = "0" + end_date.getMinutes();
 		let end_formattedTime = end_hours + ':' + end_minutes.substr(-2)

@@ -1,9 +1,7 @@
 import React from 'react';
 import ShowRoute from './ShowRoute'
-import * as WebAPI from './WebAPI'
 import logo from './image/logo.jpg'
 import SearchBox from './StandaloneSearchBox'
-import DatePicker from 'react-datepicker';
 import moment from 'moment';
 import 'react-datepicker/dist/react-datepicker.css';
 import Select from 'react-select';
@@ -31,7 +29,7 @@ class SideBar extends React.Component {
                             <Select className="selectbox" name="form-field-name" placeholder="Please Choose A Direction" value={this.props.direction} options={this.props.allDirections} onChange={this.props.dirChange}/>
                             <Select className="selectbox" name="form-field-name" placeholder="Start Stop" value={this.props.startStop} options={this.props.station} onChange={this.props.startChange}/>
                             <Select className="selectbox" name="form-field-name" placeholder="Destination stop" value={this.props.endStop} options={this.props.station} onChange={this.props.endChange}/>
-                            <Datetime className="timepicker" onChange={this.props.timeOnchange} inputProps={{placeholder: 'Choose The Time'}}/>
+                            <Datetime className="timepicker" onChange={this.props.timeOnchange} inputProps={{placeholder: '                        Choose The Time'}}/>
                             <button type="button" className="route-button btn btn-primary btn-lg btn-block" onClick={this.props.routeSubmit}>Search</button>
                         </div>
                     </div>
@@ -49,13 +47,11 @@ class SideBar extends React.Component {
                     </div>
                     <div className="sidebar-container">
                         <div className="form">
-                            <form>
-                                <SearchBox text='Please enter your location'/>
-                                <SearchBox text='Please enter your destination'/> {/* Calender for user to choose date */}
-                                <div><Datetime inputProps={{placeholder: 'Choose The Time'}}/></div>
-                                <br/>
-                                <button type="submit" className="btn btn-block btn-primary">Submit</button>
-                            </form>
+                            <SearchBox locChange={this.props.startLocChange} text='Please enter your location'/>
+                            <SearchBox locChange={this.props.destLocChange} text='Please enter your destination'/>
+                            <div><Datetime inputProps={{placeholder: 'Choose The Time'}}/></div>
+                            <br/>
+                            <button className="btn btn-block btn-primary" onClick={this.props.findRoute}>Submit</button>
                         </div>
                     </div>
                 </div>;

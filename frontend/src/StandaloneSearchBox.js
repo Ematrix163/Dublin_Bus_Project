@@ -1,3 +1,5 @@
+/*global google*/
+
 import React, {Component} from 'react';
 
 const { compose, withProps, lifecycle } = require("recompose");
@@ -16,15 +18,14 @@ const SearchBox = compose(
       const refs = {}
       this.setState({
         places: [],
-		// defaultBounds: {ne: {lat: 52.64, lng: -6.6}, sw: {lat: 53.65, lng: -6.0}},
+		
         onSearchBoxMounted: ref => {
           refs.searchBox = ref;
         },
         onPlacesChanged: () => {
           const places = refs.searchBox.getPlaces();
-          this.setState({
-            places,
-          });
+          this.setState({places,});
+		  this.props.locChange(places);
         },
       })
     },
@@ -55,13 +56,7 @@ const SearchBox = compose(
       />
     </StandaloneSearchBox>
     <ol>
-      {props.places.map(({ place_id, formatted_address, geometry: { location } }) =>
-        <li key={place_id}>
-          {formatted_address}
-          {" at "}
-          ({location.lat()}, {location.lng()})
-        </li>
-      )}
+
     </ol>
   </div>
 );
