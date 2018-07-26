@@ -86,8 +86,8 @@ DATABASES = {
         'NAME': 'dublinBus',
         'USER': 'front_end',
         'PASSWORD': '12345',
-		'HOST': 'localhost',
-		'PORT': '3333'
+		'HOST': '127.0.0.1',
+		'PORT': '3306'
     }
 }
 

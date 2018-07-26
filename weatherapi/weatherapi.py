@@ -1,3 +1,7 @@
+# This module uses an api request to get the current weather information  from openweather map. It is scheduled to run
+# every hour. It writes this information to the database table currentWeather by calling the weather_writer function
+# in the module dbconnect.py. 
+
 import requests
 import dbconnect
 from time import sleep
@@ -26,7 +30,7 @@ class Weather:
         self.dictionary=None
 
     def api_request(self):
-        url = "http://api.openweathermap.org/data/2.5/weather?id=" + self.cityid + "&APPID=" + self.key + "&units=imperial"
+        url = "http://api.openweathermap.org/data/2.5/weather?id=" + self.cityid + "&APPID=" + self.key
         response = requests.get(url)
         print("Status code: ", response.status_code)
         self.dictionary = response.json()

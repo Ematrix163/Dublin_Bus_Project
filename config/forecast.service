@@ -1,0 +1,19 @@
+[unit]
+Description=Start forecast api service
+
+[Service]
+WorkingDirectory=/home/student/weatherapi/
+Type=simple
+Restart=always
+RestartSec=30
+UMask=022
+ExecStart=/home/student/anaconda3/bin/python3 forecast.py
+# Killmode specifies how processes of this unit shall be killed - control-group sends kill signal to all processes in control-group
+KillMode=control-group
+
+[Install]
+# This section is optional and is used to define the behavior or a unit if it is enabled or disabled
+
+# a directory called multi-user.target.wants will be created within /etc/systemd/system (if not already available)
+# and a symbolic link to the current unit will be placed within
+WantedBy=multi-user.target

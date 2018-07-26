@@ -1,52 +1,83 @@
 #!/bin/bash
 
+DATE='date +%Y/%m/%d:%H:%M:%S'
+# log file
+
+function echo_log {
+    echo `$DATE`" $1" >> $log_file
+}
+
 
 extract_lineIDs="/home/student/data_analytics/scripts/extract_lineIDs.sh"
 extract_bus_line="/home/student/data_analytics/scripts/extract_bus_line.sh"
 temp_path="/home/student/data_analytics/prediction_model/extracted/tmp/"
-lineID_file="$temp_path/bus_lineIDs.csv"
-merge_finished="$temp_path/merge_done.csv"
+lineID_file="$temp_path/bus_lineIDs.txt"
+merge_done="$temp_path/merge_done.txt"
+log="/home/student/data_analytics/scripts/logs/"
+log_file="$log/job_master.log"
 
 # Make directory (-p does not output error if it already exists)
 mkdir -p $temp_path
-touch $merge_finished
-    if [ -f $lineID_file ]
-    then
+mkdir -p $log
+
+if [ -f $lineID_file ]; then
         rm -f $lineID_file;
-    fi
+fi
+
+if [ ! -f $merge_done ]; then
+        touch $merge_done
+fi
 
 # Run the extract_lineIDs.sh script (as another process)
 bash $extract_lineIDs ; reply=$?
-echo "REPLY=${reply}"
+
+# Echo the response from executing the extract_lineID script
+# echo "REPLY=${reply}"
+
 # if output is not equal to zero print "Error", else
-if [ $reply -ne 0 ]; then
+if [[ $reply -ne 0 ]]; then
     echo "Error"
     exit 1
 
+# Create an array with bus LineIDs, for each elem in array execute extract_bus_line.sh
 else
     count=$(wc -l <$lineID_file)
-    echo "Total number of LineIDs:$count";
+    echo_log "Total number of LineIDs:$count";
+
     # Create an array (a) from file
-    readarray a < $lineID_file
+    readarray a < $lineID_file$log_
 
     # Print first line in array
-    printf "line 1: %s\n" "${a[0]}"
+    # printf "line 1: %s\n" "${a[0]}"
+
     # Delete the LineID file
     rm $lineID_file
-
-    echo "testing:"
-    for index in "${a[@]}";
+    count=0
+    for elem in "${a[@]}";
     do
-        echo $index
-        if grep -F "$index" $merge_finished; then
-            echo "Found!"
-            exit 1
+
+        merged=$(ack -wc $elem $merge_done)
+        # If element already in the $merge_done file, skip
+        if [[ merged -gt 0 ]]; then
+            echo_log "Bus LineID $elem has already been processed"
+            true
         else
-            bash $extract_bus_line $index
-            echo "Horray!"
-
-
+            # Execute script to extract bus line:
+            echo "Extracting bus line ID "$elem"..."
+            bash $extract_bus_line $elem >> $log/extraction_output.log 2>&1
+            # prepend LineID to $merge done file
+            printf "\n$elem" >> $merge_done
+            echo_log "Bus LineID $elem extracted"
+            echo -en "\e[1A"; echo -e "\e[0K\rBus LineID "$elem"extracted"
+            ((count++))
         fi
+
+
+        #if [ $count -eq 2 ]; then
+        #    echo "Count is two"
+        #    exit
+        #fi
+
     done
     # Print out all elements in array
     # echo "${a[@]}"
@@ -54,4 +85,4 @@ else
 fi
 
 #
-exit
+exit 0
