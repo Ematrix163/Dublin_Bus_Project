@@ -1,3 +1,8 @@
+# This module uses an api request to get a 5-day weather forecast from openweather map. It is scheduled to run
+# every 3 hours. It writes this information to the database table forecastWeather by calling the forecast_writer function
+# in the module dbconnect.py. The weather forecast is in 3-hour blocks.
+
+
 import requests
 import json
 import sys
@@ -16,6 +21,7 @@ logging.basicConfig(filename='forecastApi.log',level=logging.INFO, format='%(asc
 
 def connecting_method():
     """Creates an instance of class forecast. Sends api key and city id """
+    print("connecting method called")
     apikey='66040549d2cc38abfa2a0be1019ad3b5'
     cityid='2964574'
     return Forecast(apikey,cityid)
@@ -28,7 +34,7 @@ class Forecast:
         self.dictionary=None
 
     def api_request(self):
-        url = "http://api.openweathermap.org/data/2.5/forecast?id=" + self.cityid + "&APPID=" + self.key + "&units=imperial"
+        url = "http://api.openweathermap.org/data/2.5/forecast?id=" + self.cityid + "&APPID=" + self.key
         response = requests.get(url)
         print("Status code: ", response.status_code)
         print("Response: ", response.text)
@@ -80,7 +86,10 @@ class Forecast:
 
 
 
-forecast = connecting_method()
-forecast.timer()
+if __name__ == '__main__':
+    forecast = connecting_method()
+    forecast.timer()
+
+
 
 
