@@ -21,7 +21,7 @@ class PredictionModel:
         self.remove_outliers()
         self.set_features()
         # normalise data
-        self._df = self._df.apply(zscore)
+        #self._df = self._df.apply(zscore)
         # X are the independent variables (features)
         self._X = self._df.drop(y, axis=1)
 	    #y is the Dependent variable (Target Feature)
@@ -107,12 +107,13 @@ class PredictionModel:
         self._y_predict = self._regression_model.predict(self._df_test_X)
         self._regression_model_mse = mean_squared_error(self._y_predict, self._df_test_y)
 
+
     def save_model(self):
         joblib.dump(self._regression_model, self._output_path + self._output_file + ".pkl")
 
     
 # Define inputs for creation of instance
-clean_file_path = '/home/student/data_analytics/clean_files/66_1.csv'
+clean_file_path = '/home/student/data_analytics/prediction_model/clean_files/66_1.csv'
 output_path = '/home/student/data_analytics/prediction_model/'
 y = 'duration'
 

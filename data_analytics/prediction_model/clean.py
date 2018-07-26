@@ -3,7 +3,7 @@ import numpy as np
 from typing import Any
 
 
-class cleanFile:
+class CleanFile:
 
     """Class that takes merged trips and leave times file and finds duration from one stop to another and merges with  historic weather data
     """
@@ -18,7 +18,6 @@ class cleanFile:
         self._weatherdf = pd.read_csv(weather_file, delimiter=',')
         self.drop_weather_attributes()
         self.isolate_direction()
-        #self.isolate_one_month()
         self._lineID = self._df['LineID'].iloc[1]
         self._dir = self._df['Direction'].iloc[1]
         self._output_file_name = str(self._lineID) + "_" + str(self._dir)
@@ -80,11 +79,12 @@ class cleanFile:
 
             # merge columns
             self._a = pd.concat(
-                [day_trip['LineID'], day_trip['Direction'], datetime, dayofweek, month, day, day_trip['ActualTime_Arr'], day_trip['StopPointID'],
+                [day_trip['LineID'], day_trip['Direction'], datetime, dayofweek, month, day, day_trip['ActualTime_Arr'],
+                 day_trip['StopPointID'],
                  end_point, time], axis=1)
             # Change the name of columns
-            self._a.columns = ['lineid', 'direction', 'dt', 'dayofweek', 'month', 'day', 'arrive_time', 'start_point', 'end_point',
-                               'duration']
+            self._a.columns = ['lineid', 'direction', 'dt', 'dayofweek', 'month', 'day', 'arrive_time', 'start_point',
+                               'end_point', 'duration']
             self._a.drop(self._a.tail(1).index, inplace=True)
 
             self._weatherdf = self._weatherdf.sort_values(by=['dt'])

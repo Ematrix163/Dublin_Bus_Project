@@ -21,7 +21,6 @@ class RandomForestModel:
         self._df = pd.read_csv(self._file_path, header=0, delimiter=',')
         # Create name for output file
         self._lineID = self._df['lineid'].iloc[1]
-        self._lineID = self._lineID.lower()
         self._dir = self._df['direction'].iloc[1]
         self._output_file = str(self._lineID) + "_" + str(self._dir)
         # Drop all columns that aren't required features for training:
@@ -71,11 +70,11 @@ class RandomForestModel:
         df_continuous = self._df[continuous]
 
         # binary coding of start stops
-        binary_start_stops = pd.get_dummies(self._df['start_point'])
-        binary_end_stops = pd.get_dummies(self._df['end_point'])
+        binary_start_stops = pd.get_dummies(self._df['start_point'], prefix='start_stop')
+        binary_end_stops = pd.get_dummies(self._df['end_point'], prefix='end_stop')
 
         # binary coding of weather
-        binary_weather = pd.get_dummies(self._df['weather_description'])
+        #binary_weather = pd.get_dummies(self._df['weather_description'])
 
         # binary Coding of dayofweek
         binary_dayofweek = pd.get_dummies(self._df['dayofweek'])
@@ -84,16 +83,12 @@ class RandomForestModel:
         binary_arrive_time = pd.get_dummies(self._df['arrive_time'].divide(1800).round())
 
         self._df = pd.concat(
-            [self._df['duration'], df_continuous, binary_weather,
+            [self._df['duration'], df_continuous,
              binary_start_stops, binary_end_stops, binary_dayofweek,
              binary_arrive_time], axis=1)
 
     def remove_outliers(self):
         self._df = self._df[self._df.duration < 3000]
-
-    # save the headers of df to csv file
-    def save_headers(self):
-        pd.DataFrame({"ColumnName": df.columns}).to_csv('/home/student/data_analytics/prediction_model/model_headers/header'+ self._output_file + '.csv' )
 
     # Split the data-frame into the train x, train y, test x and test y sets:
     def split_df(self):
@@ -115,6 +110,10 @@ class RandomForestModel:
 
     def save_model(self):
         joblib.dump(self._rf, self._output_file_path + self._output_file + ".pkl")
+
+    def save_features(self):
+        pd.DataFrame({"ColumnName": self._df.columns}).to_csv("/home/student/data_analytics/prediction_model/model_headers/headers_"+ self._output_file+".csv", index=False)
+
 
 
 '''
