@@ -19,7 +19,7 @@ from django.urls import path, re_path
 
 
 
-from api.views import RouteIdView, RoutesStopidView, PredictTimeView, DirectionView
+from api.views import RouteIdView, RoutesStopidView, PredictTimeView, DirectionView, LocationView
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 urlpatterns = [
@@ -28,7 +28,8 @@ urlpatterns = [
     path('api/allroutes', RouteIdView.as_view()),
     path('api/station', RoutesStopidView.as_view()),
     path('api/direction',DirectionView.as_view()),
-    path('api/time', PredictTimeView.as_view())
+    path('api/time', PredictTimeView.as_view()),
+    path('api/googleroute', LocationView.as_view())
 ]
 
 # This is to avoid the conflicts with react router

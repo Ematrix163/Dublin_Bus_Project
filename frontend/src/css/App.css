@@ -194,10 +194,18 @@
 	font-size: 15px;
 }
 
-.from-to {
-
+.from-to,
+.stop-detail {
 	font-size: 14px;
 	margin-bottom: 7px;
+	cursor: context-menu;
+}
+
+.stop-detail:hover {
+	color: green;
+	cursor: pointer;
+	font-family: Verdana, Geneva, sans-serif;
+	text-shadow: rgb(50, 205, 50) 1px 1px 6px;
 }
 
 .stop-name {

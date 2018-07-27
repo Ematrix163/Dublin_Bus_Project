@@ -21,10 +21,14 @@ class App extends React.Component {
 		start_stop: '',
 		end_stop: '',
 		time: '',
+		blink: '',
 		prediction: {"stopInfo":[]},
 		allDirections: [],
 		direction: '',
-		show: false
+		show: false,
+		start_loc: '',
+		dest_loc: '',
+		alert: ''
     }
 
 
@@ -46,7 +50,6 @@ class App extends React.Component {
 		}
 	}
 
-
 	//When user choose different directions, will show all related stops
 	dirChange = (val) => {
 		if (val) {
@@ -62,8 +65,6 @@ class App extends React.Component {
 		}
 	}
 
-
-
 	// If time change, modify the time state
 	timeOnchange = (val) => {
 		let time = val.format();
@@ -73,13 +74,10 @@ class App extends React.Component {
 
 	// If the start stop change
 	startChange = (val,a) => this.setState({start_stop:val})
-
 	// If the end stop change
 	endChange = (val) => this.setState({end_stop: val})
-
 	// When user choose another view
-    switchView = (value) => this.setState({view: value})
-
+    switchView = (value) => this.setState({view: value, station:[]})
 	// In route View, when user click submit button
 	routeSubmit = () => {
 		// Check all these fields are not blank
@@ -90,14 +88,44 @@ class App extends React.Component {
 				if (r.status === 'success') {
 					this.setState({prediction: r.data, showroute:true, view:'result'});
 				} else {
-
+					this.setState({view:'route', show:'false', alert:'Sorry, the bus is not in service at that time!'})
 				}
 			});
 		} else {
-			this.setState({show:true})
+			this.setState({show:true, alert:'Please fill out the form!'})
 		}
 	}
 
+
+	startLocChange = (places) => {
+		this.setState({start_loc: places[0].geometry.location})
+	}
+
+
+	destLocChange = (places) => {
+		this.setState({dest_loc: places[0].geometry.location})
+	}
+
+	findRoute = () => {
+		if (this.state.start_loc && this.state.dest_loc) {
+			WebAPI.getGoogleDirection(this.state.start_loc.lat(),this.state.start_loc.lng(),this.state.dest_loc.lat(),this.state.dest_loc.lng()).then(res => {
+				console.log(res);
+			})
+		} else {
+			this.setState({show:true});
+		}
+
+	}
+
+	handleOver = (id) => {
+		this.setState({blink:id});
+	}
+
+
+	handleOut = () => {
+		console.log('out');
+		this.setState({blink:''});
+	}
 
 	render() {
 		return (
@@ -124,12 +152,18 @@ class App extends React.Component {
 						dirChange={this.dirChange}
 						routeSubmit={this.routeSubmit}
 						timeOnchange={this.timeOnchange}
+						startLocChange={this.startLocChange}
+						destLocChange={this.destLocChange}
+						findRoute={this.findRoute}
+						handleOut={this.handleOut}
+						handleOver={this.handleOver}
 						/>
 
 						<SweetAlert
 							show={this.state.show}
 							type='error'
-							title="Please fill out the form!"
+							title= 'Oops!'
+							text={this.state.alert}
 							onConfirm={() => this.setState({ show: false })}
 						/>
 						<div className="main">
@@ -140,7 +174,14 @@ class App extends React.Component {
 							</ul>
 						</div>
 						<div id="map">
-							<Map stops={this.state.prediction.stopInfo} station={this.state.station}/>
+							<Map
+								stops={this.state.prediction.stopInfo}
+								station={this.state.station}
+								startLoc={this.state.start_loc}
+								destLoc={this.state.dest_loc}
+								view={this.state.view}
+								blink={this.state.blink}
+								/>
 						</div>
 						</div>
 					</div>

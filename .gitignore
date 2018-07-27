@@ -1,4 +1,4 @@
-
+﻿
 
 # Ignore specific folders
 anaconda3/
@@ -12,6 +12,13 @@ data_analytics/prediction_model/pickle_files/
 
 # Ignore file extensions
 *.logs
+
+
+# Ignore all csv files
+*.csv
+
+
+# Ignore all pkl files
 *.pkl
 *.pyc
 *.csv
