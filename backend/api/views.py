@@ -77,7 +77,7 @@ class PredictTimeView(APIView):
             return Response({"Status":"Fail", "msg":"Missing paramaters!"})
 
         # Inilize the dataframe
-        path = settings.STATICFILES_DIRS[0] + '\\headers\\headers_' + routeid + '_' + direction + '.csv'
+        path = settings.STATICFILES_DIRS[0] + '/headers/headers_' + routeid + '_' + direction + '.csv'
         with open(path, 'r') as f:
             temp = f.read().strip('\n')
             column_seq = temp.split('\n')
@@ -102,10 +102,10 @@ class PredictTimeView(APIView):
         to_predict['arrive_time_'+category_time] = 1
         to_predict['dayofweek_'+str(dayofweek)] = 1
         # Load the pkl file
-        model_path = settings.MODEL_URL + '\\model_' + routeid + '_' + direction + '.pkl'
+        model_path = settings.MODEL_URL + '/model_' + routeid + '_' + direction + '.pkl'
         clf = joblib.load(model_path)
         #Load the scaler file
-        scaler_path = settings.MODEL_URL + '\\scaler_' + routeid + '_' + direction + '.pkl'
+        scaler_path = settings.MODEL_URL + '/scaler_' + routeid + '_' + direction + '.pkl'
         sca = joblib.load(scaler_path)
         # Get All stops between these two stops
         stops = self.getInfo(start_stop, end_stop, routeid, direction=direction)
