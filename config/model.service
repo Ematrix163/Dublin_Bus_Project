@@ -1,13 +1,13 @@
 [unit]
-Description=Start forecast api service
+Description = This is a service to create prediction pickle files
 
 [Service]
-WorkingDirectory=/home/student/weatherapi/
+WorkingDirectory=/home/student/data_analytics/prediction_model/
 Type=simple
-Restart=on-failure
+Restart=always
 RestartSec=30
 UMask=022
-ExecStart=/home/student/anaconda3/bin/python3 forecast.py
+ExecStart=/home/student/anaconda3/bin/python3 run.py
 # Killmode specifies how processes of this unit shall be killed - control-group sends kill signal to all processes in control-group
 KillMode=control-group
 

@@ -13,19 +13,40 @@ class CleanFile:
         self._output_path = output_path
         self._weather = weather_file
         self._direction = direction
-        # Creates df upon instance initialization:
+        # Creates data frame upon instance initialization:
         self._df = pd.read_csv(self._file_path, delimiter=',')
+        # reads in weather file as a data frame
         self._weatherdf = pd.read_csv(weather_file, delimiter=',')
         self.drop_weather_attributes()
         self.isolate_direction()
+        # saving the line ID and direction to name files
         self._lineID = self._df['LineID'].iloc[1]
         self._dir = self._df['Direction'].iloc[1]
         self._output_file_name = str(self._lineID) + "_" + str(self._dir)
 
+        # defining variables involved in creating the file suitable for model
         self._u = None
-        self._a = None
-        self._r = None
         self._result = None
+
+        self.create_model_file()
+        self.save_result()
+
+    # Getter methods to return protected variables.
+    @property
+    def input_file_path(self):
+        return self._file_path
+
+    @property
+    def output_path(self):
+        return self._output_path
+
+    @property
+    def weather_file(self):
+        return self._weather
+
+    @property
+    def direction(self):
+        return self._direction
 
     # keep only the weather features needed in model
     def drop_weather_attributes(self):
@@ -35,13 +56,12 @@ class CleanFile:
 
     # only keep rows with the specified direction
     def isolate_direction(self):
+        if self._direction ==1 or self._direction ==2:
+            self._df = self._df.loc[(self._df['Direction'] == self._direction)]
+        else:
+            raise Exception('Direction must be either 1 or 2')
 
-        self._df = self._df.loc[(self._df['Direction'] == self._direction)]
-
-    def isolate_one_month(self):
-        self._df = self._df[self._df.month == 4]
-
-    # Creating the target feature duration and merging in the weather file
+    # Creating target feature duration, creating features to be used in model (weather features, dayofweek, month etc)
     def create_model_file(self):
 
         # creating a new column which is a combination of the unique keys
@@ -78,28 +98,30 @@ class CleanFile:
             end_point.drop(end_point.tail(1).index, inplace=True)
 
             # merge columns
-            self._a = pd.concat(
+            merge = pd.concat(
                 [day_trip['LineID'], day_trip['Direction'], datetime, dayofweek, month, day, day_trip['ActualTime_Arr'],
                  day_trip['StopPointID'],
                  end_point, time], axis=1)
+
             # Change the name of columns
-            self._a.columns = ['lineid', 'direction', 'dt', 'dayofweek', 'month', 'day', 'arrive_time', 'start_point',
+            merge.columns = ['lineid', 'direction', 'dt', 'dayofweek', 'month', 'day', 'arrive_time', 'start_point',
                                'end_point', 'duration']
-            self._a.drop(self._a.tail(1).index, inplace=True)
+            merge.drop(merge.tail(1).index, inplace=True)
 
             self._weatherdf = self._weatherdf.sort_values(by=['dt'])
-            self._a = self._a.sort_values(by=['dt'])
+            merge = merge.sort_values(by=['dt'])
 
             # merge two tables
-            self._r = pd.merge_asof(self._a, self._weatherdf.sort_values('dt'), on="dt", direction='nearest')
+            r = pd.merge_asof(merge, self._weatherdf.sort_values('dt'), on="dt", direction='nearest')
 
-            self._result = pd.concat([self._r, self._result], sort = True)
+            self._result = pd.concat([r, self._result], sort = True)
 
     # save result to a csv file
     def save_result(self):
         self._result.to_csv(self._output_path + self._output_file_name +'.csv')
 
 """
+This was a testing instance before running on all routes
 #Define inputs for creation of instance
 input_file_path = '/home/student/data_analytics/bus_lines/single_bus_line/bus_66_merge.csv'
 output_path = '/home/student/data_analytics/clean_files/'
