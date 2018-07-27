@@ -7,6 +7,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 import Select from 'react-select';
 import 'react-select/dist/react-select.css';
 import * as Datetime from 'react-datetime';
+
 //the side the webpage for user to enter journey details and to show route info
 
 class SideBar extends React.Component {
@@ -29,8 +30,8 @@ class SideBar extends React.Component {
                             <Select className="selectbox" name="form-field-name" placeholder="Please Choose A Direction" value={this.props.direction} options={this.props.allDirections} onChange={this.props.dirChange}/>
                             <Select className="selectbox" name="form-field-name" placeholder="Start Stop" value={this.props.startStop} options={this.props.station} onChange={this.props.startChange}/>
                             <Select className="selectbox" name="form-field-name" placeholder="Destination stop" value={this.props.endStop} options={this.props.station} onChange={this.props.endChange}/>
-                            <Datetime className="timepicker" onChange={this.props.timeOnchange} inputProps={{placeholder: '                        Choose The Time'}}/>
-                            <button type="button" className="route-button btn btn-primary btn-lg btn-block" onClick={this.props.routeSubmit}>Search</button>
+							<Datetime className="timepicker" onChange={this.props.timeOnchange} inputProps={{placeholder: '                        Choose The Time'}}/>
+							<button type="button" className="route-button btn btn-primary btn-lg btn-block" onClick={this.props.routeSubmit}>Search</button>
                         </div>
                     </div>
                 </div>;
@@ -66,6 +67,8 @@ class SideBar extends React.Component {
 							start={this.props.startStop.label}
 							end={this.props.endStop.label}
 							routeid={this.props.selectedOption.label}
+							handleOver={this.props.handleOver}
+							handleOut={this.props.handleOut}
 							time={this.props.time}/>
                     </div>
                 </div>
@@ -74,11 +77,11 @@ class SideBar extends React.Component {
 			case 'loading':
 				left_content =
 							<div className="sidebar">
-								<div class="cssload-thecube">
-									<div class="cssload-cube cssload-c1"></div>
-									<div class="cssload-cube cssload-c2"></div>
-									<div class="cssload-cube cssload-c4"></div>
-									<div class="cssload-cube cssload-c3"></div>
+								<div className="cssload-thecube">
+									<div className="cssload-cube cssload-c1"></div>
+									<div className="cssload-cube cssload-c2"></div>
+									<div className="cssload-cube cssload-c4"></div>
+									<div className="cssload-cube cssload-c3"></div>
 								</div>
 							</div>
 

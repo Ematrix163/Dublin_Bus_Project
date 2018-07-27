@@ -2,7 +2,7 @@
 This is all api methods
 */
 
-const api = "https://www.dublinroute.com/api"
+const api = "/api"
 
 const headers = {
   'Accept': 'application/json',

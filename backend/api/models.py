@@ -156,3 +156,27 @@ class Allstops(models.Model):
     class Meta:
         managed = False
         db_table = 'allstops'
+
+
+
+
+class DublinbusScheduleCurrent(models.Model):
+    trip_id = models.CharField(primary_key=True, max_length=45)
+    arrival_time = models.CharField(max_length=45, blank=True, null=True)
+    departure_time = models.CharField(max_length=45, blank=True, null=True)
+    stop_id = models.CharField(max_length=45, blank=True, null=True)
+    stop_sequence = models.CharField(max_length=45, blank=True, null=True)
+    stop_headsign = models.CharField(max_length=45, blank=True, null=True)
+    pickup_type = models.CharField(max_length=45, blank=True, null=True)
+    drop_off_type = models.CharField(max_length=45, blank=True, null=True)
+    shape_dist_traveled = models.CharField(max_length=45, blank=True, null=True)
+    route_id = models.CharField(max_length=45, blank=True, null=True)
+    service_id = models.CharField(max_length=45, blank=True, null=True)
+    shape_id = models.CharField(max_length=45, blank=True, null=True)
+    trip_headsign = models.CharField(max_length=45, blank=True, null=True)
+    direction_id = models.CharField(max_length=45, blank=True, null=True)
+    line_id = models.CharField(max_length=45, blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'dublinBus_schedule_current'
