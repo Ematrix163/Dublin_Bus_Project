@@ -3,8 +3,12 @@
 
 schedule_path="/home/student/data_analytics/prediction_model/tmp/dublinBus_schedule_current.csv"
 table_name="dublinBus.dublinBus_schedule_current"
-log=/home/student/data_analytics/prediction_model/scripts/logs/mysql_load_data.log
+log=/home/student/data_analytics/scripts/logs/mysql_load_data.log
 
-mysql -u front_end -p --execute="LOAD DATA INFILE '$schedule_path' INTO TABLE $table_name FIELDS TERMINATED BY ',' IGNORE 1 LINES; SHOW WARNINGS" > $log
-
+echo "Truncating table $table_name"
+mysql -u front_end -p'12345' dublinBus -e "TRUNCATE $table_name"
+echo "Loading data into $table_ename"
+mysql -u front_end -p'12345' --execute="LOAD DATA INFILE '$schedule_path' INTO TABLE $table_name FIELDS TERMINATED BY ',' IGNORE 1 LINES; SHOW WARNINGS"
+echo "End of script"
+exit
 

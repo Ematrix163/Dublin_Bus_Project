@@ -4,20 +4,26 @@ import shutil
 import string
 
 import subprocess
+import pexpect
+import sys
 
 
 # The current schedule class is for methods that relate to the current schedule data
-class current_schedule:
+class CurrentSchedule:
+
+    _mysql_load_command = "bash /home/student/data_analytics/scripts/mysql_load_data.sh"
+    _output_path = "/home/student/data_analytics/prediction_model/tmp/"
+    _output_file = "dublinBus_schedule_current.csv"
 
     # This method automatically initializes the class variables when an class instance is created
-    def __init__(self, input_path_one, input_path_two, output_path, output_file):
+    def __init__(self, input_path_one, input_path_two):
         self._input_path_one = input_path_one
         self._input_path_two = input_path_two
-        self._output_path = output_path
-        self._output_file = output_file
         self._df_one = None
         self._df_two = None
         self._df_merged = None
+        self.password = None
+        self.command = None
 
     # Python getter method
     @property
@@ -30,7 +36,7 @@ class current_schedule:
 
     # Method to merge the path one and path two class variables
     def merge(self):
-        # merge with the main df based on year and country
+        # merge with the main df basedhttps://stackoverflow.com/questions/23441994/truncate-table-via-command-line-in-linux on year and country
         self._df_merged = pd.merge(self._df_one, self._df_two, how='left', left_on=['trip_id'], right_on=['trip_id'])
 
 
@@ -71,23 +77,18 @@ class current_schedule:
         self._df_merged.to_csv(self._output_path+self._output_file, index=True)
         print("Created merged csv file %s" % self._output_path+self._output_file)
 
+    # Calls a shell script to get mysql to truncate table and load data in file
     def mysql_load_data(self):
         #    mysqlimport --ignore-lines=1 --fields-terminated-by=, --verbose --local -u [user] -p [database] /path/to/address.csv
-        subprocess.Popen(''' ''')
+        subprocess.Popen([ self._mysql_load_command ], shell=True)
 
 # Schedule File paths
 current_stop_times = "/storage/current_schedule/stop_times.txt"
 current_trips = "/storage/current_schedule/trips.txt"
-output_path = "/home/student/data_analytics/prediction_model/temp/"
-output_file = "current_schedule_merged.csv"
-# Schedule File paths
-current_stop_times = "/storage/current_schedule/stop_times.txt"
-current_trips = "/storage/current_schedule/trips.txt"
-output_path = "/home/student/data_analytics/prediction_model/tmp/"
-output_file = "dublinBus_schedule_current.csv"
+
 
 # Create instance
-instance = current_schedule(current_stop_times, current_trips, output_path, output_file)
+instance = CurrentSchedule(current_stop_times, current_trips)
 
 instance.delete_tmp()
 instance.create_data_frames()
@@ -98,6 +99,6 @@ instance.clean_columns()
 instance.create_directory()
 instance.export()
 instance.mysql_load_data()
-instance.delete_tmp()
+#instance.delete_tmp()
 
 
