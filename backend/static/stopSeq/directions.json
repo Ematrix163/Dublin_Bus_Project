@@ -8,24 +8,24 @@
     "dir2": "From Monkstown Avenue To Harristown "
   },
   "7": {
-    "dir1": "From Mountjoy Sq. Towards Brides Glen Luas Stop",
-    "dir2": "From Brides Glen Luas Stop Towards Mountjoy Sq. "
+    "dir1": "From Mountjoy Sq. To Brides Glen Luas Stop",
+    "dir2": "From Brides Glen Luas Stop To Mountjoy Sq. "
   },
   "7a": {
-    "dir1": "From Mountjoy Sq. Towards Loughlinstown",
-    "dir2": "From Loughlinstown Towards Mountjoy Sq. "
+    "dir1": "From Mountjoy Sq. To Loughlinstown",
+    "dir2": "From Loughlinstown To Mountjoy Sq. "
   },
   "7b": {
-    "dir1": "From Mountjoy Sq. Towards Shankill",
-    "dir2": "From Shankill Towards Mountjoy Sq. "
+    "dir1": "From Mountjoy Sq. To Shankill",
+    "dir2": "From Shankill To Mountjoy Sq. "
   },
   "7d": {
-    "dir1": "From Mountjoy Sq. Towards Dalkey",
-    "dir2": "From Dalkey Towards Mountjoy Sq. "
+    "dir1": "From Mountjoy Sq. To Dalkey",
+    "dir2": "From Dalkey To Mountjoy Sq. "
   },
   "7n": {
-    "dir1": "From D'Olier St. Towards Shankill ",
-    "dir2": "From Shankill  Towards D'Olier St. "
+    "dir1": "From D'Olier St. To Shankill ",
+    "dir2": "From Shankill  To D'Olier St. "
   },
   "9": {
     "dir1": "From Charlestown To Limekiln Ave.",
@@ -48,20 +48,20 @@
     "dir2": "From Ballycullen Rd. To Clongriffin "
   },
   "15a": {
-    "dir1": "From Ringsend Road (Barrow Street) Towards Limekiln Ave.",
-    "dir2": "From Limekiln Ave. Towards Ringsend Road (Barrow Street) "
+    "dir1": "From Ringsend Road (Barrow Street) To Limekiln Ave.",
+    "dir2": "From Limekiln Ave. To Ringsend Road (Barrow Street) "
   },
   "15d": {
-    "dir1": "From Ringsend Road (Barrow Street) Towards Whitechurch",
-    "dir2": "From Whitechurch Towards Ringsend Road (Barrow Street) "
+    "dir1": "From Ringsend Road (Barrow Street) To Whitechurch",
+    "dir2": "From Whitechurch To Ringsend Road (Barrow Street) "
   },
   "15n": {
-    "dir1": "From D'Olier St. Towards Ellensborough ",
-    "dir2": "From Ellensborough  Towards D'Olier St. "
+    "dir1": "From D'Olier St. To Ellensborough ",
+    "dir2": "From Ellensborough  To D'Olier St. "
   },
   "16": {
-    "dir1": "From Dublin Airport Towards Ballinteer (Kingston)",
-    "dir2": "From Ballinteer (Kingston) Towards Dublin Airport "
+    "dir1": "From Dublin Airport To Ballinteer (Kingston)",
+    "dir2": "From Ballinteer (Kingston) To Dublin Airport "
   },
   "17": {
     "dir1": "From Rialto To Blackrock",
@@ -72,8 +72,8 @@
     "dir2": "From Kilbarrack To Blanchardstown Centre "
   },
   "18": {
-    "dir1": "From Palmerstown (Old Lucan Rd.) Towards Sandymount",
-    "dir2": "From Sandymount Towards Palmerstown (Old Lucan Rd.) "
+    "dir1": "From Palmerstown (Old Lucan Rd.) To Sandymount",
+    "dir2": "From Sandymount To Palmerstown (Old Lucan Rd.) "
   },
   "25": {
     "dir1": "From Merrion Sq. To Lucan (Dodsboro)",
@@ -88,12 +88,12 @@
     "dir2": "From Adamstown Rail Station To Merrion Sq. "
   },
   "25d": {
-    "dir1": "From Merrion Sq. Towards Adamstown Rail Station",
-    "dir2": "From Adamstown Rail Station Towards Merrion Sq. "
+    "dir1": "From Merrion Sq. To Adamstown Rail Station",
+    "dir2": "From Adamstown Rail Station To Merrion Sq. "
   },
   "25n": {
-    "dir1": "From Westmoreland St. Towards Adamstown",
-    "dir2": "From Adamstown Towards Westmoreland St. "
+    "dir1": "From Westmoreland St. To Adamstown",
+    "dir2": "From Adamstown To Westmoreland St. "
   },
   "25x": {
     "dir1": "From UCD Belfield To Lucan",
@@ -108,12 +108,12 @@
     "dir2": "From Jobstown To Clare Hall "
   },
   "27a": {
-    "dir1": "From Eden Quay Towards Blunden Drive",
-    "dir2": "From Blunden Drive Towards Eden Quay "
+    "dir1": "From Eden Quay To Blunden Drive",
+    "dir2": "From Blunden Drive To Eden Quay "
   },
   "27b": {
-    "dir1": "From Eden Quay Towards Harristown",
-    "dir2": "From Harristown Towards Eden Quay "
+    "dir1": "From Eden Quay To Harristown",
+    "dir2": "From Harristown To Eden Quay "
   },
   "27x": {
     "dir1": "From UCD Belfield To Clare Hall ",
@@ -124,8 +124,8 @@
     "dir2": "From Baldoyle (Coast Rd.) To Lwr. Abbey St. "
   },
   "29n": {
-    "dir1": "From D'Olier St. Towards Baldoyle Road ",
-    "dir2": "From Baldoyle Road  Towards D'Olier St. "
+    "dir1": "From D'Olier St. To Baldoyle Road ",
+    "dir2": "From Baldoyle Road  To D'Olier St. "
   },
   "31a": {
     "dir1": "From Talbot St. To Howth Summit",
@@ -136,8 +136,8 @@
     "dir2": "From Howth Summit To Talbot St. "
   },
   "31d": {
-    "dir1": "From DCU Towards Baldoyle ",
-    "dir2": "From Baldoyle  Towards DCU "
+    "dir1": "From DCU To Baldoyle ",
+    "dir2": "From Baldoyle  To DCU "
   },
   "31n": {
     "dir1": "From D'Olier St. To Howth ",
@@ -148,24 +148,24 @@
     "dir2": "From Malahide To Talbot St. "
   },
   "32x": {
-    "dir1": "From Malahide Towards UCD Belfield",
-    "dir2": "From UCD Belfield Towards Malahide "
+    "dir1": "From Malahide To UCD Belfield",
+    "dir2": "From UCD Belfield To Malahide "
   },
   "33": {
     "dir1": "From Lower Abbey St. To Balbriggan ",
     "dir2": "From Balbriggan  To Lower Abbey St. "
   },
   "33a": {
-    "dir1": "From Swords Towards Skerries / Balbriggan ",
-    "dir2": "From Skerries / Balbriggan  Towards Swords "
+    "dir1": "From Swords To Skerries / Balbriggan ",
+    "dir2": "From Skerries / Balbriggan  To Swords "
   },
   "33b": {
-    "dir1": "From Swords Towards Portrane",
-    "dir2": "From Portrane Towards Swords "
+    "dir1": "From Swords To Portrane",
+    "dir2": "From Portrane To Swords "
   },
   "33d": {
-    "dir1": "From Custom House Quay / St. Stephen's Green Towards Portrane",
-    "dir2": "From Portrane Towards Custom House Quay / St. Stephen's Green "
+    "dir1": "From Custom House Quay / St. Stephen's Green To Portrane",
+    "dir2": "From Portrane To Custom House Quay / St. Stephen's Green "
   },
   "33n": {
     "dir1": "From Westmoreland St. To Balbriggan ",
@@ -176,12 +176,12 @@
     "dir2": "From Skerries  To Custom House Quay / St. Stephen's Green "
   },
   "37": {
-    "dir1": "From Baggot St. / Wilton Terrace Towards Blanchardstown Centre",
-    "dir2": "From Blanchardstown Centre Towards Baggot St. / Wilton Terrace "
+    "dir1": "From Baggot St. / Wilton Terrace To Blanchardstown Centre",
+    "dir2": "From Blanchardstown Centre To Baggot St. / Wilton Terrace "
   },
   "38": {
-    "dir1": "From Burlington Rd. Towards Damastown",
-    "dir2": "From Damastown Towards Burlington Rd. "
+    "dir1": "From Burlington Rd. To Damastown",
+    "dir2": "From Damastown To Burlington Rd. "
   },
   "38a": {
     "dir1": "From Burlington Rd. To Damastown",
@@ -192,68 +192,68 @@
     "dir2": "From Damastown To Burlington Rd. "
   },
   "39": {
-    "dir1": "From Burlington Rd. Towards Ongar",
-    "dir2": "From Ongar Towards Burlington Rd. "
+    "dir1": "From Burlington Rd. To Ongar",
+    "dir2": "From Ongar To Burlington Rd. "
   },
   "39a": {
-    "dir1": "From UCD Belfield Towards Ongar",
-    "dir2": "From Ongar Towards UCD Belfield "
+    "dir1": "From UCD Belfield To Ongar",
+    "dir2": "From Ongar To UCD Belfield "
   },
   "39x": {
-    "dir1": "From Burlington Road Towards Ongar",
-    "dir2": "From Ongar Towards Burlington Road "
+    "dir1": "From Burlington Road To Ongar",
+    "dir2": "From Ongar To Burlington Road "
   },
   "39n": {
-    "dir1": "From Westmoreland St. Towards Tyrrelstown ",
-    "dir2": "From Tyrrelstown  Towards Westmoreland St. "
+    "dir1": "From Westmoreland St. To Tyrrelstown ",
+    "dir2": "From Tyrrelstown  To Westmoreland St. "
   },
   "40": {
     "dir1": "From Charlestown Shopping Centre To Liffey Valley Shopping Centre",
     "dir2": "From Liffey Valley Shopping Centre To Charlestown Shopping Centre "
   },
   "40b": {
-    "dir1": "From Parnell St. Towards Toberburr",
-    "dir2": "From Toberburr Towards Parnell St. "
+    "dir1": "From Parnell St. To Toberburr",
+    "dir2": "From Toberburr To Parnell St. "
   },
   "40d": {
     "dir1": "From Parnell St. To Tyrrelstown ",
     "dir2": "From Tyrrelstown  To Parnell St. "
   },
   "41": {
-    "dir1": "From Lower Abbey St. Towards Swords Manor",
-    "dir2": "From Swords Manor Towards Lower Abbey St. "
+    "dir1": "From Lower Abbey St. To Swords Manor",
+    "dir2": "From Swords Manor To Lower Abbey St. "
   },
   "41b": {
     "dir1": "From Lower Abbey St. To Rolestown ",
     "dir2": "From Rolestown  To Lower Abbey St. "
   },
   "41c": {
-    "dir1": "From Lower Abbey St. Towards Swords Manor",
-    "dir2": "From Swords Manor Towards Lower Abbey St. "
+    "dir1": "From Lower Abbey St. To Swords Manor",
+    "dir2": "From Swords Manor To Lower Abbey St. "
   },
   "41n": {
-    "dir1": "From Westmoreland St. Towards Swords Manor ",
-    "dir2": "From Swords Manor  Towards Westmoreland St. "
+    "dir1": "From Westmoreland St. To Swords Manor ",
+    "dir2": "From Swords Manor  To Westmoreland St. "
   },
   "41x": {
-    "dir1": "From UCD Belfield Towards Knocksedan",
-    "dir2": "From Knocksedan Towards UCD Belfield "
+    "dir1": "From UCD Belfield To Knocksedan",
+    "dir2": "From Knocksedan To UCD Belfield "
   },
   "42": {
     "dir1": "From Talbot St. To Sand's Hotel (Portmarnock)",
     "dir2": "From Sand's Hotel (Portmarnock) To Talbot St. "
   },
   "42d": {
-    "dir1": "From DCU Towards Portmarnock",
-    "dir2": "From Portmarnock Towards DCU "
+    "dir1": "From DCU To Portmarnock",
+    "dir2": "From Portmarnock To DCU "
   },
   "42n": {
-    "dir1": "From D'Olier St. Towards Portmarnock",
-    "dir2": "From Portmarnock Towards D'Olier St. "
+    "dir1": "From D'Olier St. To Portmarnock",
+    "dir2": "From Portmarnock To D'Olier St. "
   },
   "43": {
-    "dir1": "From Talbot St. Towards Swords Business Park",
-    "dir2": "From Swords Business Park Towards Talbot St. "
+    "dir1": "From Talbot St. To Swords Business Park",
+    "dir2": "From Swords Business Park To Talbot St. "
   },
   "44": {
     "dir1": "From DCU To Enniskerry",
@@ -264,56 +264,56 @@
     "dir2": "From Glencullen To Dundrum Luas Station "
   },
   "45a": {
-    "dir1": "From D\u7164n Laoghaire (Rail Station) Towards Kilmacanogue",
-    "dir2": "From Kilmacanogue Towards D\u7164n Laoghaire (Rail Station) "
+    "dir1": "From D\u7164n Laoghaire (Rail Station) To Kilmacanogue",
+    "dir2": "From Kilmacanogue To D\u7164n Laoghaire (Rail Station) "
   },
   "46a": {
     "dir1": "From Phoenix Park To Dun Laoghaire",
     "dir2": "From Dun Laoghaire To Phoenix Park "
   },
   "46e ": {
-    "dir1": "From Blackrock Station Towards Mountjoy Sq.",
-    "dir2": "From Mountjoy Sq. Towards Blackrock Station "
+    "dir1": "From Blackrock Station To Mountjoy Sq.",
+    "dir2": "From Mountjoy Sq. To Blackrock Station "
   },
   "46n": {
-    "dir1": "From D'Olier St. Towards Dundrum ",
-    "dir2": "From Dundrum  Towards D'Olier St. "
+    "dir1": "From D'Olier St. To Dundrum ",
+    "dir2": "From Dundrum To D'Olier St. "
   },
   "47 ": {
     "dir1": "From Poolbeg St. To Belarmine",
     "dir2": "From Belarmine To Poolbeg St. "
   },
   "49": {
-    "dir1": "From Pearse Street Towards Tallaght (The Square)",
-    "dir2": "From Tallaght (The Square) Towards Pearse Street "
+    "dir1": "From Pearse Street To Tallaght (The Square)",
+    "dir2": "From Tallaght (The Square) To Pearse Street "
   },
   "49n": {
-    "dir1": "From D'Olier St. Towards Tallaght (Kilnamanagh) ",
-    "dir2": "From Tallaght (Kilnamanagh)  Towards D'Olier St. "
+    "dir1": "From D'Olier St. To Tallaght (Kilnamanagh) ",
+    "dir2": "From Tallaght (Kilnamanagh)  To D'Olier St. "
   },
   "51d": {
-    "dir1": "From Aston Quay Towards Clondalkin ",
-    "dir2": "From Clondalkin  Towards Aston Quay "
+    "dir1": "From Aston Quay To Clondalkin ",
+    "dir2": "From Clondalkin To Aston Quay "
   },
   "51x": {
     "dir1": "From Dunawley To UCD Belfield ",
     "dir2": "From UCD Belfield  To Dunawley "
   },
   "53": {
-    "dir1": "From Talbot St. Towards Dublin Ferryport",
-    "dir2": "From Dublin Ferryport Towards Talbot St. "
+    "dir1": "From Talbot St. To Dublin Ferryport",
+    "dir2": "From Dublin Ferryport To Talbot St. "
   },
   "54a": {
-    "dir1": "From Pearse St.Towards Ellensborough / Kiltipper Way\t",
-    "dir2": "From Ellensborough / Kiltipper Way\t Towards Pearse St."
+    "dir1": "From Pearse St.To Ellensborough / Kiltipper Way\t",
+    "dir2": "From Ellensborough / Kiltipper Way\t To Pearse St."
   },
   "56a": {
-    "dir1": "From Ringsend Rd. Towards Tallaght (The Square)",
-    "dir2": "From Tallaght (The Square) Towards Ringsend Rd. "
+    "dir1": "From Ringsend Rd. To Tallaght (The Square)",
+    "dir2": "From Tallaght (The Square) To Ringsend Rd. "
   },
   "59": {
-    "dir1": "From D\u7164n Laoghaire Towards Killiney (Druids Chair)",
-    "dir2": "From Killiney (Druids Chair) Towards D\u7164n Laoghaire "
+    "dir1": "From D\u7164n Laoghaire To Killiney (Druids Chair)",
+    "dir2": "From Killiney (Druids Chair) To D\u7164n Laoghaire "
   },
   "61": {
     "dir1": "From Eden Quay To Whitechurch",
@@ -324,16 +324,16 @@
     "dir2": "From Kilternan To Dun Laoghaire "
   },
   "65": {
-    "dir1": "From Poolbeg St. Towards Blessington / Ballymore",
-    "dir2": "From Blessington / Ballymore Towards Poolbeg St. "
+    "dir1": "From Poolbeg St. To Blessington / Ballymore",
+    "dir2": "From Blessington / Ballymore To Poolbeg St. "
   },
   "65b": {
-    "dir1": "From Poolbeg Street Towards Citywest",
-    "dir2": "From Citywest Towards Poolbeg Street "
+    "dir1": "From Poolbeg Street To Citywest",
+    "dir2": "From Citywest To Poolbeg Street "
   },
   "66": {
-    "dir1": "From Merrion Sq. Towards Maynooth",
-    "dir2": "From Maynooth Towards Merrion Sq. "
+    "dir1": "From Merrion Sq. To Maynooth",
+    "dir2": "From Maynooth To Merrion Sq. "
   },
   "66a": {
     "dir1": "From Merrion Sq. To Leixlip (Captain's Hill) ",
@@ -344,76 +344,76 @@
     "dir2": "From Leixlip (Castletown) To Merrion Sq. "
   },
   "66n": {
-    "dir1": "From Westmoreland St.  Towards Leixlip (Louisa Bridge) via Glen Easton ",
-    "dir2": "From Leixlip (Louisa Bridge) via Glen Easton  Towards Westmoreland St.  "
+    "dir1": "From Westmoreland St.  To Leixlip (Louisa Bridge) via Glen Easton ",
+    "dir2": "From Leixlip (Louisa Bridge) via Glen Easton  To Westmoreland St.  "
   },
   "66x": {
     "dir1": "From UCD Belfield To Maynooth",
     "dir2": "From Maynooth To UCD Belfield "
   },
   "67": {
-    "dir1": "From Merrion Sq. Towards Maynooth",
-    "dir2": "From Maynooth Towards Merrion Sq. "
+    "dir1": "From Merrion Sq. To Maynooth",
+    "dir2": "From Maynooth To Merrion Sq. "
   },
   "67n": {
-    "dir1": "From Westmoreland St. Towards Celbridge / Maynooth ",
-    "dir2": "From Celbridge / Maynooth  Towards Westmoreland St. "
+    "dir1": "From Westmoreland St. To Celbridge / Maynooth ",
+    "dir2": "From Celbridge / Maynooth  To Westmoreland St. "
   },
   "67x": {
     "dir1": "From UCD Belfield To Celbridge (Salesian College)",
     "dir2": "From Celbridge (Salesian College) To UCD Belfield "
   },
   "68a": {
-    "dir1": "From Hawkins St. Towards Newcastle / Greenogue Business Park",
-    "dir2": "From Newcastle / Greenogue Business Park Towards Hawkins St. "
+    "dir1": "From Hawkins St. To Newcastle / Greenogue Business Park",
+    "dir2": "From Newcastle / Greenogue Business Park To Hawkins St. "
   },
   "68x": {
     "dir1": "From Newcastle / Greenogue Business Park To Hawkins Street",
     "dir2": "From Hawkins Street To Newcastle / Greenogue Business Park "
   },
   "69": {
-    "dir1": "From Hawkins St. Towards Rathcoole",
-    "dir2": "From Rathcoole Towards Hawkins St. "
+    "dir1": "From Hawkins St. To Rathcoole",
+    "dir2": "From Rathcoole To Hawkins St. "
   },
   "69n": {
-    "dir1": "From Westmoreland St. Towards Saggart",
-    "dir2": "From Saggart Towards Westmoreland St. "
+    "dir1": "From Westmoreland St. To Saggart",
+    "dir2": "From Saggart To Westmoreland St. "
   },
   "69x ": {
     "dir1": "From Hawkins St. To Rathcoole",
     "dir2": "From Rathcoole To Hawkins St. "
   },
   "70": {
-    "dir1": "From Burlington Rd. Towards Dunboyne",
-    "dir2": "From Dunboyne Towards Burlington Rd. "
+    "dir1": "From Burlington Rd. To Dunboyne",
+    "dir2": "From Dunboyne To Burlington Rd. "
   },
   "70d": {
-    "dir1": "From DCU Towards Dunboyne",
-    "dir2": "From Dunboyne Towards DCU "
+    "dir1": "From DCU To Dunboyne",
+    "dir2": "From Dunboyne To DCU "
   },
   "70n": {
-    "dir1": "From Westmoreland St. Towards Dunboyne ",
-    "dir2": "From Dunboyne  Towards Westmoreland St. "
+    "dir1": "From Westmoreland St. To Dunboyne ",
+    "dir2": "From Dunboyne  To Westmoreland St. "
   },
   "75": {
-    "dir1": "From The Square Tallaght Towards Dun Laoghaire",
-    "dir2": "From Dun Laoghaire Towards The Square Tallaght "
+    "dir1": "From The Square Tallaght To Dun Laoghaire",
+    "dir2": "From Dun Laoghaire To The Square Tallaght "
   },
   "76": {
-    "dir1": "From Chapelizod Towards Tallaght (The Square)",
-    "dir2": "From Tallaght (The Square) Towards Chapelizod "
+    "dir1": "From Chapelizod To Tallaght (The Square)",
+    "dir2": "From Tallaght (The Square) To Chapelizod "
   },
   "76a": {
-    "dir1": "From Blanchardstown Centre Towards Tallaght (The Square)",
-    "dir2": "From Tallaght (The Square) Towards Blanchardstown Centre "
+    "dir1": "From Blanchardstown Centre To Tallaght (The Square)",
+    "dir2": "From Tallaght (The Square) To Blanchardstown Centre "
   },
   "77a": {
     "dir1": "From Ringsend Rd. To Citywest",
     "dir2": "From Citywest To Ringsend Rd. "
   },
   "77n": {
-    "dir1": "From D'Olier St. Towards Tallaght (Westbrook Estate) ",
-    "dir2": "From Tallaght (Westbrook Estate)  Towards D'Olier St. "
+    "dir1": "From D'Olier St. To Tallaght (Westbrook Estate) ",
+    "dir2": "From Tallaght (Westbrook Estate)  To D'Olier St. "
   },
   "77x": {
     "dir1": "From Citywest To UCD Belfield",
@@ -428,20 +428,20 @@
     "dir2": "From Kimmage To Harristown "
   },
   "84a": {
-    "dir1": "From Blackrock Towards Newcastle",
-    "dir2": "From Newcastle Towards Blackrock "
+    "dir1": "From Blackrock To Newcastle",
+    "dir2": "From Newcastle To Blackrock "
   },
   "84n": {
-    "dir1": "From D'Olier St. Towards Greystones ",
-    "dir2": "From Greystones  Towards D'Olier St. "
+    "dir1": "From D'Olier St. To Greystones ",
+    "dir2": "From Greystones  To D'Olier St. "
   },
   "84x": {
-    "dir1": "From Hawkins Street Towards Newcastle / Kilcoole",
-    "dir2": "From Newcastle / Kilcoole Towards Hawkins Street "
+    "dir1": "From Hawkins Street To Newcastle / Kilcoole",
+    "dir2": "From Newcastle / Kilcoole To Hawkins Street "
   },
   "88n": {
-    "dir1": "From Westmoreland St. Towards Ashbourne ",
-    "dir2": "From Ashbourne  Towards Westmoreland St. "
+    "dir1": "From Westmoreland St. To Ashbourne ",
+    "dir2": "From Ashbourne  To Westmoreland St. "
   },
   "90": {
     "dir1": "From Heuston Station To International Financial Services Centre ",
@@ -456,52 +456,52 @@
     "dir2": "From DCU To Clontarf Rd. (Conquer Hill) "
   },
   "111": {
-    "dir1": "From Brides Glen Luas Station Towards Dalkey",
-    "dir2": "From Dalkey Towards Brides Glen Luas Station "
+    "dir1": "From Brides Glen Luas Station To Dalkey",
+    "dir2": "From Dalkey To Brides Glen Luas Station "
   },
   "114": {
-    "dir1": "From Ticknock Towards Blackrock Station",
-    "dir2": "From Blackrock Station Towards Ticknock "
+    "dir1": "From Ticknock To Blackrock Station",
+    "dir2": "From Blackrock Station To Ticknock "
   },
   "116": {
     "dir1": "From Parnell Sq. To Whitechurch ",
     "dir2": "From Whitechurch  To Parnell Sq. "
   },
   "118": {
-    "dir1": "From Kilternan Towards Eden Quay",
-    "dir2": "From Eden Quay Towards Kilternan "
+    "dir1": "From Kilternan To Eden Quay",
+    "dir2": "From Eden Quay To Kilternan "
   },
   "120": {
     "dir1": "From Parnell St. To Ashtown Rail Station ",
     "dir2": "From Ashtown Rail Station  To Parnell St. "
   },
   "122": {
-    "dir1": "From Ashington Towards Drimnagh Rd.",
-    "dir2": "From Drimnagh Rd. Towards Ashington "
+    "dir1": "From Ashington To Drimnagh Rd.",
+    "dir2": "From Drimnagh Rd. To Ashington "
   },
   "123": {
     "dir1": "From Walkinstown (Kilnamanagh Rd.) To  Marino",
     "dir2": "From  Marino To Walkinstown (Kilnamanagh Rd.) "
   },
   "130": {
-    "dir1": "From Lwr. Abbey St. Towards Castle Ave.",
-    "dir2": "From Castle Ave. Towards Lwr. Abbey St. "
+    "dir1": "From Lwr. Abbey St. To Castle Ave.",
+    "dir2": "From Castle Ave. To Lwr. Abbey St. "
   },
   "140": {
-    "dir1": "From Palmerston Park Towards Finglas (Ikea)",
-    "dir2": "From Finglas (Ikea) Towards Palmerston Park "
+    "dir1": "From Palmerston Park To Finglas (Ikea)",
+    "dir2": "From Finglas (Ikea) To Palmerston Park "
   },
   "142": {
-    "dir1": "From Portmarnock Towards UCD Belfield",
-    "dir2": "From UCD Belfield Towards Portmarnock "
+    "dir1": "From Portmarnock To UCD Belfield",
+    "dir2": "From UCD Belfield To Portmarnock "
   },
   "145": {
     "dir1": "From Heuston Rail Station To Ballywaltrim",
     "dir2": "From Ballywaltrim To Heuston Rail Station "
   },
   "150": {
-    "dir1": "From Hawkins St. Towards Rossmore",
-    "dir2": "From Rossmore Towards Hawkins St. "
+    "dir1": "From Hawkins St. To Rossmore",
+    "dir2": "From Rossmore To Hawkins St. "
   },
   "151": {
     "dir1": "From Docklands (East Rd.) To Foxborough (Balgaddy Rd.)",
@@ -512,32 +512,32 @@
     "dir2": "From Rockbrook/Tibradden To Dundrum Luas Station "
   },
   "184": {
-    "dir1": "From Bray Rail Station Towards Newtownmountkennedy",
-    "dir2": "From Newtownmountkennedy Towards Bray Rail Station "
+    "dir1": "From Bray Rail Station To Newtownmountkennedy",
+    "dir2": "From Newtownmountkennedy To Bray Rail Station "
   },
   "185": {
-    "dir1": "From Bray Rail Station Towards Shop River ",
-    "dir2": "From Shop River  Towards Bray Rail Station "
+    "dir1": "From Bray Rail Station To Shop River ",
+    "dir2": "From Shop River  To Bray Rail Station "
   },
   "220": {
-    "dir1": "From Ballymun (Shangan Rd.) Towards Lady's Well Rd. ",
-    "dir2": "From Lady's Well Rd.  Towards Ballymun (Shangan Rd.) "
+    "dir1": "From Ballymun (Shangan Rd.) To Lady's Well Rd. ",
+    "dir2": "From Lady's Well Rd.  To Ballymun (Shangan Rd.) "
   },
   "236": {
     "dir1": "From Blanchardstown Centre To Damastown",
     "dir2": "From Damastown To Blanchardstown Centre "
   },
   "238": {
-    "dir1": "From Tyrrelstown Towards Lady's Well Rd.",
-    "dir2": "From Lady's Well Rd. Towards Tyrrelstown "
+    "dir1": "From Tyrrelstown To Lady's Well Rd.",
+    "dir2": "From Lady's Well Rd. To Tyrrelstown "
   },
   "239": {
-    "dir1": "From Blanchardstown Centre Towards Liffey Valley Shopping Centre ",
-    "dir2": "From Liffey Valley Shopping Centre  Towards Blanchardstown Centre "
+    "dir1": "From Blanchardstown Centre To Liffey Valley Shopping Centre ",
+    "dir2": "From Liffey Valley Shopping Centre  To Blanchardstown Centre "
   },
   "270": {
-    "dir1": "From Blanchardstown Centre Towards Dunboyne",
-    "dir2": "From Dunboyne Towards Blanchardstown Centre "
+    "dir1": "From Blanchardstown Centre To Dunboyne",
+    "dir2": "From Dunboyne To Blanchardstown Centre "
   },
   "747": {
     "dir1": "From Heuston Rail Station To Dublin Airport",

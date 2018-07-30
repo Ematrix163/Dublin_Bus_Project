@@ -2,7 +2,7 @@
 This is all api methods
 */
 
-const api = "/api"
+const api = "http://localhost:8000/api"
 
 const headers = {
   'Accept': 'application/json',
@@ -34,5 +34,5 @@ export const getTime = (routeid, start_stop, end_stop, time, direction) =>
 
 
 export const getGoogleDirection = (origin_lat, origin_lng, dest_lat, dest_lng, time) =>
-	fetch(`${api}/googleroute`)
-		.then(res => res)
+	fetch(`${api}/googleroute?origin_lat=${origin_lat}&origin_lng=${origin_lng}&dest_lat=${dest_lat}&dest_lng=${dest_lng}&time=${time}`)
+		.then(res => res.json())

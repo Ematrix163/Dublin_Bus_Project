@@ -19,31 +19,7 @@ const MyMapComponent = compose(
     withGoogleMap,
 	lifecycle({
        componentDidUpdate () {
-		 if (this.props.station.length > 0 && this.props.view === 'route') {
-			 const DirectionsServiceRoute = new window.google.maps.DirectionsService();
-			 let length = this.props.station.length;
-			 let waypts = [];
-			 let start_lat = this.props.station[0].lat;
-			 let start_lng = this.props.station[0].lng;
-			 let end_lat = this.props.station[length-1].lat;
-			 let end_lng = this.props.station[length-1].lng;
-			 DirectionsServiceRoute.route({
-				origin: new google.maps.LatLng(start_lat, start_lng),
-				destination: new google.maps.LatLng(end_lat, end_lng),
-				waypoints: waypts,
-				travelMode: google.maps.TravelMode.TRANSIT,
-			 }, (result, status) => {
-				 if (status === google.maps.DirectionsStatus.OK) {
-					 	 console.log(result);
-				  this.setState({
-					directions: result,
-				  });
-			  	  } else {
-				  console.error(`error fetching directions ${result}`);
-				}
-			  });
-		 } else if (this.props.view === 'station') {
-			 console.log('1');
+		 if (this.props.view === 'station' && this.props.startLoc && this.props.destLoc && this.props.submitFlag) {
 			 const DirectionsServiceStation = new google.maps.DirectionsService();
 			 DirectionsServiceStation.route({
  			   origin: new google.maps.LatLng(this.props.startLoc.lat(),this.props.startLoc.lng()),
@@ -51,7 +27,7 @@ const MyMapComponent = compose(
  			   travelMode: google.maps.TravelMode.TRANSIT,
  			}, (result, status) => {
  				if (status === google.maps.DirectionsStatus.OK) {
- 						console.log(result);
+ 				 console.log(result);
  				 this.setState({
  				   directions: result,
  				 });
@@ -64,7 +40,7 @@ const MyMapComponent = compose(
      })
 	)((props) =>
 	    <GoogleMap defaultZoom={12} defaultCenter={{ lat: 53.350140, lng: -6.266155 }}>
-			<div>
+			{props.directions && <DirectionsRenderer directions={props.directions} />}
         	{props.stops.map(marker => (
     			<Marker
 					key={marker.stop_id}
@@ -74,7 +50,6 @@ const MyMapComponent = compose(
 					>
 				</Marker>
 			))}
-			</div>
 	    </GoogleMap>
 	)
 
@@ -103,6 +78,10 @@ class Map extends React.PureComponent {
 				stops={this.props.stops}
 				station={this.props.station}
 				blink={this.props.blink}
+				view={this.props.view}
+				startLoc={this.props.startLoc}
+				destLoc={this.props.destLoc}
+				submitFlag={this.props.submitFlag}
             />
         )
     }
