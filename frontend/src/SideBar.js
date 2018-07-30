@@ -52,7 +52,7 @@ class SideBar extends React.Component {
                             <SearchBox locChange={this.props.destLocChange} text='Please enter your destination'/>
                             <div><Datetime inputProps={{placeholder: 'Choose The Time'}}/></div>
                             <br/>
-                            <button className="btn btn-block btn-primary" onClick={this.props.findRoute}>Submit</button>
+                            <button className="btn btn-block btn-primary" onClick={this.props.stationSubmit}>Submit</button>
                         </div>
                     </div>
                 </div>;

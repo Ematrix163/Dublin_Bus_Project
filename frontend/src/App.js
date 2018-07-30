@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import SideBar from './SideBar'
 import Login from './Login'
 import Map from './Map'
@@ -28,7 +28,8 @@ class App extends React.Component {
 		show: false,
 		start_loc: '',
 		dest_loc: '',
-		alert: ''
+		alert: '',
+		submitFlag: false
     }
 
 
@@ -77,7 +78,12 @@ class App extends React.Component {
 	// If the end stop change
 	endChange = (val) => this.setState({end_stop: val})
 	// When user choose another view
-    switchView = (value) => this.setState({view: value, station:[]})
+    switchView = (value) => {
+		this.setState({view: value, station:[]});
+		//Clear the markers when user switch to another view
+		if (value === 'station')
+			this.setState({prediction:{"stopInfo":[]}});
+	}
 	// In route View, when user click submit button
 	routeSubmit = () => {
 		// Check all these fields are not blank
@@ -96,35 +102,32 @@ class App extends React.Component {
 		}
 	}
 
-
 	startLocChange = (places) => {
 		this.setState({start_loc: places[0].geometry.location})
 	}
 
-
 	destLocChange = (places) => {
 		this.setState({dest_loc: places[0].geometry.location})
-	}
-
-	findRoute = () => {
-		if (this.state.start_loc && this.state.dest_loc) {
-			WebAPI.getGoogleDirection(this.state.start_loc.lat(),this.state.start_loc.lng(),this.state.dest_loc.lat(),this.state.dest_loc.lng()).then(res => {
-				console.log(res);
-			})
-		} else {
-			this.setState({show:true});
-		}
-
 	}
 
 	handleOver = (id) => {
 		this.setState({blink:id});
 	}
 
-
 	handleOut = () => {
-		console.log('out');
 		this.setState({blink:''});
+	}
+
+	stationSubmit = () => {
+		this.setState({submitFlag:true});
+		const start_loc = this.state.start_loc.lat();
+		const start_lng = this.state.start_loc.lng();
+		const end_loc = this.state.dest_loc.lat();
+		const end_lng = this.state.dest_loc.lng();
+		WebAPI.getGoogleDirection(start_loc, start_lng, end_loc, end_lng, 1532979801)
+			.then(r => {
+				this.setState({prediction: r.data});
+			})
 	}
 
 	render() {
@@ -154,9 +157,9 @@ class App extends React.Component {
 						timeOnchange={this.timeOnchange}
 						startLocChange={this.startLocChange}
 						destLocChange={this.destLocChange}
-						findRoute={this.findRoute}
 						handleOut={this.handleOut}
 						handleOver={this.handleOver}
+						stationSubmit={this.stationSubmit}
 						/>
 
 						<SweetAlert
@@ -181,6 +184,7 @@ class App extends React.Component {
 								destLoc={this.state.dest_loc}
 								view={this.state.view}
 								blink={this.state.blink}
+								submitFlag={this.state.submitFlag}
 								/>
 						</div>
 						</div>
