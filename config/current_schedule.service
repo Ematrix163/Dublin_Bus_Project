@@ -1,0 +1,20 @@
+[unit]
+Description=current_schedule service downloads the current gtfs format schedule for DublinBus.
+
+[Service]
+WorkingDirectory=/home/student/data_analytics/scripts/
+Type=simple
+# Restart on-failure means to restart whenever the program exits with an error code
+Restart=on-failure
+RestartSec=30
+UMask=022
+ExecStart=/home/student/anaconda3/bin/python3 current_schedule.py
+# Killmode specifies how processes of this unit shall be killed - control-group sends kill signal to all processes in control-group
+KillMode=control-group
+
+[Install]
+# This section is optional and is used to define the behavior or a unit if it is enabled or disabled
+
+# a directory called multi-user.target.wants will be created within /etc/systemd/system (if not already available)
+# and a symbolic link to the current unit will be placed within
+WantedBy=multi-user.target

@@ -1,0 +1,10 @@
+[Unit]
+Description=Run current_schedule.service daily
+
+[Timer]
+OnCalendar=daily
+Persistent=true
+RandomizedDelaySec=true
+
+[Install]
+WantedBy=timers.target
