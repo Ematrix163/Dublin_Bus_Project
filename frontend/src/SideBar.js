@@ -7,6 +7,8 @@ import 'react-datepicker/dist/react-datepicker.css';
 import Select from 'react-select';
 import 'react-select/dist/react-select.css';
 import * as Datetime from 'react-datetime';
+import ShowStationResult from './ShowStationResult'
+
 
 //the side the webpage for user to enter journey details and to show route info
 
@@ -84,6 +86,15 @@ class SideBar extends React.Component {
 									<div className="cssload-cube cssload-c3"></div>
 								</div>
 							</div>
+
+			case 'station_result':
+				left_content =
+					<div className="sidebar">
+						<div className="route-result"><i className="fas fa-arrow-left" onClick={this.props.switchView.bind(this,'station')}></i></div>
+						<div className="sidebar-container">
+							<ShowStationResult google={this.props.prediction.google}/>
+						</div>
+					</div>
 
         }
 

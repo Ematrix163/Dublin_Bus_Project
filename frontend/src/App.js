@@ -118,6 +118,7 @@ class App extends React.Component {
 		this.setState({blink:''});
 	}
 
+	//Get the google data
 	stationSubmit = () => {
 		this.setState({submitFlag:true});
 		const start_loc = this.state.start_loc.lat();
@@ -126,7 +127,7 @@ class App extends React.Component {
 		const end_lng = this.state.dest_loc.lng();
 		WebAPI.getGoogleDirection(start_loc, start_lng, end_loc, end_lng, 1532979801)
 			.then(r => {
-				this.setState({prediction: r.data});
+				this.setState({prediction: r.data, view:'station_result'});
 			})
 	}
 

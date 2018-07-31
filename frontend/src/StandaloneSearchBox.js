@@ -1,4 +1,5 @@
-/*global google*/
+
+/* global google */
 
 import React, {Component} from 'react';
 
@@ -18,12 +19,10 @@ const SearchBox = compose(
       const refs = {}
       this.setState({
         places: [],
-
 		bounds: new google.maps.LatLngBounds(
 			new google.maps.LatLng(52.64,-6.6),
     		new google.maps.LatLng(53.65,-6.0)
 		),
-
         onSearchBoxMounted: ref => {
           refs.searchBox = ref;
         },

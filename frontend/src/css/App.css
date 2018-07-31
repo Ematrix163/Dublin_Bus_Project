@@ -231,6 +231,12 @@
 	background-color: rgb(31, 48, 76);
 }
 
+.station-result {
+	margin-top: 20px;
+	border: 1px solid #1d53cb;
+	border-radius: 20px;
+	padding: 20px;
+}
 
 .fa-arrow-left {
 	padding: 5px 0 0 0;

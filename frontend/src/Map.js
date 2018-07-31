@@ -27,7 +27,6 @@ const MyMapComponent = compose(
  			   travelMode: google.maps.TravelMode.TRANSIT,
  			}, (result, status) => {
  				if (status === google.maps.DirectionsStatus.OK) {
- 				 console.log(result);
  				 this.setState({
  				   directions: result,
  				 });

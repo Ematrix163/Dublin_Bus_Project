@@ -87,9 +87,7 @@ class PredictTimeView(APIView):
         to_predict = pd.DataFrame(columns=column_seq, index=[0])
         to_predict.iloc[0] = [0] * len(column_seq)
         # Get the weather from the database
-        weather = Forecastweather.objects.all().order_by('dt').values('dt', 'temp', 'clouds_all', 'wind_speed',
-                                                                      'wind_deg',
-                                                                      'pressure', 'humidity')
+        weather = Forecastweather.objects.all().order_by('dt').values('dt', 'temp', 'clouds_all', 'wind_speed','wind_deg','pressure', 'humidity')
         # Select all continuos features
         continuous_list = ['temp', 'clouds_all', 'wind_speed', 'wind_deg', 'pressure', 'humidity']
         # Find the nearest time
@@ -210,7 +208,7 @@ class LocationView(APIView):
                         end_stop_id = eachstop["true_stop_id"]
                 result = PredictTimeView.predict(lineid, direction, start_stop_id, end_stop_id, 1532974536)
 
-        result["google"] = r
+        result["data"]["google"] = r
 
         return Response(result)
 
