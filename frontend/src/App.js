@@ -14,7 +14,6 @@ class App extends React.Component {
 
 	state = {
         view: 'route',
-        showroute: false,
         routes: [],
 		station: [],
 		selectedOption: '',
@@ -92,7 +91,7 @@ class App extends React.Component {
 			// Call the api to predict the time
 			WebAPI.getTime(this.state.selectedOption.value, this.state.start_stop.value, this.state.end_stop.value, this.state.time, this.state.direction.value).then(r => {
 				if (r.status === 'success') {
-					this.setState({prediction: r.data, showroute:true, view:'result'});
+					this.setState({prediction: r.data, view:'result'});
 				} else {
 					this.setState({view:'route', show:'false', alert:'Sorry, the bus is not in service at that time!'})
 				}
@@ -125,6 +124,7 @@ class App extends React.Component {
 		const start_lng = this.state.start_loc.lng();
 		const end_loc = this.state.dest_loc.lat();
 		const end_lng = this.state.dest_loc.lng();
+		this.setState({view:'loading'});
 		WebAPI.getGoogleDirection(start_loc, start_lng, end_loc, end_lng, 1532979801)
 			.then(r => {
 				this.setState({prediction: r.data, view:'station_result'});
@@ -139,7 +139,6 @@ class App extends React.Component {
 					<SideBar
 						search={this.state.search}
 						view={this.state.view}
-						showroute={this.state.showroute}
 						routes={this.state.routes}
 						station={this.state.station}
 						selectedOption={this.state.selectedOption}

@@ -19,12 +19,13 @@ const MyMapComponent = compose(
     withGoogleMap,
 	lifecycle({
        componentDidUpdate () {
-		 if (this.props.view === 'station' && this.props.startLoc && this.props.destLoc && this.props.submitFlag) {
+		 if (this.props.startLoc && this.props.destLoc && this.props.submitFlag) {
 			 const DirectionsServiceStation = new google.maps.DirectionsService();
 			 DirectionsServiceStation.route({
  			   origin: new google.maps.LatLng(this.props.startLoc.lat(),this.props.startLoc.lng()),
  			   destination: new google.maps.LatLng(this.props.destLoc.lat(),this.props.destLoc.lng()),
  			   travelMode: google.maps.TravelMode.TRANSIT,
+			   transitOptions: {modes:['BUS']}
  			}, (result, status) => {
  				if (status === google.maps.DirectionsStatus.OK) {
  				 this.setState({

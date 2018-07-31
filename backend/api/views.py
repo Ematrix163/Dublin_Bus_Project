@@ -79,7 +79,7 @@ class PredictTimeView(APIView):
     @staticmethod
     def predict(routeid, direction, start_stop, end_stop, time):
         # Inilize the dataframe
-        path = settings.STATICFILES_DIRS[0] + '/headers/' + routeid + '_' + direction + '.csv'
+        path = settings.STATICFILES_DIRS[0] + '/headers/' + routeid.upper() + '_' + direction + '.csv'
         with open(path, 'r') as f:
             temp = f.read().strip('\n')
             column_seq = temp.split('\n')

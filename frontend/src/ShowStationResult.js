@@ -19,11 +19,11 @@ class ShowStationResult extends React.Component {
 		let mode;
 		return (
 			<div className="station-result">
-				{temp.map(step => (
-					<div>
+				{temp.map((step, index) => (
+					<div key={index}>
 						{step.travel_mode === 'WALKING' ? <i className="fas fa-walking"></i>: <i className="fas fa-bus"></i>}{step.html_instructions}
 						<ul>
-							{step.travel_mode === 'WALKING' ? step.steps.map(detail => (<li>{detail.html_instructions}</li>))
+							{step.travel_mode === 'WALKING' ? step.steps.map((detail, index1) => (<li key={index1} dangerouslySetInnerHTML={{__html:detail.html_instructions}}></li>))
 								: null}
 						</ul>
 					</div>

@@ -86,7 +86,7 @@ class SideBar extends React.Component {
 									<div className="cssload-cube cssload-c3"></div>
 								</div>
 							</div>
-
+				break;
 			case 'station_result':
 				left_content =
 					<div className="sidebar">
@@ -95,6 +95,7 @@ class SideBar extends React.Component {
 							<ShowStationResult google={this.props.prediction.google}/>
 						</div>
 					</div>
+				break;
 
         }
 
