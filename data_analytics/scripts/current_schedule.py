@@ -63,11 +63,20 @@ class CurrentSchedule:
 
     def create_directory(self):
         try:
+            os.mkdir(self._schedule_path)
             os.mkdir(self._output_path)
         except OSError:
-            print ("Creation of directory %s failed" % self._output_path)
+            print ("Creation of output directory %s failed" % self._output_path)
         else:
-            print ("Successfully created directory %s " % self._output_path)
+            print ("Successfully created output directory %s " % self._output_path)
+
+
+        try:
+            os.mkdir(self._schedule_path)
+        except OSError:
+            print ("Creation of schedule download directory %s failed" % self._schedule_path)
+        else:
+            print ("Successfully created schedule download directory %s " % self._schedule_path)
     # delete temporary files that are associated with the merge and database upload
     def delete_tmp(self):
 
@@ -128,6 +137,9 @@ instance = CurrentSchedule(current_stop_times, current_trips)
 instance.delete_tmp()
 instance.delete_gtfs_files()
 
+# Create required folders:
+instance.create_directory()
+
 # Download GTFS current schedule files from DublinBus
 instance.download()
 
@@ -147,7 +159,6 @@ instance.modify_stop_id()
 instance.clean_columns()
 
 #
-instance.create_directory()
 instance.export()
 instance.mysql_load_data()
 instance.delete_tmp()
