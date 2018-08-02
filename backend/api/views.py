@@ -105,10 +105,10 @@ class PredictTimeView(APIView):
         to_predict['arrive_time_' + category_time] = 1
         to_predict['dayofweek_' + str(dayofweek)] = 1
         # Load the pkl file
-        model_path = settings.MODEL_URL + '/model_' + routeid + '_' + direction + '.pkl'
+        model_path = settings.MODEL_URL + '/model_' + routeid.upper() + '_' + direction + '.pkl'
         clf = joblib.load(model_path)
         # Load the scaler file
-        scaler_path = settings.MODEL_URL + '/scaler_' + routeid + '_' + direction + '.pkl'
+        scaler_path = settings.MODEL_URL + '/scaler_' + routeid.upper() + '_' + direction + '.pkl'
         sca = joblib.load(scaler_path)
         # Get All stops between these two stops
         stops = PredictTimeView.getInfo(str(start_stop), str(end_stop), routeid, direction=direction)
