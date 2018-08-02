@@ -13,10 +13,7 @@ class ShowStationResult extends React.Component {
 	componentWillMount() {
 		let temp = {};
 		let num;
-
-		console.log(this.props.data);
 		if (this.props.data.google) {
-
 			num = this.props.data.google.routes[0].legs[0].steps.length;
 		}
 		let count = 0;

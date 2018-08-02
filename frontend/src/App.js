@@ -28,7 +28,8 @@ class App extends React.Component {
 		start_loc: '',
 		dest_loc: '',
 		alert: '',
-		submitFlag: false
+		submitFlag: false,
+		spinner: false
     }
 
 
@@ -127,12 +128,16 @@ class App extends React.Component {
 		this.setState({view:'loading'});
 		WebAPI.getGoogleDirection(start_loc, start_lng, end_loc, end_lng, 1532979801)
 			.then(r => {
-				if (r.status = 'success') {
+				if (r.status === 'success') {
 					this.setState({prediction: r, view:'station_result'});
 				} else {
 					this.setState({view:'station', show:'false', alert:r.msg})
 				}
 			})
+	}
+
+	switchUserLoc = (place) => {
+		this.setState({start_loc:place});
 	}
 
 	render() {
@@ -164,6 +169,7 @@ class App extends React.Component {
 						handleOut={this.handleOut}
 						handleOver={this.handleOver}
 						stationSubmit={this.stationSubmit}
+						switchUserLoc={this.switchUserLoc}
 						/>
 
 						<SweetAlert

@@ -1,7 +1,8 @@
 
 /* global google */
 
-import React, {Component} from 'react';
+import React from 'react';
+import Spinner from './image/spinner.svg'
 
 const { compose, withProps, lifecycle } = require("recompose");
 const { withScriptjs,} = require("react-google-maps");
@@ -23,6 +24,24 @@ const SearchBox = compose(
 			new google.maps.LatLng(52.64,-6.6),
     		new google.maps.LatLng(53.65,-6.0)
 		),
+		useMyLoc: () => {
+			// this.props.useMyLoc();
+			this.setState({spinner: true});
+			if ("geolocation" in navigator) {
+				navigator.geolocation.getCurrentPosition(
+					(position) => {
+						this.setState({spinner: false});
+						// for when getting location is a success
+						const places = new window.google.maps.LatLng(position.coords.latitude.toFixed(4), position.coords.longitude.toFixed(4));
+						this.setState({places, text: places});
+						this.props.switchUserLoc(places);
+	   				},
+					(error_message) => {
+						this.setState({spinner: false});
+	   					console.error('An error has occured while retrieving location', error_message)
+	 				}
+			)};
+		},
         onSearchBoxMounted: ref => {
           refs.searchBox = ref;
         },
@@ -44,11 +63,11 @@ const SearchBox = compose(
     >
       <input
         type="text"
-        placeholder='Your Location'
+        placeholder= {props.text}
         style={{
           boxSizing: `border-box`,
           border: `1px solid transparent`,
-          width: `100%`,
+          width: props.type === 'origin'? `85%`: `100%`,
           height: `32px`,
           padding: `0 12px`,
           borderRadius: `3px`,
@@ -56,11 +75,18 @@ const SearchBox = compose(
           fontSize: `14px`,
           outline: `none`,
           textOverflow: `ellipses`,
+		  display: `inline`,
+		  margin: `8px 10px 15px 0`
         }}
+
       />
     </StandaloneSearchBox>
-    <ol>
-    </ol>
+	{props.type === 'origin'?
+		props.spinner?
+			<img style={{display :`inline`, width: `38px`}} src={Spinner}/>
+			:<span>&nbsp;&nbsp;&nbsp;<i className="use-my-loc fas fa-location-arrow" onClick={props.useMyLoc}><span className="tooltiptext">Use My Location</span></i></span>
+		: null
+	}
   </div>
 );
 

@@ -1,12 +1,13 @@
 {
-  "main.css": "static/css/main.a2b3bd58.css",
-  "main.css.map": "static/css/main.a2b3bd58.css.map",
-  "main.js": "static/js/main.261ee792.js",
-  "main.js.map": "static/js/main.261ee792.js.map",
+  "main.css": "static/css/main.19ceb0de.css",
+  "main.css.map": "static/css/main.19ceb0de.css.map",
+  "main.js": "static/js/main.1b021a4d.js",
+  "main.js.map": "static/js/main.1b021a4d.js.map",
   "static\\media\\Montserrat-Bold.ttf": "static/media/Montserrat-Bold.88932dad.ttf",
   "static\\media\\Poppins-Bold.ttf": "static/media/Poppins-Bold.7940efc4.ttf",
   "static\\media\\Poppins-Medium.ttf": "static/media/Poppins-Medium.a4e11dda.ttf",
   "static\\media\\Poppins-Regular.ttf": "static/media/Poppins-Regular.731a28a4.ttf",
   "static\\media\\logo.jpg": "static/media/logo.1bbdaff9.jpg",
+  "static\\media\\spinner.svg": "static/media/spinner.b1783483.svg",
   "static\\media\\up.png": "static/media/up.f30ca0e9.png"
 }

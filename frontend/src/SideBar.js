@@ -2,7 +2,6 @@ import React from 'react';
 import ShowRoute from './ShowRoute'
 import logo from './image/logo.jpg'
 import SearchBox from './StandaloneSearchBox'
-import moment from 'moment';
 import 'react-datepicker/dist/react-datepicker.css';
 import Select from 'react-select';
 import 'react-select/dist/react-select.css';
@@ -48,8 +47,8 @@ class SideBar extends React.Component {
                     </div>
                     <div className="sidebar-container">
                         <div className="form">
-                            <SearchBox locChange={this.props.startLocChange} text='Please enter your location'/>
-                            <SearchBox locChange={this.props.destLocChange} text='Please enter your destination'/>
+                            <SearchBox locChange={this.props.startLocChange} text='Please enter your departure place' type='origin' switchUserLoc={this.props.switchUserLoc}/>
+                            <SearchBox locChange={this.props.destLocChange} text='Please enter your destination' type='dest'/>
                             <div><Datetime inputProps={{placeholder: 'Choose The Time'}}/></div>
                             <br/>
                             <button className="btn btn-block btn-primary" onClick={this.props.stationSubmit}>Submit</button>
