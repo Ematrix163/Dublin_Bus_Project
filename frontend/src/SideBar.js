@@ -11,9 +11,7 @@ import ShowStationResult from './ShowStationResult'
 
 
 //the side the webpage for user to enter journey details and to show route info
-
 class SideBar extends React.Component {
-
     render() {
         let left_content;
         switch (this.props.view) {
@@ -92,7 +90,7 @@ class SideBar extends React.Component {
 					<div className="sidebar">
 						<div className="route-result"><i className="fas fa-arrow-left" onClick={this.props.switchView.bind(this,'station')}></i></div>
 						<div className="sidebar-container">
-							<ShowStationResult google={this.props.prediction.google}/>
+							<ShowStationResult data={this.props.prediction}/>
 						</div>
 					</div>
 				break;

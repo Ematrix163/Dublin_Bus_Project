@@ -2,6 +2,8 @@
 This is all api methods
 */
 
+// const api = "http://localhost:8000/api"
+
 const api = "/api"
 
 const headers = {

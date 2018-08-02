@@ -74,7 +74,7 @@ class PredictTimeView(APIView):
         if not (routeid and start_stop and end_stop and time and direction):
             return Response({"Status":"Fail", "msg":"Missing paramaters!"})
         result = PredictTimeView.predict(routeid, direction, start_stop, end_stop,  time)
-        return Response(result)
+        return Response({"status":"success","data":[result]})
 
     @staticmethod
     def predict(routeid, direction, start_stop, end_stop, time):
@@ -119,7 +119,7 @@ class PredictTimeView(APIView):
         length = len(stops)
         detail = [];
         total_time = 0
-        # pd.set_option('display.max_columns', 500)
+        pd.set_option('display.max_columns', 500)
         try:
             for index in range(length - 1):
                 to_predict['start_stop_' + stops[index]][0] = 1
@@ -134,13 +134,12 @@ class PredictTimeView(APIView):
                 to_predict['start_stop_' + stops[index]][0] = 0
                 to_predict['end_stop_' + stops[index + 1]][0] = 0
         except ValueError:
-            # If the bus is not in running time
-            return "fail"
+                # If the bus is not in running time
+                return "fail"
         total_time = int(total_time / 60)
 
         # Get the arrive bus time
-        bus_time = DublinbusScheduleCurrent.objects.filter(stop_id=start_stop, line_id=routeid).values_list(
-            'arrival_time').order_by('arrival_time')
+        bus_time = DublinbusScheduleCurrent.objects.filter(stop_id=start_stop, line_id=routeid).values_list('arrival_time').order_by('arrival_time')
         dep_seconds = time % 86400
         bus_seconds = 0;
         bus_readble = 0
@@ -149,17 +148,13 @@ class PredictTimeView(APIView):
             if bus_seconds > dep_seconds:
                 bus_readble = t[0]
                 break
-
         result = {
-            "status": "success",
-            "data": {
-                "detail": detail,
-                "totalDuration": total_time,
-                "stopsNum": length,
-                "stopInfo": stopInfo_ser.data,
-                "bustime": [bus_seconds, bus_readble]
-            }}
-
+            "detail": detail,
+            "totalDuration": total_time,
+            "stopsNum": length,
+            "stopInfo": stopInfo_ser.data,
+            "bustime": [bus_seconds, bus_readble]
+         }
         return result
 
 
@@ -177,21 +172,27 @@ class LocationView(APIView):
         # return Response(r)
         steps = r['routes'][0]["legs"][0]["steps"]
 
+        predict_result = []
+
         for eachstep in steps:
             if eachstep['travel_mode'] == "TRANSIT":
+                # Get the line id of the route
                 lineid = eachstep["transit_details"]["line"]["short_name"]
-
                 # Get the direction of the bus
                 headsign =  eachstep["transit_details"]["headsign"].split(' ')[0]
                 with open(settings.STATICFILES_DIRS[0] + '/stopSeq/directions.json', 'r') as f:
                     data_dir = json.load(f)
-                dir1 = data_dir[lineid]["dir1"]
+                try:
+                    dir1 = data_dir[lineid]["dir1"]
+                except KeyError:
+                    return Response({"status":"fail", "msg":"Sorry, this is not Dublin Bus Company's route."})
+
+
                 if dir1.find(headsign) > dir1.find('To'):
                     direction = '1'
                 else:
                     direction = '2'
-
-                # Get all stops of that dirction
+                # Get all stops of that direction and line ID
                 path = settings.STATICFILES_DIRS[0] + '/stopSeq/' + lineid + '_' + direction + '.json'
                 with open(path) as f:
                     data_stop = json.load(f)
@@ -199,16 +200,34 @@ class LocationView(APIView):
                 allstops = Stopsstatic.objects.filter(true_stop_id__in=allkeys)
                 allstops_ser = RoutesStopidSerializer(allstops, many=True)
                 allstops_data = allstops_ser.data
-                start_stop_name = eachstep["transit_details"]["departure_stop"]["name"]
-                end_stop_name = eachstep["transit_details"]["arrival_stop"]["name"]
-                for eachstop in allstops_data:
-                    if eachstop["stop_name"] ==start_stop_name:
-                        start_stop_id = eachstop["true_stop_id"]
-                    if eachstop["stop_name"] ==end_stop_name:
-                        end_stop_id = eachstop["true_stop_id"]
-                result = PredictTimeView.predict(lineid, direction, start_stop_id, end_stop_id, 1532974536)
 
-        result["data"]["google"] = r
+                # Get the latitude and longitude of the stop
+                start_stop_lat = eachstep["transit_details"]["departure_stop"]["location"]["lat"]
+                start_stop_lng = eachstep["transit_details"]["departure_stop"]["location"]["lng"]
+                end_stop_lat = eachstep["transit_details"]["arrival_stop"]["location"]["lat"]
+                end_stop_lng = eachstep["transit_details"]["arrival_stop"]["location"]["lng"]
+
+                min_start = 100; min_end = 100;
+                #This is to find the match stop to get the stop id to predict
+                for eachstop in allstops_data:
+                    temp_start = abs((float(eachstop["stop_lat"]) - start_stop_lat)) + abs((float(eachstop["stop_long"]) - start_stop_lng))
+                    temp_end = abs((float(eachstop["stop_lat"]) - end_stop_lat)) + abs((float(eachstop["stop_long"]) - end_stop_lng))
+                    if temp_start < min_start:
+                        min_start = temp_start
+                        start_stop_id = eachstop['true_stop_id']
+                    if temp_end < min_end:
+                        min_end = temp_end
+                        end_stop_id = eachstop["true_stop_id"]
+
+                predict_result.append(PredictTimeView.predict(lineid, direction, start_stop_id, end_stop_id, 1532974536))
+
+
+        # result["data"]["google"] = r
+        result = {
+            "status": "success",
+            "data": predict_result,
+            "google": r
+        }
 
         return Response(result)
 

@@ -41,15 +41,20 @@ const MyMapComponent = compose(
 	)((props) =>
 	    <GoogleMap defaultZoom={12} defaultCenter={{ lat: 53.350140, lng: -6.266155 }}>
 			{props.directions && <DirectionsRenderer directions={props.directions} />}
-        	{props.stops.map(marker => (
-    			<Marker
-					key={marker.stop_id}
-					position={{ lat: parseFloat(marker.stop_lat), lng: parseFloat(marker.stop_long) }}
-					onClick={props.onToggleOpen}
-					animation={marker.stop_id === props.blink? google.maps.Animation.BOUNCE: ""}
-					>
-				</Marker>
-			))}
+			{Object.keys(props.stopsall).length > 0 && props.stopsall.data.map((stop, index) => {
+				return (
+					<div key={index}>
+						{stop.stopInfo.map(marker => (
+							<Marker
+								key={marker.stop_id}
+								position={{ lat: parseFloat(marker.stop_lat), lng: parseFloat(marker.stop_long) }}
+								onClick={props.onToggleOpen}
+								animation={marker.stop_id === props.blink? google.maps.Animation.BOUNCE: ""}
+								/>
+						))}
+					</div>
+				)
+			})}
 	    </GoogleMap>
 	)
 
@@ -75,7 +80,7 @@ class Map extends React.PureComponent {
                 isMarkerShown={this.state.isMarkerShown}
                 onMarkerClick={this.handleMarkerClick}
                 isRouteShown={this.state.isRouteShown}
-				stops={this.props.stops}
+				stopsall={this.props.stopsall}
 				station={this.props.station}
 				blink={this.props.blink}
 				view={this.props.view}

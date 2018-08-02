@@ -131,7 +131,7 @@
     "dir1": "From Talbot St. To Howth Summit",
     "dir2": "From Howth Summit To Talbot St. "
   },
-  "31b ": {
+  "31b": {
     "dir1": "From Talbot St. To Howth Summit",
     "dir2": "From Howth Summit To Talbot St. "
   },
@@ -271,7 +271,7 @@
     "dir1": "From Phoenix Park To Dun Laoghaire",
     "dir2": "From Dun Laoghaire To Phoenix Park "
   },
-  "46e ": {
+  "46e": {
     "dir1": "From Blackrock Station To Mountjoy Sq.",
     "dir2": "From Mountjoy Sq. To Blackrock Station "
   },
@@ -279,7 +279,7 @@
     "dir1": "From D'Olier St. To Dundrum ",
     "dir2": "From Dundrum To D'Olier St. "
   },
-  "47 ": {
+  "47": {
     "dir1": "From Poolbeg St. To Belarmine",
     "dir2": "From Belarmine To Poolbeg St. "
   },
@@ -379,7 +379,7 @@
     "dir1": "From Westmoreland St. To Saggart",
     "dir2": "From Saggart To Westmoreland St. "
   },
-  "69x ": {
+  "69x": {
     "dir1": "From Hawkins St. To Rathcoole",
     "dir2": "From Rathcoole To Hawkins St. "
   },
