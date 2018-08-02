@@ -185,6 +185,7 @@ class LocationView(APIView):
                 try:
                     dir1 = data_dir[lineid]["dir1"]
                 except KeyError:
+                    print(lineid)
                     return Response({"status":"fail", "msg":"Sorry, this is not Dublin Bus Company's route."})
 
 
