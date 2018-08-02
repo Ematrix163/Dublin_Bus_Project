@@ -21,7 +21,7 @@ class App extends React.Component {
 		end_stop: '',
 		time: '',
 		blink: '',
-		prediction: {"stopInfo":[]},
+		prediction: {},
 		allDirections: [],
 		direction: '',
 		show: false,
@@ -81,7 +81,7 @@ class App extends React.Component {
 		this.setState({view: value, station:[]});
 		//Clear the markers when user switch to another view
 		if (value === 'station')
-			this.setState({prediction:{"stopInfo":[]}});
+			this.setState({prediction:{}});
 	}
 	// In route View, when user click submit button
 	routeSubmit = () => {
@@ -91,7 +91,7 @@ class App extends React.Component {
 			// Call the api to predict the time
 			WebAPI.getTime(this.state.selectedOption.value, this.state.start_stop.value, this.state.end_stop.value, this.state.time, this.state.direction.value).then(r => {
 				if (r.status === 'success') {
-					this.setState({prediction: r.data, view:'result'});
+					this.setState({prediction: r, view:'result'});
 				} else {
 					this.setState({view:'route', show:'false', alert:'Sorry, the bus is not in service at that time!'})
 				}
@@ -127,7 +127,11 @@ class App extends React.Component {
 		this.setState({view:'loading'});
 		WebAPI.getGoogleDirection(start_loc, start_lng, end_loc, end_lng, 1532979801)
 			.then(r => {
-				this.setState({prediction: r.data, view:'station_result'});
+				if (r.status = 'success') {
+					this.setState({prediction: r, view:'station_result'});
+				} else {
+					this.setState({view:'station', show:'false', alert:r.msg})
+				}
 			})
 	}
 
@@ -173,12 +177,12 @@ class App extends React.Component {
 						<div className="header">
 							<ul className="navigator">
 								<Link to='/login'><li>Sign In</li></Link>
-								<Link to='/'><li>About Us</li></Link>
+								<Link to='/'><li>API</li></Link>
 							</ul>
 						</div>
 						<div id="map">
 							<Map
-								stops={this.state.prediction.stopInfo}
+								stopsall={this.state.prediction}
 								station={this.state.station}
 								startLoc={this.state.start_loc}
 								destLoc={this.state.dest_loc}
