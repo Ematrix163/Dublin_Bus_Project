@@ -29,7 +29,8 @@ class App extends React.Component {
 		dest_loc: '',
 		alert: '',
 		submitFlag: false,
-		spinner: false
+		spinner: false,
+		toggle: false
     }
 
 
@@ -40,6 +41,15 @@ class App extends React.Component {
 		}))
 		this.setState({routes: temp})
 	}
+
+
+
+        // changes the toggle state from true to false
+	toggleClick() {
+	    //console.log('this is:', this);
+	    console.log(this.state.toggle);
+	    this.setState(prevState => ({toggle: !prevState.toggle}))
+	  }
 
 	// When user Choose different route, the directions should be updated
 	routeChange = (val) => {
@@ -184,6 +194,8 @@ class App extends React.Component {
 							<ul className="navigator">
 								<Link to='/login'><li>Sign In</li></Link>
 								<Link to='/'><li>API</li></Link>
+								<li onClick={(e) => this.toggleClick(e)}>{this.state.toggle ? 'Map' : 'Traffic Updates'}</li>
+
 							</ul>
 						</div>
 						<div id="map">
