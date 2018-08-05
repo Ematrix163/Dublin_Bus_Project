@@ -51,6 +51,10 @@
     height: calc(100vh - 60px);
 }
 
+.TwitterDisplay{
+margin-top:120px;
+}
+
 
 .navigator {
 	color: rgb(120,133,155);

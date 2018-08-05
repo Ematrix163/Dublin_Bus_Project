@@ -5,6 +5,7 @@ import Map from './Map'
 import './css/App.css';
 import * as WebAPI from './WebAPI'
 import moment from 'moment';
+import TwitterDisplay from './TwitterDisplay';
 
 import SweetAlert from 'sweetalert2-react';
 import { Link, Route } from 'react-router-dom'
@@ -198,23 +199,31 @@ class App extends React.Component {
 
 							</ul>
 						</div>
-						<div id="map">
-							<Map
-								stopsall={this.state.prediction}
-								station={this.state.station}
-								startLoc={this.state.start_loc}
-								destLoc={this.state.dest_loc}
-								view={this.state.view}
-								blink={this.state.blink}
-								submitFlag={this.state.submitFlag}
-								/>
-						</div>
+							<div id="map">
+
+								{/* if toggle state changes switch between map and twitter */}
+
+								{this.state.toggle ? <TwitterDisplay/> : (<Map
+										stopsall={this.state.prediction}
+										station={this.state.station}
+										startLoc={this.state.start_loc}
+										destLoc={this.state.dest_loc}
+										view={this.state.view}
+										blink={this.state.blink}
+										submitFlag={this.state.submitFlag}
+										/>)}
+
+							</div>
 						</div>
 					</div>
 				)}/>
 
 			<Route exact path="/login" render={() => (
 					<Login/>
+				)}/>
+
+			<Route exact path="/twitter" render={() => (
+					<TwitterDisplay/>
 				)}/>
 			</div>
 		)
