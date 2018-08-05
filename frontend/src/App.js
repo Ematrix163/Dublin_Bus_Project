@@ -35,13 +35,13 @@ class App extends React.Component {
     }
 
 
-   // componentDidMount() {
-	//	let temp = [];
-	//	WebAPI.getAllRoute().then(r => r.map((each) => {
-	//		temp.push({value:each.routes, label:each.routes})
-	//	}))
-	//	this.setState({routes: temp})
-	//}
+    componentDidMount() {
+		let temp = [];
+		WebAPI.getAllRoute().then(r => r.map((each) => {
+			temp.push({value:each.routes, label:each.routes})
+		}))
+		this.setState({routes: temp})
+	}
 
 
 
