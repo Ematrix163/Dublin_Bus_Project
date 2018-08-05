@@ -16,9 +16,11 @@ class SideBar extends React.Component {
         switch (this.props.view) {
             case 'route':
                 left_content = <div className="sidebar">
-                    <div className="logo">
-                        <img src={logo}/>
-                    </div>
+                    <a href="/">
+                        <div className="logo">
+                            <img src={logo}/>
+                        </div>
+                    </a>
                     <div className="view">
                         <button className="button-view" onClick={this.props.switchView.bind(this, 'route')}>Route View</button>
                         <button className="button-view-activate" onClick={this.props.switchView.bind(this, 'station')}>Station View</button>

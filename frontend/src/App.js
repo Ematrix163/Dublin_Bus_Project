@@ -35,19 +35,18 @@ class App extends React.Component {
     }
 
 
-    componentDidMount() {
-		let temp = [];
-		WebAPI.getAllRoute().then(r => r.map((each) => {
-			temp.push({value:each.routes, label:each.routes})
-		}))
-		this.setState({routes: temp})
-	}
+   // componentDidMount() {
+	//	let temp = [];
+	//	WebAPI.getAllRoute().then(r => r.map((each) => {
+	//		temp.push({value:each.routes, label:each.routes})
+	//	}))
+	//	this.setState({routes: temp})
+	//}
 
 
 
         // changes the toggle state from true to false
 	toggleClick() {
-	    //console.log('this is:', this);
 	    console.log(this.state.toggle);
 	    this.setState(prevState => ({toggle: !prevState.toggle}))
 	  }
@@ -62,7 +61,7 @@ class App extends React.Component {
 		}
 	}
 
-	//When user choose different directions, will show all related stops
+	//When user choose different directionshttp://localhost:3000/, will show all related stops
 	dirChange = (val) => {
 		if (val) {
 			this.setState({direction:val})
@@ -99,17 +98,18 @@ class App extends React.Component {
 	routeSubmit = () => {
 		// Check all these fields are not blank
 		if (this.state.selectedOption && this.state.start_stop && this.state.end_stop && this.state.time) {
-			this.setState({view:'loading'});
+			this.setState({view:'loading', toggle : false});
 			// Call the api to predict the time
 			WebAPI.getTime(this.state.selectedOption.value, this.state.start_stop.value, this.state.end_stop.value, this.state.time, this.state.direction.value).then(r => {
 				if (r.status === 'success') {
 					this.setState({prediction: r, view:'result'});
+
 				} else {
 					this.setState({view:'route', show:'false', alert:'Sorry, the bus is not in service at that time!'})
 				}
 			});
 		} else {
-			this.setState({show:true, alert:'Please fill out the form!'})
+			this.setState({toggle : false, show:true, alert:'Please fill out the form!'})
 		}
 	}
 

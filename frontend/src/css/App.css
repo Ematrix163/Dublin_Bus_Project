@@ -49,13 +49,15 @@
 #map {
     width: 100%;
     height: calc(100vh - 60px);
+	box-sizing:border-box;
+	overflow: auto;
 }
 
 .TwitterDisplay{
-margin-top:120px;
-margin-left: auto;
-margin-right: auto;
-width: 80%;
+	margin-top:60px;
+	margin-left: auto;
+	margin-right: auto;
+	width: 90%;
 }
 
 .navigator {
