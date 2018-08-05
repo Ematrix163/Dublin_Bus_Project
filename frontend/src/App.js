@@ -30,7 +30,7 @@ class App extends React.Component {
 		alert: '',
 		submitFlag: false,
 		spinner: false,
-		toggle: false
+		toggle: false,
     }
 
 

@@ -276,6 +276,9 @@
 }
 
 
+.alert {
+	font-size: 14px;
+}
 /*Use my location CSS style*/
 .use-my-loc {
 	cursor: pointer;

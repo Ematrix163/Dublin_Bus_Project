@@ -83,7 +83,6 @@ class PredictTimeView(APIView):
         with open(path, 'r') as f:
             temp = f.read().strip('\n')
             column_seq = temp.split('\n')
-
         to_predict = pd.DataFrame(columns=column_seq, index=[0])
         to_predict.iloc[0] = [0] * len(column_seq)
         # Get the weather from the database
@@ -100,11 +99,37 @@ class PredictTimeView(APIView):
             for feature in continuous_list:
                 to_predict[feature][0] = each[feature]
 
+
+        # Get the arrive bus time
+        format_start_stop = '0' + str(start_stop)
+        bus_time = DublinbusScheduleCurrent.objects.filter(stop_id=format_start_stop[-4:], line_id=routeid).values_list('arrival_time').order_by('arrival_time')
+        dep_seconds = time % 86400
+        # bus_seconds = dep_seconds
+        # bus_readble_hour = int(bus_seconds / 3600)
+        # bus_readble_min = int((bus_seconds - bus_readble_hour * 3600) / 60)
+        # bus_readble_sec = bus_seconds - bus_readble_hour * 3600 - bus_readble_min * 60
+        # bus_readble = str(bus_readble_hour) + ':' + str(bus_readble_min) + ':' + str(bus_readble_sec)
+
+        # Try to find the next coming bus after user's input time
+        for t in bus_time:
+            bus_seconds = int(t[0][0:2]) * 3600 + int(t[0][3:5]) * 60
+            if bus_seconds > dep_seconds:
+                bus_readble = t[0]
+                flag = True
+                break
+        else:
+            # If there is no bus after that time, use the tomorrow's first bus
+            flag = False
+            bus_seconds = int(bus_time[0][0][0:2]) * 3600 + int(bus_time[0][0][3:5]) * 60
+            bus_readble = bus_time[0][0]
+
         dayofweek = datetime.datetime.fromtimestamp(time).weekday()
-        category_time = str(round((time % 86400) / 1800))
-        to_predict['arrive_time_' + category_time] = 1
+        category_time = 'arrive_time_'  + str(int((bus_seconds % 86400) / 1800))
+
+        # if category_time not in to_predict:
+        to_predict[category_time] = 1
         to_predict['dayofweek_' + str(dayofweek)] = 1
-        # Load the pkl file
+        # Load the model pkl file
         model_path = settings.MODEL_URL + '/model_' + routeid.upper() + '_' + direction + '.pkl'
         clf = joblib.load(model_path)
         # Load the scaler file
@@ -112,16 +137,35 @@ class PredictTimeView(APIView):
         sca = joblib.load(scaler_path)
         # Get All stops between these two stops
         stops = PredictTimeView.getInfo(str(start_stop), str(end_stop), routeid, direction=direction)
-
         stopInfo = Stopsstatic.objects.filter(true_stop_id__in=stops)
         stopInfo_ser = RoutesStopidSerializer(stopInfo, many=True)
+        stopInfo_data = stopInfo_ser.data
+        length = len(stopInfo_data)
+        # Sort the stop
+        path = settings.STATICFILES_DIRS[0] + '/stopSeq/' + routeid + '_' + direction + '.json'
+        with open(path, 'r') as f:
+            data = json.load(f)
+        for i in range(length):
+            for j in range(i, length):
+                if data[str(stopInfo_data[i]['true_stop_id'])] > data[str(stopInfo_data[j]['true_stop_id'])]:
+                    stopInfo_data[i], stopInfo_data[j] = stopInfo_data[j], stopInfo_data[i]
 
         length = len(stops)
         detail = [];
         total_time = 0
-        pd.set_option('display.max_columns', 500)
-        try:
-            for index in range(length - 1):
+        # pd.set_option('display.max_columns', 500)
+        average_time = {}
+        with open(settings.MODEL_URL + '/averages.csv') as f:
+            temp = f.read().strip('\n').split('\n')
+            for each in temp:
+                x = each.split(',')
+                average_time[x[0]] = x[1]
+
+        for index in range(length - 1):
+            current_start = 'start_stop_' + stops[index]
+            current_end = 'end_stop_' + stops[index + 1]
+            # If our model has these two stops
+            if (current_start in to_predict and current_end in to_predict):
                 to_predict['start_stop_' + stops[index]][0] = 1
                 to_predict['end_stop_' + stops[index + 1]][0] = 1
                 temp = sca.transform(to_predict)
@@ -133,27 +177,18 @@ class PredictTimeView(APIView):
                 to_predict.iloc[0] = temp[0]
                 to_predict['start_stop_' + stops[index]][0] = 0
                 to_predict['end_stop_' + stops[index + 1]][0] = 0
-        except ValueError:
-                # If the bus is not in running time
-                return "fail"
+            else:
+                detail.append(average_time[routeid.upper() + '_'+direction])
+                total_time += float(average_time[routeid.upper()+'_'+direction])
         total_time = int(total_time / 60)
 
-        # Get the arrive bus time
-        bus_time = DublinbusScheduleCurrent.objects.filter(stop_id=start_stop, line_id=routeid).values_list('arrival_time').order_by('arrival_time')
-        dep_seconds = time % 86400
-        bus_seconds = 0;
-        bus_readble = 0
-        for t in bus_time:
-            bus_seconds = int(t[0][0:2]) * 3600 + int(t[0][3:5]) * 60
-            if bus_seconds > dep_seconds:
-                bus_readble = t[0]
-                break
         result = {
             "detail": detail,
             "totalDuration": total_time,
             "stopsNum": length,
-            "stopInfo": stopInfo_ser.data,
-            "bustime": [bus_seconds, bus_readble]
+            "stopInfo": stopInfo_data,
+            "bustime": [bus_seconds, bus_readble],
+            "flag": flag
          }
         return result
 
@@ -187,8 +222,6 @@ class LocationView(APIView):
                 except KeyError:
                     print(lineid)
                     return Response({"status":"fail", "msg":"Sorry, this is not Dublin Bus Company's route."})
-
-
                 if dir1.find(headsign) > dir1.find('To'):
                     direction = '1'
                 else:
@@ -201,13 +234,11 @@ class LocationView(APIView):
                 allstops = Stopsstatic.objects.filter(true_stop_id__in=allkeys)
                 allstops_ser = RoutesStopidSerializer(allstops, many=True)
                 allstops_data = allstops_ser.data
-
                 # Get the latitude and longitude of the stop
                 start_stop_lat = eachstep["transit_details"]["departure_stop"]["location"]["lat"]
                 start_stop_lng = eachstep["transit_details"]["departure_stop"]["location"]["lng"]
                 end_stop_lat = eachstep["transit_details"]["arrival_stop"]["location"]["lat"]
                 end_stop_lng = eachstep["transit_details"]["arrival_stop"]["location"]["lng"]
-
                 min_start = 100; min_end = 100;
                 #This is to find the match stop to get the stop id to predict
                 for eachstop in allstops_data:
@@ -219,9 +250,7 @@ class LocationView(APIView):
                     if temp_end < min_end:
                         min_end = temp_end
                         end_stop_id = eachstop["true_stop_id"]
-
                 predict_result.append(PredictTimeView.predict(lineid, direction, start_stop_id, end_stop_id, 1532974536))
-
 
         # result["data"]["google"] = r
         result = {
@@ -229,7 +258,4 @@ class LocationView(APIView):
             "data": predict_result,
             "google": r
         }
-
         return Response(result)
-
-

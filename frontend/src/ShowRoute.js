@@ -11,9 +11,9 @@ class ShowRoute extends React.Component {
 		const end_min = ('00' + parseInt((end - end_hour * 3600) / 60)).substr(-2)
 		const end_formattedTime = end_hour + ':' + end_min + ':00'
 
-
 		return (
 			<div className="show-route">
+				{this.props.prediction.data[0].flag? null:<div className="alert alert-danger" role="alert">Sorry, there is no serving bus after your picked datetime!</div>}
 				<p><i className="fas fa-bus"></i><span className="start"> Bus Line: {this.props.routeid}</span></p>
 				<p className="from-to">From <span className="stop-name">{this.props.start}</span></p>
 				<p className="from-to">To <span className="stop-name">{this.props.end}</span></p>
