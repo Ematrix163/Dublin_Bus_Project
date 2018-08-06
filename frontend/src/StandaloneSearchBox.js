@@ -32,7 +32,7 @@ const SearchBox = compose(
 					(position) => {
 						this.setState({spinner: false});
 						// for when getting location is a success
-						const places = new window.google.maps.LatLng(position.coords.latitude.toFixed(4), position.coords.longitude.toFixed(4));
+						const places = new google.maps.LatLng(position.coords.latitude.toFixed(4), position.coords.longitude.toFixed(4));
 						this.setState({places, text: places});
 						this.props.switchUserLoc(places);
 	   				},

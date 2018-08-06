@@ -11,13 +11,10 @@ import ShowStationResult from './ShowStationResult'
 
 //the side the webpage for user to enter journey details and to show route info
 class SideBar extends React.Component {
-
 	constructor(props) {
 		super(props);
 		this.SMALL_SCREEN_WIDTH = 700;
 	}
-
-
 
     render() {
         let left_content;
