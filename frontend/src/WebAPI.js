@@ -3,8 +3,7 @@ This is all api methods
 */
 
 const api = "/api"
-//
-// const api = "/api"
+
 
 const headers = {
   'Accept': 'application/json',
