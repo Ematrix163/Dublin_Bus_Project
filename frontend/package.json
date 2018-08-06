@@ -2,7 +2,6 @@
   "name": "dublin_bus",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://localhost:8000",
   "dependencies": {
     "globalize": "^1.4.0",
     "moment": "^2.22.2",
@@ -15,9 +14,10 @@
     "react-router": "^4.3.1",
     "react-router-dom": "^4.3.1",
     "react-scripts": "1.1.4",
-    "react-select": "^1.2.1",
+    "react-select": "^2.0.0",
     "react-widgets": "^4.4.3",
     "react-widgets-globalize": "^5.0.12",
+    "react-window-size": "^1.2.0",
     "sweetalert2": "^7.25.6",
     "sweetalert2-react": "^0.7.2",
     "sweetalert2-react-content": "^1.0.1"

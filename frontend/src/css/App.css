@@ -87,12 +87,13 @@
 }
 
 .logo {
-    width: 80%;
-    margin: 30px 0 25px 70px;
+	margin: 20px 0 20px 0;
+	text-align: center;
 }
 
 .logo img{
-    width: 300px;
+	display: inline-block;
+    height: 80px;
 }
 
 #sign {
@@ -279,6 +280,60 @@
 .alert {
 	font-size: 14px;
 }
+
+
+
+.toggle {
+	margin: 5px 0 0 15px;
+	font-size: 50px;
+	cursor: pointer;
+}
+
+.siderbar-toggle {
+	position: absolute;
+	right: 35px;
+	top: 20px;
+	font-size: 25px;
+	cursor: pointer;
+}
+
+
+
+
+
+
+
+/*CSS style for mobile device*/
+
+@media only screen and (max-width: 700px) {
+	.sidebar {
+		width: 100vw;
+	}
+
+	.selectbox {
+		font-size: 12px;
+	}
+
+}
+
+
+
+
+/*CSS style for mid-size device*/
+@media only screen and (min-width: 700px) and (max-width: 1200px) {
+
+	.sidebar {
+		width: 380px;
+	}
+
+	.selectbox {
+		font-size: 12px;
+	}
+}
+
+
+
+
 /*Use my location CSS style*/
 .use-my-loc {
 	cursor: pointer;

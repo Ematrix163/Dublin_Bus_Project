@@ -5,7 +5,6 @@ import Map from './Map'
 import './css/App.css';
 import * as WebAPI from './WebAPI'
 import moment from 'moment';
-
 import SweetAlert from 'sweetalert2-react';
 import { Link, Route } from 'react-router-dom'
 
@@ -31,7 +30,26 @@ class App extends React.Component {
 		submitFlag: false,
 		spinner: false,
 		toggle: false,
-    }
+		showsidebar: true,
+		width: 0,
+		height: 0
+    };
+
+	/*Get the window size*/
+	constructor(props) {
+	  super(props);
+	  this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
+	}
+
+
+	componentWillUnmount() {
+	  window.removeEventListener('resize', this.updateWindowDimensions);
+	}
+
+	updateWindowDimensions() {
+	  this.setState({ width: window.innerWidth, height: window.innerHeight });
+	}
+
 
 
     componentDidMount() {
@@ -39,9 +57,11 @@ class App extends React.Component {
 		WebAPI.getAllRoute().then(r => r.map((each) => {
 			temp.push({value:each.routes, label:each.routes})
 		}))
-		this.setState({routes: temp})
-	}
+		this.setState({routes: temp});
 
+		this.updateWindowDimensions();
+		window.addEventListener('resize', this.updateWindowDimensions);
+	}
 
 
         // changes the toggle state from true to false
@@ -150,37 +170,48 @@ class App extends React.Component {
 		this.setState({start_loc:place});
 	}
 
+
+	//Toggle the SideBar
+	toggleSideBar = () => {
+		this.setState({showsidebar: !this.state.showsidebar})
+	}
+
 	render() {
 		return (
 		<div>
 			<Route exact path="/" render={() => (
 				<div className="base-container">
-					<SideBar
-						search={this.state.search}
-						view={this.state.view}
-						routes={this.state.routes}
-						station={this.state.station}
-						selectedOption={this.state.selectedOption}
-						startStop={this.state.start_stop}
-						endStop={this.state.end_stop}
-						time={this.state.time}
-						prediction={this.state.prediction}
-						allDirections={this.state.allDirections}
-						direction={this.state.direction}
-						routeChange={this.routeChange}
-						startChange={this.startChange}
-						endChange={this.endChange}
-						switchView={this.switchView}
-						dirChange={this.dirChange}
-						routeSubmit={this.routeSubmit}
-						timeOnchange={this.timeOnchange}
-						startLocChange={this.startLocChange}
-						destLocChange={this.destLocChange}
-						handleOut={this.handleOut}
-						handleOver={this.handleOver}
-						stationSubmit={this.stationSubmit}
-						switchUserLoc={this.switchUserLoc}
-						/>
+					{this.state.showsidebar?
+						<SideBar
+							search={this.state.search}
+							view={this.state.view}
+							routes={this.state.routes}
+							station={this.state.station}
+							selectedOption={this.state.selectedOption}
+							startStop={this.state.start_stop}
+							endStop={this.state.end_stop}
+							time={this.state.time}
+							prediction={this.state.prediction}
+							allDirections={this.state.allDirections}
+							direction={this.state.direction}
+							routeChange={this.routeChange}
+							startChange={this.startChange}
+							endChange={this.endChange}
+							switchView={this.switchView}
+							dirChange={this.dirChange}
+							routeSubmit={this.routeSubmit}
+							timeOnchange={this.timeOnchange}
+							startLocChange={this.startLocChange}
+							destLocChange={this.destLocChange}
+							handleOut={this.handleOut}
+							handleOver={this.handleOver}
+							stationSubmit={this.stationSubmit}
+							switchUserLoc={this.switchUserLoc}
+							toggleSideBar={this.toggleSideBar}
+							windowwidth={this.state.width}
+							/>
+						: null
+					}
 
 						<SweetAlert
 							show={this.state.show}
@@ -189,28 +220,33 @@ class App extends React.Component {
 							text={this.state.alert}
 							onConfirm={() => this.setState({ show: false })}
 						/>
-						<div className="main">
-						<div className="header">
-							<ul className="navigator">
-								<Link to='/login'><li>Sign In</li></Link>
-								<Link to='/'><li>API</li></Link>
-								<li onClick={(e) => this.toggleClick(e)}>{this.state.toggle ? 'Map' : 'Traffic Updates'}</li>
 
-							</ul>
+					{this.state.width <= 700 && !this.state.showsidebar || this.state.width > 700?
+						<div className="main">
+							<div className="header">
+								<ul className="navigator">
+									{this.state.showsidebar?
+										<i className="toggle fas fa-angle-double-left" onClick={this.toggleSideBar}></i>
+										: <i className="toggle fas fa-angle-double-right" onClick={this.toggleSideBar}></i>}
+										<Link to='/login'><li>Sign In</li></Link>
+										<Link to='/'><li>API</li></Link>
+										<li onClick={(e) => this.toggleClick(e)}>{this.state.toggle ? 'Map' : 'Traffic Updates'}</li>
+								</ul>
+							</div>
+							<div id="map">
+								<Map
+									stopsall={this.state.prediction}
+									station={this.state.station}
+									startLoc={this.state.start_loc}
+									destLoc={this.state.dest_loc}
+									view={this.state.view}
+									blink={this.state.blink}
+									submitFlag={this.state.submitFlag}
+									/>
+							</div>
 						</div>
-						<div id="map">
-							<Map
-								stopsall={this.state.prediction}
-								station={this.state.station}
-								startLoc={this.state.start_loc}
-								destLoc={this.state.dest_loc}
-								view={this.state.view}
-								blink={this.state.blink}
-								submitFlag={this.state.submitFlag}
-								/>
-						</div>
-						</div>
-					</div>
+						: null}
+				</div>
 				)}/>
 
 			<Route exact path="/login" render={() => (

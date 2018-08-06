@@ -1,35 +1,206 @@
 import React from 'react';
 import ShowRoute from './ShowRoute'
-import logo from './image/logo.jpg'
+import logo from './image/logo.png'
 import SearchBox from './StandaloneSearchBox'
 import 'react-datepicker/dist/react-datepicker.css';
 import Select from 'react-select';
-import 'react-select/dist/react-select.css';
 import * as Datetime from 'react-datetime';
 import ShowStationResult from './ShowStationResult'
 
 
+
 //the side the webpage for user to enter journey details and to show route info
 class SideBar extends React.Component {
+
+	constructor(props) {
+		super(props);
+		this.SMALL_SCREEN_WIDTH = 700;
+	}
+
+
+
     render() {
         let left_content;
+		const stops = [
+			{value: "1", label: "1"},
+			{value: "102", label: "102"},
+			{value: "104", label: "104"},
+			{value: "11", label: "11"},
+			{value: "111", label: "111"},
+			{value: "114", label: "114"},
+			{value: "116", label: "116"},
+			{value: "118", label: "118"},
+			{value: "120", label: "120"},
+			{value: "122", label: "122"},
+			{value: "123", label: "123"},
+			{value: "13", label: "13"},
+			{value: "130", label: "130"},
+			{value: "14", label: "14"},
+			{value: "140", label: "140"},
+			{value: "142", label: "142"},
+			{value: "145", label: "145"},
+			{value: "14C", label: "14C"},
+			{value: "15", label: "15"},
+			{value: "150", label: "150"},
+			{value: "151", label: "151"},
+			{value: "15A", label: "15A"},
+			{value: "15B", label: "15B"},
+			{value: "16", label: "16"},
+			{value: "161", label: "161"},
+			{value: "16C", label: "16C"},
+			{value: "17", label: "17"},
+			{value: "17A", label: "17A"},
+			{value: "18", label: "18"},
+			{value: "184", label: "184"},
+			{value: "185", label: "185"},
+			{value: "220", label: "220"},
+			{value: "236", label: "236"},
+			{value: "238", label: "238"},
+			{value: "239", label: "239"},
+			{value: "25", label: "25"},
+			{value: "25A", label: "25A"},
+			{value: "25B", label: "25B"},
+			{value: "25D", label: "25D"},
+			{value: "25X", label: "25X"},
+			{value: "26", label: "26"},
+			{value: "27", label: "27"},
+			{value: "270", label: "270"},
+			{value: "27A", label: "27A"},
+			{value: "27B", label: "27B"},
+			{value: "27X", label: "27X"},
+			{value: "29A", label: "29A"},
+			{value: "31", label: "31"},
+			{value: "31A", label: "31A"},
+			{value: "31B", label: "31B"},
+			{value: "31D", label: "31D"},
+			{value: "32", label: "32"},
+			{value: "32X", label: "32X"},
+			{value: "33", label: "33"},
+			{value: "33A", label: "33A"},
+			{value: "33B", label: "33B"},
+			{value: "33X", label: "33X"},
+			{value: "37", label: "37"},
+			{value: "38", label: "38"},
+			{value: "38A", label: "38A"},
+			{value: "38B", label: "38B"},
+			{value: "38D", label: "38D"},
+			{value: "39", label: "39"},
+			{value: "39A", label: "39A"},
+			{value: "4", label: "4"},
+			{value: "40", label: "40"},
+			{value: "40B", label: "40B"},
+			{value: "40D", label: "40D"},
+			{value: "41", label: "41"},
+			{value: "41A", label: "41A"},
+			{value: "41B", label: "41B"},
+			{value: "41C", label: "41C"},
+			{value: "41X", label: "41X"},
+			{value: "42", label: "42"},
+			{value: "42D", label: "42D"},
+			{value: "43", label: "43"},
+			{value: "44", label: "44"},
+			{value: "44B", label: "44B"},
+			{value: "45A", label: "45A"},
+			{value: "46A", label: "46A"},
+			{value: "46E", label: "46E"},
+			{value: "47", label: "47"},
+			{value: "49", label: "49"},
+			{value: "51D", label: "51D"},
+			{value: "51X", label: "51X"},
+			{value: "53", label: "53"},
+			{value: "54A", label: "54A"},
+			{value: "56A", label: "56A"},
+			{value: "59", label: "59"},
+			{value: "61", label: "61"},
+			{value: "63", label: "63"},
+			{value: "65", label: "65"},
+			{value: "65B", label: "65B"},
+			{value: "66", label: "66"},
+			{value: "66A", label: "66A"},
+			{value: "66B", label: "66B"},
+			{value: "66X", label: "66X"},
+			{value: "67", label: "67"},
+			{value: "67X", label: "67X"},
+			{value: "68", label: "68"},
+			{value: "68A", label: "68A"},
+			{value: "68X", label: "68X"},
+			{value: "69", label: "69"},
+			{value: "69X", label: "69X"},
+			{value: "7", label: "7"},
+			{value: "70", label: "70"},
+			{value: "70D", label: "70D"},
+			{value: "75", label: "75"},
+			{value: "757", label: "757"},
+			{value: "76", label: "76"},
+			{value: "76A", label: "76A"},
+			{value: "77A", label: "77A"},
+			{value: "77X", label: "77X"},
+			{value: "79", label: "79"},
+			{value: "79A", label: "79A"},
+			{value: "7A", label: "7A"},
+			{value: "7B", label: "7B"},
+			{value: "7D", label: "7D"},
+			{value: "83", label: "83"},
+			{value: "83A", label: "83A"},
+			{value: "84", label: "84"},
+			{value: "84A", label: "84A"},
+			{value: "84X", label: "84X"},
+			{value: "9", label: "9"}
+		];
         switch (this.props.view) {
             case 'route':
                 left_content = <div className="sidebar">
+					{this.props.windowwidth <= this.SMALL_SCREEN_WIDTH?
+						<i className="siderbar-toggle fas fa-angle-double-left" onClick={this.props.toggleSideBar}></i>
+						: null
+					}
                     <div className="logo">
                         <img src={logo}/>
                     </div>
+
                     <div className="view">
                         <button className="button-view" onClick={this.props.switchView.bind(this, 'route')}>Route View</button>
                         <button className="button-view-activate" onClick={this.props.switchView.bind(this, 'station')}>Station View</button>
                     </div>
                     <div className="sidebar-container">
                         <div className="input-container">
-                            <Select className="selectbox" name="form-field-name" placeholder="Please Select a bus line" value={this.props.selectedOption} options={this.props.routes} onChange={this.props.routeChange}/>
-                            <Select className="selectbox" name="form-field-name" placeholder="Please Choose A Direction" value={this.props.direction} options={this.props.allDirections} onChange={this.props.dirChange}/>
-                            <Select className="selectbox" name="form-field-name" placeholder="Start Stop" value={this.props.startStop} options={this.props.station} onChange={this.props.startChange}/>
-                            <Select className="selectbox" name="form-field-name" placeholder="Destination stop" value={this.props.endStop} options={this.props.station} onChange={this.props.endChange}/>
-							<Datetime className="timepicker" onChange={this.props.timeOnchange} inputProps={{placeholder: '                        Choose The Time'}}/>
+                            <Select
+								className="selectbox"
+								name="form-field-name"
+								placeholder="Please Select a bus line"
+								value={this.props.selectedOption}
+								options={stops}
+								onChange={this.props.routeChange}
+								isSearchable={this.props.windowwidth > this.SMALL_SCREEN_WIDTH ? true: false}
+							/>
+                            <Select
+								className="selectbox"
+								name="form-field-name"
+								placeholder="Please Choose A Direction"
+								value={this.props.direction}
+								options={this.props.allDirections}
+								onChange={this.props.dirChange}
+								isSearchable={this.props.windowwidth > this.SMALL_SCREEN_WIDTH ? true: false}
+							/>
+                            <Select
+								className="selectbox"
+								name="form-field-name"
+								placeholder="Start Stop"
+								value={this.props.startStop}
+								options={this.props.station}
+								onChange={this.props.startChange}
+								isSearchable={this.props.windowwidth > this.SMALL_SCREEN_WIDTH ? true: false}
+							/>
+                            <Select
+								className="selectbox"
+								name="form-field-name"
+								placeholder="Destination stop"
+								value={this.props.endStop}
+								options={this.props.station}
+								onChange={this.props.endChange}
+								isSearchable={this.props.windowwidth > this.SMALL_SCREEN_WIDTH ? true: false}
+							/>
+							<Datetime className="timepicker" onChange={this.props.timeOnchange} inputProps={{placeholder: 'Choose The Time'}}/>
 							<button type="button" className="route-button btn btn-primary btn-lg btn-block" onClick={this.props.routeSubmit}>Search</button>
                         </div>
                     </div>
@@ -84,6 +255,7 @@ class SideBar extends React.Component {
 								</div>
 							</div>
 				break;
+
 			case 'station_result':
 				left_content =
 					<div className="sidebar">
