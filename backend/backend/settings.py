@@ -87,7 +87,7 @@ DATABASES = {
         'USER': 'front_end',
         'PASSWORD': '12345',
 		'HOST': '127.0.0.1',
-		'PORT': '3333'
+		'PORT': '3306'
     }
 }
 
