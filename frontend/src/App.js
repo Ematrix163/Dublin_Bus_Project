@@ -5,6 +5,7 @@ import Map from './Map'
 import './css/App.css';
 import * as WebAPI from './WebAPI'
 import moment from 'moment';
+import TwitterDisplay from './TwitterDisplay';
 import SweetAlert from 'sweetalert2-react';
 import { Link, Route } from 'react-router-dom'
 
@@ -66,7 +67,6 @@ class App extends React.Component {
 
         // changes the toggle state from true to false
 	toggleClick() {
-	    //console.log('this is:', this);
 	    console.log(this.state.toggle);
 	    this.setState(prevState => ({toggle: !prevState.toggle}))
 	  }
@@ -81,7 +81,7 @@ class App extends React.Component {
 		}
 	}
 
-	//When user choose different directions, will show all related stops
+	//When user choose different directionshttp://localhost:3000/, will show all related stops
 	dirChange = (val) => {
 		if (val) {
 			this.setState({direction:val})
@@ -118,17 +118,18 @@ class App extends React.Component {
 	routeSubmit = () => {
 		// Check all these fields are not blank
 		if (this.state.selectedOption && this.state.start_stop && this.state.end_stop && this.state.time) {
-			this.setState({view:'loading'});
+			this.setState({view:'loading', toggle : false});
 			// Call the api to predict the time
 			WebAPI.getTime(this.state.selectedOption.value, this.state.start_stop.value, this.state.end_stop.value, this.state.time, this.state.direction.value).then(r => {
 				if (r.status === 'success') {
 					this.setState({prediction: r, view:'result'});
+
 				} else {
 					this.setState({view:'route', show:'false', alert:'Sorry, the bus is not in service at that time!'})
 				}
 			});
 		} else {
-			this.setState({show:true, alert:'Please fill out the form!'})
+			this.setState({toggle : false, show:true, alert:'Please fill out the form!'})
 		}
 	}
 
@@ -212,7 +213,6 @@ class App extends React.Component {
 							/>
 						: null
 					}
-
 						<SweetAlert
 							show={this.state.show}
 							type='error'
@@ -220,7 +220,6 @@ class App extends React.Component {
 							text={this.state.alert}
 							onConfirm={() => this.setState({ show: false })}
 						/>
-
 					{this.state.width <= 700 && !this.state.showsidebar || this.state.width > 700?
 						<div className="main">
 							<div className="header">
@@ -234,15 +233,16 @@ class App extends React.Component {
 								</ul>
 							</div>
 							<div id="map">
-								<Map
-									stopsall={this.state.prediction}
-									station={this.state.station}
-									startLoc={this.state.start_loc}
-									destLoc={this.state.dest_loc}
-									view={this.state.view}
-									blink={this.state.blink}
-									submitFlag={this.state.submitFlag}
-									/>
+								{/* if toggle state changes switch between map and twitter */}
+								{this.state.toggle ? <TwitterDisplay/> : (<Map
+										stopsall={this.state.prediction}
+										station={this.state.station}
+										startLoc={this.state.start_loc}
+										destLoc={this.state.dest_loc}
+										view={this.state.view}
+										blink={this.state.blink}
+										submitFlag={this.state.submitFlag}
+										/>)}
 							</div>
 						</div>
 						: null}
@@ -251,6 +251,10 @@ class App extends React.Component {
 
 			<Route exact path="/login" render={() => (
 					<Login/>
+				)}/>
+
+			<Route exact path="/twitter" render={() => (
+					<TwitterDisplay/>
 				)}/>
 			</div>
 		)

@@ -230,7 +230,13 @@ class SideBar extends React.Component {
 
             case 'result':
                 left_content = <div className="sidebar">
-					<div className="route-result"><i className="fas fa-arrow-left" onClick={this.props.switchView.bind(this,'route')}></i></div>
+					<div className="route-result">
+						<i className="fas fa-arrow-left" onClick={this.props.switchView.bind(this,'route')}></i>
+						{this.props.windowwidth <= this.SMALL_SCREEN_WIDTH?
+							<i className="toggle-head fas fa-angle-double-left" onClick={this.props.toggleSideBar}></i>
+							: null
+						}
+					</div>
                     <div className="sidebar-container">
                         <ShowRoute
 							prediction={this.props.prediction}
@@ -259,6 +265,10 @@ class SideBar extends React.Component {
 			case 'station_result':
 				left_content =
 					<div className="sidebar">
+						{this.props.windowwidth <= this.SMALL_SCREEN_WIDTH?
+							<i className="toggle-head fas fa-angle-double-left" onClick={this.props.toggleSideBar}></i>
+							: null
+						}
 						<div className="route-result"><i className="fas fa-arrow-left" onClick={this.props.switchView.bind(this,'station')}></i></div>
 						<div className="sidebar-container">
 							<ShowStationResult data={this.props.prediction}/>

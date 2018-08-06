@@ -15,6 +15,7 @@
     "react-router-dom": "^4.3.1",
     "react-scripts": "1.1.4",
     "react-select": "^2.0.0",
+    "react-twitter-widgets": "^1.7.1",
     "react-widgets": "^4.4.3",
     "react-widgets-globalize": "^5.0.12",
     "react-window-size": "^1.2.0",

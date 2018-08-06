@@ -49,8 +49,16 @@
 #map {
     width: 100%;
     height: calc(100vh - 60px);
+	box-sizing:border-box;
+	overflow: auto;
 }
 
+.TwitterDisplay{
+	margin-top:60px;
+	margin-left: auto;
+	margin-right: auto;
+	width: 90%;
+}
 
 .navigator {
 	color: rgb(120,133,155);
@@ -298,7 +306,13 @@
 }
 
 
-
+.toggle-head {
+	float: right;
+	color: white;
+	margin: 10px 20px 0 0;
+	font-size: 45px;
+	cursor: pointer;
+}
 
 
 
