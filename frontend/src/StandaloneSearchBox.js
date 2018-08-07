@@ -10,9 +10,9 @@ const { StandaloneSearchBox } = require("react-google-maps/lib/components/places
 
 const SearchBox = compose(
   withProps({
-    googleMapURL: "https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=AIzaSyDjRsP2Z4JM86ag3hkbRMmfS1a72YBlD8w",
-    loadingElement: <div style={{ height: `100%` }} />,
-    containerElement: <div style={{ height: `400px` }} />,
+	  googleMapURL: "https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=AIzaSyDjRsP2Z4JM86ag3hkbRMmfS1a72YBlD8w",
+      loadingElement: <div style={{ height: `100%` }} />,
+      containerElement: <div style={{ height: `400px` }} />,
   }),
 
   lifecycle({
@@ -83,7 +83,7 @@ const SearchBox = compose(
     </StandaloneSearchBox>
 	{props.type === 'origin'?
 		props.spinner?
-			<img style={{display :`inline`, width: `38px`}} src={Spinner}/>
+			<img style={{display :`inline`, width: `35 px`}} src={Spinner} alt="" />
 			:<span>&nbsp;&nbsp;&nbsp;<i className="use-my-loc fas fa-location-arrow" onClick={props.useMyLoc}><span className="tooltiptext">Use My Location</span></i></span>
 		: null
 	}

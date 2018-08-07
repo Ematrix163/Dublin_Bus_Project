@@ -6,7 +6,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 import Select from 'react-select';
 import * as Datetime from 'react-datetime';
 import ShowStationResult from './ShowStationResult'
-
+import DatePicker from 'react-mobile-datepicker'
 
 
 //the side the webpage for user to enter journey details and to show route info
@@ -14,6 +14,15 @@ class SideBar extends React.Component {
 	constructor(props) {
 		super(props);
 		this.SMALL_SCREEN_WIDTH = 700;
+	}
+
+	state = {
+		mobileTime: ''
+	}
+
+	handleSelect = (val) => {
+		this.props.handleSelect(val);
+		this.setState({mobileTime: val});
 	}
 
     render() {
@@ -144,6 +153,21 @@ class SideBar extends React.Component {
 			{value: "84X", label: "84X"},
 			{value: "9", label: "9"}
 		];
+		const monthMap = {
+		    '01': 'Jan',
+		    '02': 'Feb',
+		    '03': 'Mar',
+		    '04': 'Apr',
+		    '05': 'May',
+		    '06': 'Jun',
+		    '07': 'Jul',
+		    '08': 'Aug',
+		    '09': 'Sep',
+		    '10': 'Oct',
+		    '11': 'Nov',
+		    '12': 'Dec',
+		};
+
         switch (this.props.view) {
             case 'route':
                 left_content = <div className="sidebar">
@@ -152,7 +176,7 @@ class SideBar extends React.Component {
 						: null
 					}
                     <div className="logo">
-                        <img src={logo} onClick={() => window.location.href='/'}/>
+                        <img src={logo} alt="logo" onClick={() => window.location.href='/'}/>
                     </div>
 
                     <div className="view">
@@ -205,7 +229,27 @@ class SideBar extends React.Component {
 								onChange={this.props.endChange}
 								isSearchable={this.props.windowwidth > this.SMALL_SCREEN_WIDTH ? true: false}
 							/>
-							<Datetime className="timepicker" onChange={this.props.timeOnchange} inputProps={{placeholder: 'Choose The Time'}}/>
+							{this.props.windowwidth <= this.SMALL_SCREEN_WIDTH?
+								<div className="time-select-container">
+								 	<input className="time-select" value={this.state.mobileTime} disabled/>
+									<i className="icon fas fa-calendar-alt" onClick={this.props.openTimePicker}></i>
+									<DatePicker
+										isOpen={this.props.isOpen}
+										dateFormat={['YYYY', ['MM', (month) => monthMap[month]], 'DD','hh', 'mm']}
+										confirmText='Confrim'
+										cancelText="Cancel"
+										showFormat="YYYY/MM/DD/hh:mm"
+										onSelect={this.handleSelect}
+                    					onCancel={this.props.handleCancel}
+									/>
+								</div>
+								:
+								<Datetime
+									className="timepicker"
+									onChange={this.props.timeOnchange}
+									inputProps={{placeholder: 'Choose The Time'}}
+								/>
+							}
 							<button type="button" className="route-button btn btn-primary btn-lg btn-block" onClick={this.props.routeSubmit}>Search</button>
                         </div>
                     </div>
@@ -214,8 +258,12 @@ class SideBar extends React.Component {
 
             case 'station':
                 left_content = <div className="sidebar">
+					{this.props.windowwidth <= this.SMALL_SCREEN_WIDTH?
+						<i className="siderbar-toggle fas fa-angle-double-left" onClick={this.props.toggleSideBar}></i>
+						: null
+					}
                     <div className="logo">
-                        <img src={logo}/>
+                        <img src={logo} alt="logo"/>
                     </div>
                     <div className="view">
                         <button className="button-view" onClick={this.props.switchView.bind(this, 'route')}>Route View</button>
@@ -223,9 +271,38 @@ class SideBar extends React.Component {
                     </div>
                     <div className="sidebar-container">
                         <div className="form">
-                            <SearchBox locChange={this.props.startLocChange} text='Please enter your departure place' type='origin' switchUserLoc={this.props.switchUserLoc}/>
-                            <SearchBox locChange={this.props.destLocChange} text='Please enter your destination' type='dest'/>
-                            <div><Datetime inputProps={{placeholder: 'Choose The Time'}}/></div>
+                            <SearchBox
+								locChange={this.props.startLocChange}
+								 text='Please enter your departure place'
+								 type='origin'
+								 switchUserLoc={this.props.switchUserLoc}
+							/>
+                            <SearchBox
+								locChange={this.props.destLocChange}
+								text='Please enter your destination'
+								type='dest'
+							/>
+							{this.props.windowwidth <= this.SMALL_SCREEN_WIDTH?
+								<div className="time-select-container-station">
+								 	<input className="time-select" value={this.state.mobileTime} disabled/>
+									<i className="icon fas fa-calendar-alt" onClick={this.props.openTimePicker}></i>
+									<DatePicker
+										isOpen={this.props.isOpen}
+										dateFormat={['YYYY', ['MM', (month) => monthMap[month]], 'DD','hh', 'mm']}
+										confirmText='Confrim'
+										cancelText="Cancel"
+										showFormat="YYYY/MM/DD/hh:mm"
+										onSelect={this.handleSelect}
+                    					onCancel={this.props.handleCancel}
+									/>
+								</div>
+								:
+								<Datetime
+									className="timepicker-station"
+									onChange={this.props.timeOnchange}
+									inputProps={{placeholder: 'Choose The Time'}}
+								/>
+							}
                             <br/>
                             <button className="btn btn-block btn-primary" onClick={this.props.stationSubmit}>Submit</button>
                         </div>

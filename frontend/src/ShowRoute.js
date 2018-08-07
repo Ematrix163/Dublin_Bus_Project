@@ -6,9 +6,9 @@ class ShowRoute extends React.Component {
 	render() {
 
 		const start_formattedTime = this.props.prediction.data[0].bustime[1]
-		const end = parseInt((this.props.prediction.data[0].bustime[0])) + this.props.prediction.data[0].totalDuration * 60;
-		const end_hour = parseInt(end / 3600)
-		const end_min = ('00' + parseInt((end - end_hour * 3600) / 60)).substr(-2)
+		const end = Math.floor((this.props.prediction.data[0].bustime[0])) + this.props.prediction.data[0].totalDuration * 60;
+		const end_hour = Math.floor(end / 3600)
+		const end_min = ('00' + Math.floor((end - end_hour * 3600) / 60)).substr(-2)
 		const end_formattedTime = end_hour + ':' + end_min + ':00'
 
 		return (

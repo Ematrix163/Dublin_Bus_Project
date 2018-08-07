@@ -92,6 +92,7 @@
     border: 1px solid #1d53cb;
     border-radius: 20px;
     padding: 20px;
+	margin-top: 30px;
 }
 
 .logo {
@@ -139,7 +140,6 @@
 	height:45px;
 	color:  rgb(41, 75, 116);
 	font-size: 1.2em;
-	padding:0 2em;
 	cursor:pointer;
 	border-bottom: 1.5px solid rgb(41, 75, 116);
 	border-top: 1.5px solid rgb(41, 75, 116);
@@ -160,62 +160,6 @@
 	height: 45px;
 	font-size: 1.2em;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* .button-view {
-    display: inline;
-    width: 50%;
-    height: 40px;
-    margin: 0;
-    border: none;
-    color:white;
-    background-color: rgb(0,113,233);
-    font-size: 18px;
-}
-
-.button-view:hover {
-    cursor: pointer;
-    background-color: rgb(62, 106, 255);
-} */
-
-/* .button-view-activate:hover {
-	cursor: pointer;
-}
-
-.button-view-activate {
-	display: inline;
-    width: 50%;
-    height: 40px;
-    margin: 0;
-    border: none;
-    color: white;
-    background-color: #b4b4b4;
-    font-size: 18px;
-} */
 
 
 .input-container {
@@ -282,14 +226,6 @@
 	color: rgb(30, 97, 190);
 }
 
-.timepicker {
-	width: 90%;
-	margin-left: 20px;
-}
-
-.walk {
-
-}
 
 .inf-detail-bus {
 	color: rgb(4, 19, 117);
@@ -346,7 +282,14 @@
 	font-size: 14px;
 }
 
+.timepicker {
+	width: 90%;
+	margin-left: 20px;
+}
 
+.timepicker-station {
+
+}
 
 .toggle {
 	margin: 5px 0 0 15px;
@@ -372,6 +315,43 @@
 }
 
 
+.time-select-container {
+	display: -ms-flexbox; /* IE10 */
+	display: flex;
+	width: 90%;
+	margin: 20px;
+}
+
+
+.time-select {
+	width: 100%;
+	padding: 10px;
+	outline: none;
+	background-color: rgb(240,240,240);
+}
+
+.time-select-container-station {
+	display: flex;
+	width: 100%;
+	margin: 0;
+}
+
+.time-select:focus {
+  border: 2px solid dodgerblue;
+}
+
+.icon {
+  padding: 15px 10px 10px 10px;
+  background: dodgerblue;
+  color: white;
+  min-width: 50px;
+  text-align: center;
+  cursor: pointer;
+}
+
+
+
+
 
 
 /*CSS style for mobile device*/
@@ -389,6 +369,17 @@
 		font-size: 12px;
 	}
 
+	.navigator li {
+		color: rgb(212,212,212);
+		padding: 20px 15px 0 0;
+		float: right;
+		font-size: 13px;
+	}
+
+	.timepicker {
+		width: 100%;
+	}
+
 }
 
 
@@ -397,6 +388,13 @@
 /*CSS style for mid-size device*/
 @media only screen and (min-width: 700px) and (max-width: 1200px) {
 
+
+	.navigator li {
+		color: rgb(212,212,212);
+		padding: 20px 20px 0 0;
+		float: right;
+	}
+
 	.sidebar {
 		width: 380px;
 	}
@@ -404,6 +402,7 @@
 	.selectbox {
 		font-size: 12px;
 	}
+
 }
 
 

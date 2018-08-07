@@ -36,45 +36,6 @@ class ShowStationResult extends React.Component {
 		this.setState({show: temp});
 	}
 
-	// render() {
-	// 	return (
-	// 		<div className="station-result">
-	// 		<div className="walk">
-	// 			<i className="fas fa-walking"></i>&nbsp;Walk to <span>Dublin (UCD Stillorgan Rd Flyover)</span>
-	// 			<i class="far fa-clock"></i>
-	// 			<span className="time"> 5 mins</span>
-	// 			<span className="detail" onClick={()=>this.toggle(1)}>Deatils<img className="bracket" src={this.state.show[1]? Up: Down}/></span>
-	//
-	// 				{this.state.show[1]?
-	// 					<ul className="inf-detail-walk">
-	// 						<li>Head <b>northeast</b> 0.1 km </li>
-	// 						<li>Turn <b>right</b></li>
-	// 						<li>Turn <b>left</b></li>
-	// 						<li>Turn <b>right</b></li>
-	// 					</ul>
-	// 					: null}
-	// 		</div>
-	// 		<hr/>
-	// 		<div className="bus">
-	// 			<i className="fas fa-bus"></i><span className="start"> Bus: 46A &nbsp;</span> <span className='dest-name'>towards Phoenix Pk</span>
-	// 			 <span className="stops-num">6 stops</span>
-	// 			<br/>
-	// 			<span>&nbsp;</span><i class="far fa-clock"></i> 5 mins<span className="detail" onClick={()=>this.toggle(2)}>Deatils<img className="bracket" src={this.state.show[2]? Up: Down}/></span>
-	// 				{this.state.show[2]?
-	// 					<ul className="inf-detail-bus">
-	// 						<li>· Mount Merrion, Stillorgan Road (Mount Merrion Ave)</li>
-	// 						<li>· Booterstown, Woodbine Road</li>
-	// 						<li>· Booterstown, Stillorgan Road</li>
-	// 						<li>· Radisson Hotel Stillorgan Road</li>
-	// 						<li>· Mount Merrion, Stillorgan Road</li>
-	// 					</ul>
-	// 					: null}
-	//
-	// 		</div>
-	// 	</div>
-	// 	)
-	// }
-
 	render() {
 		const temp = this.props.data.google ? this.props.data.google.routes[0].legs[0].steps : [];
 
@@ -89,7 +50,7 @@ class ShowStationResult extends React.Component {
 								<br/>
 								<i className="far fa-clock"></i>
 								<span className="time"> {step.duration.text}</span>
-								<span className="detail" onClick={()=>this.toggle(index)}>Deatils<img className="bracket" src={this.state.show[index]? Up: Down}/></span>
+								<span className="detail" onClick={()=>this.toggle(index)}>Deatils<img className="bracket" alt="" src={this.state.show[index]? Up: Down}/></span>
 									{this.state.show[index]?
 										<ul className="inf-detail-walk">
 											{step.steps.map((detail, index1)=> (
@@ -107,7 +68,7 @@ class ShowStationResult extends React.Component {
 									<span className="stops-num">{this.props.data.data[this.state.seq[index]].stopsNum} stops</span>
 									<br/>
 									<i className="far fa-clock"></i>{this.props.data.data[this.state.seq[index]].totalDuration} mins<span className="detail" onClick={()=>this.toggle(index)}>Deatils
-										<img className="bracket" src={this.state.show[index]? Up: Down}/></span>
+										<img className="bracket" alt=""  src={this.state.show[index]? Up: Down}/></span>
 									{this.state.show[index]?
 										<ul className="inf-detail-bus">
 											{this.props.data.data[this.state.seq[index]].stopInfo.map(stop => (

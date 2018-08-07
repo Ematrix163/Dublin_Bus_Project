@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { compose, withProps, lifecycle, withStateHandlers } from "recompose"
-import { withScriptjs, withGoogleMap, GoogleMap, Marker, DirectionsRenderer, InfoWindow} from "react-google-maps"
+import { withScriptjs, withGoogleMap, GoogleMap, Marker, DirectionsRenderer } from "react-google-maps"
 
 const MyMapComponent = compose(
 	withStateHandlers(() => ({isOpen: {},}),
@@ -10,7 +10,7 @@ const MyMapComponent = compose(
 		onToggleOpen: ({ isOpen }) => () => ({isOpen: !isOpen,})
 	}),
     withProps({
-        googleMapURL: "https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=AIzaSyDjRsP2Z4JM86ag3hkbRMmfS1a72YBlD8w",
+		googleMapURL: "https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=AIzaSyDjRsP2Z4JM86ag3hkbRMmfS1a72YBlD8w",
         loadingElement: <div style={{ height: `100%` }}/>,
 		containerElement: <div style={{ height: `100%` }} />,
         mapElement: <div style={{ height: `100%` }} />,

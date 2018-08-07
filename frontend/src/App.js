@@ -31,9 +31,10 @@ class App extends React.Component {
 		submitFlag: false,
 		spinner: false,
 		toggle: false,
-		showsidebar: true,
+		showsidebar: false,
 		width: 0,
-		height: 0
+		height: 0,
+		timepickerOpen: false
     };
 
 	/*Get the window size*/
@@ -54,11 +55,7 @@ class App extends React.Component {
 
 
     componentDidMount() {
-		// let temp = [];
-		// WebAPI.getAllRoute().then(r => r.map((each) => {
-		// 	temp.push({value:each.routes, label:each.routes})
-		// }))
-		// this.setState({routes: temp});
+		this.setState({showsidebar: true});
 
 		this.updateWindowDimensions();
 		window.addEventListener('resize', this.updateWindowDimensions);
@@ -177,6 +174,20 @@ class App extends React.Component {
 		this.setState({showsidebar: !this.state.showsidebar})
 	}
 
+
+	handleSelect = (val) => {
+		const time = Math.floor(val.getTime() / 1000);
+		this.setState({ timepickerOpen: false, time: time });
+	}
+
+	handleCancel = () => {
+		this.setState({ timepickerOpen: false });
+	}
+
+	openTimePicker = () => {
+		this.setState({timepickerOpen: true});
+	}
+
 	render() {
 		return (
 		<div>
@@ -210,6 +221,10 @@ class App extends React.Component {
 							switchUserLoc={this.switchUserLoc}
 							toggleSideBar={this.toggleSideBar}
 							windowwidth={this.state.width}
+							handleSelect={this.handleSelect}
+							handleCancel={this.handleCancel}
+							isOpen={this.state.timepickerOpen}
+							openTimePicker={this.openTimePicker}
 							/>
 						: null
 					}
@@ -220,7 +235,7 @@ class App extends React.Component {
 							text={this.state.alert}
 							onConfirm={() => this.setState({ show: false })}
 						/>
-					{this.state.width <= 700 && !this.state.showsidebar || this.state.width > 700?
+					{(this.state.width <= 700 && !this.state.showsidebar) || this.state.width > 700?
 						<div className="main">
 							<div className="header">
 								<ul className="navigator">
@@ -242,7 +257,7 @@ class App extends React.Component {
 										view={this.state.view}
 										blink={this.state.blink}
 										submitFlag={this.state.submitFlag}
-										/>)}
+								/>)}
 							</div>
 						</div>
 						: null}
