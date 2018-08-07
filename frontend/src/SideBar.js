@@ -152,12 +152,20 @@ class SideBar extends React.Component {
 						: null
 					}
                     <div className="logo">
-                        <img src={logo}/>
+                        <img src={logo} onClick={() => window.location.href='/'}/>
                     </div>
 
                     <div className="view">
-                        <button className="button-view" onClick={this.props.switchView.bind(this, 'route')}>Route View</button>
-                        <button className="button-view-activate" onClick={this.props.switchView.bind(this, 'station')}>Station View</button>
+                        <button
+							className={this.props.view === "route"? "button-view-activate" : "button-view"}
+							onClick={this.props.switchView.bind(this, 'route')}>
+							Route View
+						</button>
+                        <button
+							className={this.props.view === "station"? "button-view-activate" : "button-view"}
+							onClick={this.props.switchView.bind(this, 'station')}>
+							Station View
+						</button>
                     </div>
                     <div className="sidebar-container">
                         <div className="input-container">

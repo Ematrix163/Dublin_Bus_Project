@@ -201,7 +201,7 @@ class LocationView(APIView):
         dest_lng = request.GET.get("dest_lng", "")
         time = request.GET.get("time", "")
 
-        r = requests.get('https://maps.googleapis.com/maps/api/directions/json?origin=' + origin_lat + ',' + origin_lng + '&destination='+ dest_lat + ',' +dest_lng + '&mode=transit&transit_mode=bus&key=AIzaSyDjRsP2Z4JM86ag3hkbRMmfS1a72YBlD8w')
+        r = requests.get('https://maps.googleapis.com/maps/api/directions/json?origin=' + origin_lat + ',' + origin_lng + '&departure_time='+ time + '&destination='+ dest_lat + ',' +dest_lng + '&mode=transit&transit_mode=bus&key=AIzaSyDjRsP2Z4JM86ag3hkbRMmfS1a72YBlD8w')
         r = r.json()
 
         # return Response(r)
@@ -250,7 +250,7 @@ class LocationView(APIView):
                     if temp_end < min_end:
                         min_end = temp_end
                         end_stop_id = eachstop["true_stop_id"]
-                predict_result.append(PredictTimeView.predict(lineid, direction, start_stop_id, end_stop_id, 1532974536))
+                predict_result.append(PredictTimeView.predict(lineid, direction, start_stop_id, end_stop_id, int(time)))
 
         # result["data"]["google"] = r
         result = {

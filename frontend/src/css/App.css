@@ -102,6 +102,7 @@
 .logo img{
 	display: inline-block;
     height: 80px;
+	cursor: pointer;
 }
 
 #sign {
@@ -129,23 +130,79 @@
     margin-top: 20px;
 }
 
-.button-view {
+
+
+/*Switch Button and Activate*/
+
+.button-view{
+	width: 50%;
+	height:45px;
+	color:  rgb(41, 75, 116);
+	font-size: 1.2em;
+	padding:0 2em;
+	cursor:pointer;
+	border-bottom: 1.5px solid rgb(41, 75, 116);
+	border-top: 1.5px solid rgb(41, 75, 116);
+	border-left: 1.5px solid #fff;
+	border-right: 1.5px solid #fff;
+}
+
+.button-view:hover {
+	background: rgb(41, 75, 116);
+	color: white;
+	transition:800ms ease all;
+}
+
+.button-view-activate {
+	width: 50%;
+	background: rgb(41, 75, 116);
+	color: white;
+	height: 45px;
+	font-size: 1.2em;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* .button-view {
     display: inline;
     width: 50%;
     height: 40px;
     margin: 0;
     border: none;
-    color: white;
-    background-color: #c3c3c3 ;
+    color:white;
+    background-color: rgb(0,113,233);
     font-size: 18px;
 }
 
 .button-view:hover {
     cursor: pointer;
-    background-color: #b4b4b4;
-}
+    background-color: rgb(62, 106, 255);
+} */
 
-.button-view-activate:hover {
+/* .button-view-activate:hover {
 	cursor: pointer;
 }
 
@@ -158,7 +215,7 @@
     color: white;
     background-color: #b4b4b4;
     font-size: 18px;
-}
+} */
 
 
 .input-container {
@@ -322,6 +379,10 @@
 @media only screen and (max-width: 700px) {
 	.sidebar {
 		width: 100vw;
+	}
+
+	.sidebar-container {
+		padding: 5px 10px 0 5px;
 	}
 
 	.selectbox {
