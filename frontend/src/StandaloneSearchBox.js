@@ -83,7 +83,7 @@ const SearchBox = compose(
     </StandaloneSearchBox>
 	{props.type === 'origin'?
 		props.spinner?
-			<img style={{display :`inline`, width: `35 px`}} src={Spinner} alt="" />
+			<img className="spinner" src={Spinner} alt="" />
 			:<span>&nbsp;&nbsp;&nbsp;<i className="use-my-loc fas fa-location-arrow" onClick={props.useMyLoc}><span className="tooltiptext">Use My Location</span></i></span>
 		: null
 	}

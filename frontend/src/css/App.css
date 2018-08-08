@@ -10,6 +10,7 @@
 
 
 .sidebar {
+	position: relative;
 	width: 450px;
 	height: 100vh;
 	background-color: white;
@@ -106,6 +107,11 @@
 	cursor: pointer;
 }
 
+.spinner {
+	width: 28px;
+	display: inline;
+}
+
 #sign {
     position: fixed;
     top: 23%;
@@ -131,7 +137,30 @@
     margin-top: 20px;
 }
 
+.bottom {
 
+	bottom: 20px;
+	left: 20px;
+}
+
+.google-logo {
+	position: absolute;
+	width: 150px;
+	bottom: 15px;
+	left: 15px;
+}
+
+
+.term {
+	position: absolute;
+	right: 15px;
+	bottom: 15px;
+}
+
+.term:hover {
+	cursor: pointer;
+	color: blue;
+}
 
 /*Switch Button and Activate*/
 
@@ -350,6 +379,16 @@
 }
 
 
+
+.terms-container{
+	width: 80%;
+	display: inline-block;
+	text-align: left;
+}
+
+.termspolicy {
+	text-align: center;
+}
 
 
 

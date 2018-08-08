@@ -8,6 +8,7 @@ import moment from 'moment';
 import TwitterDisplay from './TwitterDisplay';
 import SweetAlert from 'sweetalert2-react';
 import { Link, Route } from 'react-router-dom'
+import Term from './Term'
 
 
 class App extends React.Component {
@@ -270,6 +271,10 @@ class App extends React.Component {
 
 			<Route exact path="/twitter" render={() => (
 					<TwitterDisplay/>
+				)}/>
+
+			<Route exact path="/term" render={() => (
+					<Term/>
 				)}/>
 			</div>
 		)

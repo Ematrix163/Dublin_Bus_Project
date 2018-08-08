@@ -3,6 +3,7 @@
 # Use django restful framework
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from django.shortcuts import render
 from .models import Routes, Forecastweather, Stopsstatic, DublinbusScheduleCurrent
 from .serializers import RouteSerializer, RoutesStopidSerializer
 from django.conf import settings
@@ -259,3 +260,11 @@ class LocationView(APIView):
             "google": r
         }
         return Response(result)
+
+
+def error_404(request):
+    return render(request, 'error_404.html')
+
+
+def error_500(request):
+    return render(request, 'error_500.html')

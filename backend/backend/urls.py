@@ -16,14 +16,15 @@ Including another URLconf
 from django.views.generic import TemplateView
 from django.contrib import admin
 from django.urls import path, re_path
+from django.conf.urls import handler404, handler500, handler400, handler403
 
-
-
-from api.views import RouteIdView, RoutesStopidView, PredictTimeView, DirectionView, LocationView
+from api.views import RouteIdView, RoutesStopidView, PredictTimeView, DirectionView, LocationView, error_404, error_500
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
+
 urlpatterns = [
-	path('', TemplateView.as_view(template_name="index.html"), name="index"),
+	re_path('^$', TemplateView.as_view(template_name="index.html"), name="index"),
+    re_path('^login$', TemplateView.as_view(template_name="index.html"), name="index"),
     path('admin/', admin.site.urls),
     path('api/allroutes', RouteIdView.as_view()),
     path('api/station', RoutesStopidView.as_view()),
@@ -33,8 +34,12 @@ urlpatterns = [
 ]
 
 # This is to avoid the conflicts with react router
-urlpatterns += [
-    re_path(r'^.*/', TemplateView.as_view(template_name="index.html"), name='base')
-]
+# urlpatterns += [
+#     re_path(r'^.*/', TemplateView.as_view(template_name="index.html"), name='base')
+# ]
 
 urlpatterns += staticfiles_urlpatterns()
+
+
+handler404 = error_404
+handler500 = error_500
