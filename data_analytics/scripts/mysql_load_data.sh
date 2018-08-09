@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 
-schedule_path="/home/student/data_analytics/prediction_model/tmp/dublinBus_schedule_current.csv"
+schedule_path="/home/student/data_analytics/tmp/dublinBus_schedule_current.csv"
 table_name="dublinBus.dublinBus_schedule_current"
 log=/home/student/data_analytics/scripts/logs/mysql_load_data.log
 
