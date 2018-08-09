@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'api',
     'corsheaders',
-	'rest_framework'
+	'rest_framework',
+'core.apps.CoreConfig'
 ]
 
 MIDDLEWARE = [
@@ -87,7 +88,7 @@ DATABASES = {
         'USER': 'front_end',
         'PASSWORD': '12345',
 		'HOST': '127.0.0.1',
-		'PORT': '3306'
+		'PORT': '3333'
     }
 }
 
@@ -141,3 +142,24 @@ STATICFILES_DIRS = (
 )
 
 MODEL_URL = os.path.join(BASE_DIR, 'model')
+
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    ),
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.BasicAuthentication',
+    ),
+}
+
+CORS_ORIGIN_WHITELIST = (
+    'localhost:3000',
+)
+
+
+JWT_AUTH = {
+    'JWT_RESPONSE_PAYLOAD_HANDLER': 'backend.utils.my_jwt_response_handler'
+}

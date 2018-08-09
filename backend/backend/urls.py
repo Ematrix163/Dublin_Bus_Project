@@ -15,8 +15,9 @@ Including another URLconf
 """
 from django.views.generic import TemplateView
 from django.contrib import admin
-from django.urls import path, re_path
+from django.urls import path, re_path, include
 
+from rest_framework_jwt.views import obtain_jwt_token
 
 
 from api.views import RouteIdView, RoutesStopidView, PredictTimeView, DirectionView, LocationView
@@ -29,7 +30,10 @@ urlpatterns = [
     path('api/station', RoutesStopidView.as_view()),
     path('api/direction',DirectionView.as_view()),
     path('api/time', PredictTimeView.as_view()),
-    path('api/googleroute', LocationView.as_view())
+    path('api/googleroute', LocationView.as_view()),
+path('token-auth/', obtain_jwt_token),
+    path('core/', include('core.urls'))
+
 ]
 
 # This is to avoid the conflicts with react router
