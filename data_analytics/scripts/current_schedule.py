@@ -68,7 +68,7 @@ class CurrentSchedule:
             os.mkdir(self._download_URL_path)
         except OSError:
             print ("ERROR - Creation of output directory %s failed" % self._download_URL_path)
-            print(os.strerror)
+            raise
         else:
             print("Successfully created output directory %s " % self._download_URL_path)
 
@@ -87,9 +87,11 @@ class CurrentSchedule:
         print("loading data finished")
 
     def download(self):
-        print('Beginning file download with wget module')
+        import requests
         url = 'http://www.transportforireland.ie/transitData/google_transit_dublinbus.zip'
-        wget.download(url, self._download_URL_path)
+        req = requests.get(url)
+        return req.status_code
+
 
     def unzip(self):
         print('Unzipping file')
