@@ -9,6 +9,12 @@ import TwitterDisplay from './TwitterDisplay';
 import SweetAlert from 'sweetalert2-react';
 import { Link, Route } from 'react-router-dom'
 import Term from './Term'
+import Nav from './Nav';
+import LoginForm from './LoginForm';
+import SignupForm from './SignupForm';
+
+
+
 
 
 class App extends React.Component {
@@ -35,7 +41,11 @@ class App extends React.Component {
 		showsidebar: false,
 		width: 0,
 		height: 0,
-		timepickerOpen: false
+		timepickerOpen: false,
+		displayed_form: '',
+      logged_in: localStorage.getItem('token') ? true : false,
+      username: ''
+
     };
 
 	/*Get the window size*/
@@ -56,11 +66,27 @@ class App extends React.Component {
 
 
     componentDidMount() {
+
+		if (this.state.logged_in) {
+      fetch('http://localhost:8000/core/current_user/', {
+        headers: {
+          Authorization: `JWT ${localStorage.getItem('token')}`
+        }
+      })
+        .then(res => res.json())
+        .then(json => {
+          this.setState({ username: json.username });
+        });
+    }
+
+
+
+
 		this.setState({showsidebar: true});
 
 		this.updateWindowDimensions();
 		window.addEventListener('resize', this.updateWindowDimensions);
-	}
+	}// end didMount
 
 
         // changes the toggle state from true to false
@@ -189,7 +215,85 @@ class App extends React.Component {
 		this.setState({timepickerOpen: true});
 	}
 
+
+
+
+
+ handle_login = (e, data) => {
+    e.preventDefault();
+    fetch('http://localhost:8000/token-auth/', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    })
+      .then(res => res.json())
+      .then(json => {
+        localStorage.setItem('token', json.token);
+        this.setState({
+          logged_in: true,
+          displayed_form: '',
+          username: json.user.username
+        });
+      });
+  };
+
+  handle_signup = (e, data) => {
+    e.preventDefault();
+    fetch('http://localhost:8000/core/users/', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    })
+      .then(res => res.json())
+      .then(json => {
+        localStorage.setItem('token', json.token);
+        this.setState({
+          logged_in: true,
+          displayed_form: '',
+          username: json.username
+        });
+      });
+  };
+
+  handle_logout = () => {
+    localStorage.removeItem('token');
+    this.setState({ logged_in: false, username: '' });
+  };
+
+  display_form = form => {
+    this.setState({
+      displayed_form: form
+    });
+  };
+
+
+
+
+
+
 	render() {
+
+
+let form;
+    switch (this.state.displayed_form) {
+      case 'login':
+        form = <LoginForm handle_login={this.handle_login} />;
+        break;
+      case 'signup':
+        form = <SignupForm handle_signup={this.handle_signup} />;
+        break;
+      default:
+        form = null;
+    }
+
+
+
+
+
 		return (
 		<div>
 			<Route exact path="/" render={() => (
@@ -243,7 +347,17 @@ class App extends React.Component {
 									{this.state.showsidebar?
 										<i className="toggle fas fa-angle-double-left" onClick={this.toggleSideBar}></i>
 										: <i className="toggle fas fa-angle-double-right" onClick={this.toggleSideBar}></i>}
-										<Link to='/login'><li>Sign In</li></Link>
+
+										<Nav
+          							logged_in={this.state.logged_in}
+          							display_form={this.display_form}
+          						handle_logout={this.handle_logout}
+        							/>
+        								{form}
+
+
+									<li>{this.state.logged_in ? `Hi, ${this.state.username}, you are logged in`  : null }</li>
+
 										<Link to='/'><li>API</li></Link>
 										<li onClick={(e) => this.toggleClick(e)}>{this.state.toggle ? 'Map' : 'Traffic Updates'}</li>
 								</ul>
