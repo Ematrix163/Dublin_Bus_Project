@@ -391,6 +391,14 @@
 }
 
 
+.api {
+	text-align: center;
+}
+
+.api-container {
+	text-align: left;
+	display: inline-block;
+}
 
 
 /*CSS style for mobile device*/

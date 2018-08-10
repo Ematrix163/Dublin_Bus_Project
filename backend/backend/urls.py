@@ -18,7 +18,7 @@ from django.contrib import admin
 from django.urls import path, re_path
 from django.conf.urls import handler404, handler500, handler400, handler403
 
-from api.views import RouteIdView, RoutesStopidView, PredictTimeView, DirectionView, LocationView, error_404, error_500
+from api.views import RouteIdView, RoutesStopidView, PredictTimeView, DirectionView, LocationView, error_404, error_500, StaticFileView
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 
@@ -30,7 +30,8 @@ urlpatterns = [
     path('api/station', RoutesStopidView.as_view()),
     path('api/direction',DirectionView.as_view()),
     path('api/time', PredictTimeView.as_view()),
-    path('api/googleroute', LocationView.as_view())
+    path('api/googleroute', LocationView.as_view()),
+    path('api/static',StaticFileView.as_view())
 ]
 
 # This is to avoid the conflicts with react router
@@ -39,7 +40,7 @@ urlpatterns = [
 # ]
 
 urlpatterns += staticfiles_urlpatterns()
-
-
-handler404 = error_404
-handler500 = error_500
+#
+#
+# handler404 = error_404
+# handler500 = error_500

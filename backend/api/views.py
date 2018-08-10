@@ -202,7 +202,9 @@ class LocationView(APIView):
         dest_lng = request.GET.get("dest_lng", "")
         time = request.GET.get("time", "")
 
-        r = requests.get('https://maps.googleapis.com/maps/api/directions/json?origin=' + origin_lat + ',' + origin_lng + '&departure_time='+ time + '&destination='+ dest_lat + ',' +dest_lng + '&mode=transit&transit_mode=bus&key=AIzaSyDjRsP2Z4JM86ag3hkbRMmfS1a72YBlD8w')
+        url = 'https://maps.googleapis.com/maps/api/directions/json?origin=' + origin_lat + ',' + origin_lng + '&departure_time='+ time + '&destination='+ dest_lat + ',' +dest_lng + '&mode=transit&transit_mode=bus&key=AIzaSyDjRsP2Z4JM86ag3hkbRMmfS1a72YBlD8w'
+        r = requests.get(url)
+        print(url)
         r = r.json()
 
         # return Response(r)
@@ -265,6 +267,12 @@ class LocationView(APIView):
 def error_404(request):
     return render(request, 'error_404.html')
 
-
 def error_500(request):
     return render(request, 'error_500.html')
+
+class StaticFileView(APIView):
+    def get(self, request):
+        path = settings.STATICFILES_DIRS[0]+'/APIOutline.md'
+        with open(path, encoding='utf-8') as f:
+            result = f.read()
+        return Response(result)

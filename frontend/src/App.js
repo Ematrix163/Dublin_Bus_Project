@@ -9,7 +9,7 @@ import TwitterDisplay from './TwitterDisplay';
 import SweetAlert from 'sweetalert2-react';
 import { Link, Route } from 'react-router-dom'
 import Term from './Term'
-
+import APIDoc from './APIDoc'
 
 class App extends React.Component {
 
@@ -244,7 +244,7 @@ class App extends React.Component {
 										<i className="toggle fas fa-angle-double-left" onClick={this.toggleSideBar}></i>
 										: <i className="toggle fas fa-angle-double-right" onClick={this.toggleSideBar}></i>}
 										<Link to='/login'><li>Sign In</li></Link>
-										<Link to='/'><li>API</li></Link>
+										<Link to='/apidoc'><li>API</li></Link>
 										<li onClick={(e) => this.toggleClick(e)}>{this.state.toggle ? 'Map' : 'Traffic Updates'}</li>
 								</ul>
 							</div>
@@ -276,6 +276,11 @@ class App extends React.Component {
 			<Route exact path="/term" render={() => (
 					<Term/>
 				)}/>
+
+			<Route exact path="/apidoc" render={() => (
+					<APIDoc/>
+				)}/>
+
 			</div>
 		)
 	}

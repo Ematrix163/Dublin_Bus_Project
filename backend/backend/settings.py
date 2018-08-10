@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '&b5fsz^0&^kbxla3ku9)#rn+1x$yp+1_-#uq)09c#$a$wn-zy9'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['www.dublinroute.com', 'csi420-01-vm2.ucd.ie', 'localhost', '127.0.0.1', '192.168.192.32']
 
@@ -87,7 +87,7 @@ DATABASES = {
         'USER': 'front_end',
         'PASSWORD': '12345',
 		'HOST': '127.0.0.1',
-		'PORT': '3306'
+		'PORT': '3333'
     }
 }
 

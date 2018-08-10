@@ -10,6 +10,7 @@
     "react-datetime": "^2.14.0",
     "react-dom": "^16.4.1",
     "react-google-maps": "^9.4.5",
+    "react-markdown": "^3.4.1",
     "react-mobile-datepicker": "^3.0.12",
     "react-moment": "^0.7.9",
     "react-router": "^4.3.1",
