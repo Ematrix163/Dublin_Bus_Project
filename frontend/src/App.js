@@ -244,7 +244,7 @@ class App extends React.Component {
 
 	showUserFav = () => {
 		//fetch users' favourite places
-		fetch('api/userdata', {
+		fetch('/api/userdata', {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
