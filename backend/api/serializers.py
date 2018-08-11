@@ -12,9 +12,13 @@ class RoutesStopidSerializer(serializers.Serializer):
     true_stop_id = serializers.IntegerField()
 
 
-# class StopInfoSerializer(serializers.Serializer):
-#     stop_name = serializers.CharField(max_length=100)
-#     true_stop_id = serializers.IntegerField()
-#     stop_lat = serializers.DecimalField(max_digits=25, decimal_places=20)
-#     stop_long = serializers.DecimalField(max_digits=25, decimal_places=20)
-#     stop_id = serializers.CharField(max_length=12)
+class CoreUsersettingsSerializer(serializers.Serializer):
+    routeid = serializers.CharField(max_length=20)
+    direction_id = serializers.CharField(max_length=10)
+    direction_name = serializers.CharField(max_length=40)
+    originstop_id = serializers.CharField(max_length=10)
+    originstop_name = serializers.CharField(max_length=40)
+    destinationstop_id = serializers.CharField(max_length=10)
+    destinationstop_name = serializers.CharField(max_length=50)
+    journeyname = serializers.CharField(max_length=20)
+    userid = serializers.CharField(max_length=10)

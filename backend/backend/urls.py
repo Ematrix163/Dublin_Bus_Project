@@ -15,11 +15,12 @@ Including another URLconf
 """
 from django.views.generic import TemplateView
 from django.contrib import admin
-from django.urls import path, re_path
+from django.urls import path, re_path, include
 from django.conf.urls import handler404, handler500, handler400, handler403
 
-from api.views import RouteIdView, RoutesStopidView, PredictTimeView, DirectionView, LocationView, error_404, error_500, StaticFileView
+from api.views import RouteIdView, RoutesStopidView, PredictTimeView, DirectionView, LocationView, error_404, error_500, StaticFileView, UserPlaceView
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+from rest_framework_jwt.views import obtain_jwt_token
 
 
 urlpatterns = [
@@ -31,16 +32,20 @@ urlpatterns = [
     path('api/direction',DirectionView.as_view()),
     path('api/time', PredictTimeView.as_view()),
     path('api/googleroute', LocationView.as_view()),
-    path('api/static',StaticFileView.as_view())
+    path('api/static',StaticFileView.as_view()),
+    path('token-auth/', obtain_jwt_token),
+    path('core/', include('core.urls')),
+    re_path(r'^api/login$', obtain_jwt_token),
+    re_path(r'^api/userdata$', UserPlaceView.as_view())
 ]
 
 # This is to avoid the conflicts with react router
-# urlpatterns += [
-#     re_path(r'^.*/', TemplateView.as_view(template_name="index.html"), name='base')
-# ]
+urlpatterns += [
+    re_path(r'^.*/', TemplateView.as_view(template_name="index.html"), name='base')
+]
 
 urlpatterns += staticfiles_urlpatterns()
-#
-#
-# handler404 = error_404
-# handler500 = error_500
+
+
+handler404 = error_404
+handler500 = error_500

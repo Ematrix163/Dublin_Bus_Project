@@ -1,10 +1,11 @@
 import React from 'react';
+
 import './css/App.css';
 import './css/signin.css'
 
 import { Redirect, Link } from 'react-router-dom'
 
-class Login extends React.Component {
+class SignUp extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -27,7 +28,7 @@ class Login extends React.Component {
 			<div className="login">
 				<div className="ribbon-wrapper h2 ribbon-red">
 					<div className="ribbon-front">
-						<h2>User Login</h2>
+						<h2>Sign Up Your Account</h2>
 					</div>
 					<div className="ribbon-edge-topleft2"></div>
 					<div className="ribbon-edge-bottomleft"></div>
@@ -53,16 +54,16 @@ class Login extends React.Component {
 						</li>
 					</ul>
 				</form>
-				<div>Click to <span className='signup-alert'>sign up!</span></div>
+				<div>Click here to sign up!</div>
 				<div className="submit">
 					<input
 						type="submit"
 						value="Log in"
-						onClick={this.props.login.bind(this, this.state.username, this.state.password)}/>
+					/>
 				</div>
 			</div>
 		)
 	}
 }
 
-export default Login
+export default SignUp

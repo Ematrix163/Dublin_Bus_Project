@@ -9,6 +9,8 @@ const headers = {
   'Accept': 'application/json',
 }
 
+
+
 export const getAllRoute = () =>
 	fetch(`${api}/allroutes`, {headers})
 		.then(res => res.json())

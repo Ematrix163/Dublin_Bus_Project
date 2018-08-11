@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 """
 
 import os
-
+import datetime
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'api',
     'corsheaders',
-	'rest_framework'
+	'rest_framework',
+    'core.apps.CoreConfig'
 ]
 
 MIDDLEWARE = [
@@ -87,7 +88,7 @@ DATABASES = {
         'USER': 'front_end',
         'PASSWORD': '12345',
 		'HOST': '127.0.0.1',
-		'PORT': '3333'
+		'PORT': '3306'
     }
 }
 
@@ -141,3 +142,26 @@ STATICFILES_DIRS = (
 )
 
 MODEL_URL = os.path.join(BASE_DIR, 'model')
+
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.AllowAny',
+    ),
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.BasicAuthentication',
+    ),
+}
+
+CORS_ORIGIN_WHITELIST = (
+    'localhost:3000',
+)
+
+
+
+
+JWT_AUTH = {
+   'JWT_EXPIRATION_DELTA': datetime.timedelta(days=1),
+}

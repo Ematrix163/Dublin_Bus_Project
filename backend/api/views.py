@@ -1,11 +1,12 @@
-# Create your views here.
 
 # Use django restful framework
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from django.shortcuts import render
-from .models import Routes, Forecastweather, Stopsstatic, DublinbusScheduleCurrent
-from .serializers import RouteSerializer, RoutesStopidSerializer
+from .models import Routes, Forecastweather, Stopsstatic, DublinbusScheduleCurrent, CoreUsersettings
+from rest_framework_jwt.authentication import JSONWebTokenAuthentication
+from rest_framework.permissions import IsAuthenticated
+from .serializers import RouteSerializer, RoutesStopidSerializer, CoreUsersettingsSerializer
 from django.conf import settings
 from sklearn.externals import joblib
 import pandas as pd
@@ -276,3 +277,15 @@ class StaticFileView(APIView):
         with open(path, encoding='utf-8') as f:
             result = f.read()
         return Response(result)
+
+
+class UserPlaceView(APIView):
+    # This class is to return use's data, needs to be authenticated
+    authentication_classes = (JSONWebTokenAuthentication,)
+    permission_classes = (IsAuthenticated,)
+
+    def post(self, request):
+        userid = request.user.id
+        result = CoreUsersettings.objects.filter(userid=userid)
+        result_ser = CoreUsersettingsSerializer(result, many=True)
+        return Response({"data": result_ser.data})

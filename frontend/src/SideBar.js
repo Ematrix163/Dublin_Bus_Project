@@ -366,7 +366,6 @@ class SideBar extends React.Component {
 				break;
 
         }
-
         return (<div>{left_content}</div>)
     }
 }
