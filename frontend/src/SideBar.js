@@ -251,7 +251,17 @@ class SideBar extends React.Component {
 									inputProps={{placeholder: 'Choose The Time'}}
 								/>
 							}
-							<button type="button" className="route-button btn btn-primary btn-lg btn-block" onClick={this.props.routeSubmit}>Search</button>
+							<button
+								type="button"
+								className="route-button btn btn-primary btn-lg btn-block"
+								onClick={this.props.routeSubmit}>Search
+							 </button>
+							 <button
+								 type="button"
+								 className="route-button btn btn-primary btn-lg btn-block"
+								 onClick={this.props.handlesave}
+								>Save
+							  </button>
                         </div>
 
 

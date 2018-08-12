@@ -54,12 +54,11 @@ class SignUp extends React.Component {
 						</li>
 					</ul>
 				</form>
-				<div>Click here to sign up!</div>
 				<div className="submit">
 					<input
 						type="submit"
-						value="Log in"
-					/>
+						value="Sign Up"
+						onClick={this.props.signup.bind(this, this.state.username, this.state.password)}/>
 				</div>
 			</div>
 		)

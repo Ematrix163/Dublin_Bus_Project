@@ -33,7 +33,11 @@ class App extends React.Component {
         show: false,
         start_loc: '',
         dest_loc: '',
-        alert: '',
+        alert: {
+			type: '',
+			title: '',
+			text: ''
+		},
         submitFlag: false,
         spinner: false,
         toggle: false,
@@ -73,7 +77,6 @@ class App extends React.Component {
         this.updateWindowDimensions();
         window.addEventListener('resize', this.updateWindowDimensions);
     } // end didMount
-
 
     // changes the toggle state from true to false
 	toggleClick = () => {
@@ -153,7 +156,15 @@ class App extends React.Component {
                 }
             });
         } else {
-            this.setState({toggle: false, show: true, alert: 'Please fill out the form!'})
+            this.setState({
+				toggle: false,
+				show: true,
+				alert: {
+					type: 'error',
+					title: 'Oops!',
+					text: 'Please finish the form!'
+				}
+			})
         }
     }
 
@@ -238,6 +249,43 @@ class App extends React.Component {
 		this.setState({logged_in: false, username: ''});
 	}
 
+	signup = (username, pwd) => {
+		fetch('/api/signup', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify({
+				username: username,
+				password: pwd
+			})
+		})
+		.then(r => r.json())
+		.then(r => {
+			if (r.status === 'success') {
+				this.setState({
+					show: true,
+					alert: {
+						type: 'success',
+						title: 'Success!',
+						text: `You've succeed signed up a account!`
+					},
+					mainView: 'Map'
+				})
+			} else {
+				this.setState({
+					show: true,
+					alert: {
+						type: 'error',
+						title: 'Oops!',
+						text: `Sorry, your username has been taken by others, please choose another one.`
+					}
+				})
+			}
+		})
+
+	}
+
 	switchlogin = (val) => {
 		this.setState({mainView: val});
 	}
@@ -279,6 +327,50 @@ class App extends React.Component {
 		});
 	}
 
+	handlesave = () => {
+		// First decide whether the user is logged in or not
+		if (this.state.logged_in) {
+			if (this.state.selectedOption && this.state.start_stop && this.state.end_stop) {
+				// Check whether the user has filled out all information then send the data
+				fetch('/api/savedata', {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json',
+						'Authorization': 'JWT ' + localStorage.getItem('token')
+					},
+					body: JSON.stringify({
+						routeid: this.state.selectedOption.value,
+						dir_name: this.state.direction.label,
+						dir_id: this.state.direction.value,
+						origin_id: this.state.start_stop.value,
+						origin_name: this.state.start_stop.label,
+						dest_id: this.state.end_stop.value,
+						dest_name: this.state.end_stop.label,
+						jour: 'Journey'
+					})
+				}).then(this.setState({
+					show: true,
+					alert: {
+						type: 'success',
+						title: 'Success!',
+						text: `You've succeed saved this jurney!`
+					}
+				}))
+			} else {
+				//Guide the user to the login in page
+				this.setState({
+					show: true,
+					alert: {
+						type: 'error',
+						title: 'Oops!',
+						text: 'Please login first!'
+					},
+					mainView: 'login'
+				});
+			}
+		}
+	}
+
     render() {
 		let mainView;
 		switch (this.state.mainView) {
@@ -301,7 +393,9 @@ class App extends React.Component {
 							/>
 				break;
 			case 'signup':
-				mainView = <SignUp/>
+				mainView = <SignUp
+						   		signup={this.signup}
+							/>
 				break;
 
 			case 'showuserdata':
@@ -342,14 +436,15 @@ class App extends React.Component {
 								handleSelect={this.handleSelect}
 								handleCancel={this.handleCancel}
 								isOpen={this.state.timepickerOpen}
-								openTimePicker={this.openTimePicker}/>
+								openTimePicker={this.openTimePicker}
+								handlesave={this.handlesave}/>
                             : null
                     }
                     <SweetAlert
 						show={this.state.show}
-						type='error'
-						title='Oops!'
-					    text={this.state.alert}
+						type={this.state.alert.type}
+						title={this.state.alert.title}
+					    text={this.state.alert.text}
 						onConfirm={() => this.setState({show: false})}/>
 
 					{(this.state.width <= 700 && !this.state.showsidebar) || this.state.width > 700

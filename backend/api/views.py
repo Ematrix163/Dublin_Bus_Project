@@ -6,9 +6,11 @@ from django.shortcuts import render
 from .models import Routes, Forecastweather, Stopsstatic, DublinbusScheduleCurrent, CoreUsersettings
 from rest_framework_jwt.authentication import JSONWebTokenAuthentication
 from rest_framework.permissions import IsAuthenticated
+from django.contrib.auth.models import User
 from .serializers import RouteSerializer, RoutesStopidSerializer, CoreUsersettingsSerializer
 from django.conf import settings
 from sklearn.externals import joblib
+from django.contrib.auth.hashers import make_password
 import pandas as pd
 import datetime
 import requests
@@ -268,8 +270,10 @@ class LocationView(APIView):
 def error_404(request):
     return render(request, 'error_404.html')
 
+
 def error_500(request):
     return render(request, 'error_500.html')
+
 
 class StaticFileView(APIView):
     def get(self, request):
@@ -289,3 +293,48 @@ class UserPlaceView(APIView):
         result = CoreUsersettings.objects.filter(userid=userid)
         result_ser = CoreUsersettingsSerializer(result, many=True)
         return Response({"data": result_ser.data})
+
+
+class SavePlaceView(APIView):
+    authentication_classes = (JSONWebTokenAuthentication,)
+    permission_classes = (IsAuthenticated,)
+
+    def post(self, request):
+        userid = request.user
+        routeid = request.data['routeid']
+        dir_name = request.data['dir_name']
+        dir_id = request.data['dir_id']
+        origin_id = request.data['origin_id']
+        origin_name = request.data['origin_name']
+        dest_id = request.data['dest_id']
+        dest_name = request.data['dest_name']
+        jour = request.data['jour']
+
+        CoreUsersettings.objects.create(
+            routeid=routeid,
+            direction_id=dir_id,
+            direction_name=dir_name,
+            originstop_id=origin_id,
+            originstop_name=origin_name,
+            destinationstop_id=dest_id,
+            destinationstop_name=dest_name,
+            journeyname=jour,
+            userid=userid,
+        )
+
+        return Response({"status": "success"})
+
+
+class SignUpView(APIView):
+    def post(self,request):
+        username = request.data['username']
+        password = request.data['password']
+        if User.objects.filter(username=username):
+            return Response({"status":"fail","msg":"Your username has been registered!"})
+
+        user = User()
+        user.username = username
+        user.password = make_password(password)
+        user.save()
+
+        return Response({"status":"success"})

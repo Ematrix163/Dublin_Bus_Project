@@ -18,7 +18,7 @@ from django.contrib import admin
 from django.urls import path, re_path, include
 from django.conf.urls import handler404, handler500, handler400, handler403
 
-from api.views import RouteIdView, RoutesStopidView, PredictTimeView, DirectionView, LocationView, error_404, error_500, StaticFileView, UserPlaceView
+from api.views import RouteIdView, RoutesStopidView, PredictTimeView, DirectionView, LocationView, error_404, error_500, StaticFileView, UserPlaceView, SavePlaceView, SignUpView
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from rest_framework_jwt.views import obtain_jwt_token
 
@@ -33,10 +33,10 @@ urlpatterns = [
     path('api/time', PredictTimeView.as_view()),
     path('api/googleroute', LocationView.as_view()),
     path('api/static',StaticFileView.as_view()),
-    path('token-auth/', obtain_jwt_token),
-    path('core/', include('core.urls')),
     re_path(r'^api/login$', obtain_jwt_token),
-    re_path(r'^api/userdata$', UserPlaceView.as_view())
+    re_path(r'^api/userdata$', UserPlaceView.as_view()),
+    re_path(r'^api/savedata', SavePlaceView.as_view()),
+    re_path(r'^api/signup', SignUpView.as_view())
 ]
 
 # This is to avoid the conflicts with react router
