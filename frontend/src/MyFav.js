@@ -4,23 +4,20 @@ class MyFav extends React.Component {
 
 	render() {
 		return (
-			<table className="table">
-			  <thead className="thead-dark">
+			<table className="fav-table">
+				<tbody>
 			    <tr>
-				  <th scope="col">Journey Name</th>
-			      <th scope="col">Line ID</th>
-			      <th scope="col">Direction</th>
-			      <th scope="col">Departure Stop</th>
-			      <th scope="col">Destination Stop</th>
-				  <th scope="col"></th>
+				  <th>Journey</th>
+			      <th>Line</th>
+			      <th>Direction</th>
+			      <th>Departure Stop</th>
+			      <th>Destination Stop</th>
+				  <th><i onClick={this.props.infowclose} className="info-close fas fa-window-close"></i></th>
 			    </tr>
-			  </thead>
-			  <tbody>
-			    {this.props.favdata.data.map(j => {
-					console.log(j);
+			    {this.props.favdata.data.map((j, index) => {
 					return (
-						<tr key={j.journeyname}>
-					      <th>{j.journeyname}</th>
+						<tr key={index}>
+					      <td>{j.journeyname}</td>
 						  <td>{j.routeid}</td>
 					      <td>{j.direction_name}</td>
 					      <td>{j.originstop_name}</td>
@@ -29,7 +26,7 @@ class MyFav extends React.Component {
 					    </tr>
 					)
 				})}
-			  </tbody>
+			</tbody>
 			</table>
 		)
 	}

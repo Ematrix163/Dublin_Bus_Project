@@ -8,7 +8,7 @@ import * as Datetime from 'react-datetime';
 import ShowStationResult from './ShowStationResult'
 import DatePicker from 'react-mobile-datepicker'
 import PowerGoogle from './image/powered_by_google.png'
-import { Link, Route } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 //the side the webpage for user to enter journey details and to show route info
 class SideBar extends React.Component {
@@ -253,15 +253,15 @@ class SideBar extends React.Component {
 							}
 							<button
 								type="button"
+								className="route-button btn btn-info btn-lg btn-block"
+								onClick={this.props.handlesave}
+							   >Save My Juorney
+							 </button>
+							<button
+								type="button"
 								className="route-button btn btn-primary btn-lg btn-block"
 								onClick={this.props.routeSubmit}>Search
 							 </button>
-							 <button
-								 type="button"
-								 className="route-button btn btn-primary btn-lg btn-block"
-								 onClick={this.props.handlesave}
-								>Save
-							  </button>
                         </div>
 
 

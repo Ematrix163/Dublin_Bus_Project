@@ -39,11 +39,6 @@ urlpatterns = [
     re_path(r'^api/signup', SignUpView.as_view())
 ]
 
-# This is to avoid the conflicts with react router
-urlpatterns += [
-    re_path(r'^.*/', TemplateView.as_view(template_name="index.html"), name='base')
-]
-
 urlpatterns += staticfiles_urlpatterns()
 
 

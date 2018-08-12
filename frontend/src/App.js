@@ -7,14 +7,13 @@ import * as WebAPI from './WebAPI'
 import moment from 'moment';
 import TwitterDisplay from './TwitterDisplay';
 import SweetAlert from 'sweetalert2-react';
-import {Link, Route, Redirect } from 'react-router-dom'
+import { Link, Route } from 'react-router-dom'
 import Term from './Term'
-import Nav from './Nav';
 import APIDoc from './APIDoc'
 import SignUp from './SignUp'
 import MyFav from './MyFav'
 import * as Datetime from 'react-datetime';
-
+import DatePicker from 'react-mobile-datepicker'
 
 class App extends React.Component {
 
@@ -34,7 +33,7 @@ class App extends React.Component {
         start_loc: '',
         dest_loc: '',
         alert: {
-			type: '',
+			type: 'success',
 			title: '',
 			text: ''
 		},
@@ -55,7 +54,8 @@ class App extends React.Component {
 		mainView: 'Map',
 		showfav: false,
 		favdata: '',
-		showTimePicker:false
+		showTimePicker:false,
+		infowtimeisOpen: true
     };
 
     /* Get the window size */
@@ -191,14 +191,37 @@ class App extends React.Component {
         const start_lng = this.state.start_loc.lng();
         const end_loc = this.state.dest_loc.lat();
         const end_lng = this.state.dest_loc.lng();
-        this.setState({view: 'loading'});
-        WebAPI.getGoogleDirection(start_loc, start_lng, end_loc, end_lng, 1532979801).then(r => {
-            if (r.status === 'success') {
-                this.setState({prediction: r, view: 'station_result'});
-            } else {
-                this.setState({view: 'station', show: 'false', alert: r.msg})
-            }
-        })
+		const time = this.state.time;
+
+
+		if (start_loc && start_lng && end_loc && end_lng && time) {
+			this.setState({view: 'loading'});
+			WebAPI.getGoogleDirection(start_loc, start_lng, end_loc, end_lng, time).then(r => {
+				if (r.status === 'success') {
+					this.setState({prediction: r, view: 'station_result'});
+				} else {
+					this.setState({
+						view: 'station',
+						show: 'false',
+						alert: {
+							type: 'error',
+							title: 'Oops!',
+							text: 'Sorry, the bus is not running by dublin bus company!'
+						}
+					})
+				}
+			})
+		} else {
+			this.setState({
+				show: true,
+				alert: {
+					type: 'error',
+					title: 'Oops!',
+					text: 'Please finish the form!'
+				}
+			})
+		}
+
     }
 
     switchUserLoc = (place) => {
@@ -214,8 +237,22 @@ class App extends React.Component {
 
     handleSelect = (val) => {
         const time = Math.floor(val.getTime() / 1000);
-        this.setState({timepickerOpen: false, time: time});
+        this.setState({
+			timepickerOpen: false,
+			time: time,
+		});
     }
+
+	handleinfowSelect = (val) => {
+		console.log(val);
+		const time = Math.floor(val.getTime() / 1000);
+		this.setState({
+			infowtimeisOpen: false,
+			showTimePicker: false,
+			time: time,
+			showsidebar: true
+		}, () => this.routeSubmit());
+	}
 
     openTimePicker = () => {
         this.setState({timepickerOpen: true});
@@ -323,8 +360,13 @@ class App extends React.Component {
 			direction: {
 				value: j.direction_id,
 				label: j.direction_name
-			}
+			},
+			showTimePicker: true
 		});
+
+		if (this.state.width < 700) {
+			this.setState({infowtimeisOpen: true});
+		}
 	}
 
 	handlesave = () => {
@@ -357,21 +399,45 @@ class App extends React.Component {
 					}
 				}))
 			} else {
-				//Guide the user to the login in page
+				//Alert the user to finish the form
 				this.setState({
 					show: true,
 					alert: {
 						type: 'error',
 						title: 'Oops!',
-						text: 'Please login first!'
+						text: 'Please finish the from!'
 					},
-					mainView: 'login'
 				});
 			}
+		} else {
+			//Alert the user to login first
+			this.setState({
+				show: true,
+				alert: {
+					type: 'error',
+					title: 'Oops!',
+					text: 'Please finish the from!'
+				},
+				mainView: 'login'
+			});
 		}
 	}
 
     render() {
+		const monthMap = {
+		    '01': 'Jan',
+		    '02': 'Feb',
+		    '03': 'Mar',
+		    '04': 'Apr',
+		    '05': 'May',
+		    '06': 'Jun',
+		    '07': 'Jul',
+		    '08': 'Aug',
+		    '09': 'Sep',
+		    '10': 'Oct',
+		    '11': 'Nov',
+		    '12': 'Dec',
+		};
 		let mainView;
 		switch (this.state.mainView) {
 			case 'Map':
@@ -390,6 +456,7 @@ class App extends React.Component {
 			case 'login' :
 				mainView = <Login
 							login={this.login}
+							switchsignup={()=>this.setState({mainView: 'signup'})}
 							/>
 				break;
 			case 'signup':
@@ -488,31 +555,54 @@ class App extends React.Component {
 
 									{this.state.showfav?
 										<div className="shadow-wrapper">
-										<div className="infowindow">
-										 	<MyFav favdata={this.state.favdata} choose={this.chooseFav}/>
-												<button className="info-close btn btn-primary" onClick={()=>{this.setState({showfav: false})}}>
-													<i className="fas fa-window-close"></i>Close
-												</button>
+											<div className="infowindow">
+											 	<MyFav
+													favdata={this.state.favdata}
+													choose={this.chooseFav}
+													infowclose={() => this.setState({showfav: false})}/>
 											</div>
 										</div>:
 										null
 									}
+
 									{this.state.showTimePicker?
 										<div className="shadow-wrapper">
 											<div className="infowindow">
-												<Datetime
-													className="timepicker"
-													onChange={this.timeOnchange}
-													inputProps={{placeholder: 'Choose The Time'}}
-												/>
-											<button
-												className="btn btn-primary"
-												onClick={() => {
-													this.routeSubmit();
-													this.setState({showTimePicker: false});
-												}}>
-												Submit
-											</button>
+												{this.state.width <= 700 ?
+													<DatePicker
+														isOpen={this.state.infowtimeisOpen}
+														dateFormat={['YYYY', ['MM', (month) => monthMap[month]], 'DD','hh', 'mm']}
+														confirmText='Confrim'
+														cancelText="Cancel"
+														showFormat="YYYY/MM/DD/hh:mm"
+														onSelect={this.handleinfowSelect}
+				                    					onCancel={() => this.setState({infowtimeisOpen: false, showTimePicker: false})}
+													/>
+													:
+													<div>
+														<Datetime
+															className="timepicker"
+															onChange={this.timeOnchange}
+															inputProps={{placeholder: 'Choose The Time'}}
+															timeConstraints={{
+																hours: {
+																	min: 0,
+																	max: 24,
+																	step: 2
+																}
+															}}
+															value={new Date()}
+														/>
+														<button
+															className="info-submit btn btn-primary"
+															onClick={() => {
+																this.routeSubmit();
+																this.setState({showTimePicker: false});
+															}}>
+															Submit
+														</button>
+													</div>
+												}
 											</div>
 										</div>
 										: null
@@ -521,7 +611,6 @@ class App extends React.Component {
                             : null
                     }
                 </div>)}/>
-
             <Route exact path="/twitter" render={() => (<TwitterDisplay/>)}/>
             <Route exact path="/term" render={() => (<Term/>)}/>
             <Route exact path="/apidoc" render={() => (<APIDoc/>)}/>

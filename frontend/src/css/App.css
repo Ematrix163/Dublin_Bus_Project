@@ -1,4 +1,4 @@
-*{
+* {
     box-sizing: border-box;
     margin: 0;
 	font-family: 'Libre Franklin', sans-serif;
@@ -448,32 +448,74 @@
 }
 
 
+.info-submit {
+	float: right;
+	margin: 230px 20px 20px 0;
+}
 
 .infowindow {
 	position: absolute;
 	top: 15%;
 	right: 10%;
 	width: 80%;
-	height: 500px;
+	max-height: 500px;
 	background-color: white;
 	opacity: 1;
+	overflow: auto;
+	font-size: 12px;
 }
 
 .info-close {
-	position: absolute;
-	right: 10;
-	bottom: 5px;
+	color: white;
+	font-size: 3em;
+}
+
+.info-close:hover {
+	cursor: pointer;
 }
 
 .chose-journey {
 	cursor: pointer;
+	text-decoration: underline;
 }
 
 .chose-journey:hover {
-	text-decoration: underline;
 	color: blue;
 	cursor: pointer;
 }
+
+
+.fav-table {
+	border-collapse: collapse;
+	width: 100%;
+}
+
+.fav-table td,
+.fav-table th {
+	border: 1px solid #ddd;
+	padding: 8px;
+}
+
+
+.fav-table tr:nth-child(even) {
+	background-color: #f2f2f2;
+}
+
+.fav-table tr:hover {
+	background-color: #ddd;
+}
+
+
+.fav-table th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: rgb(24, 27, 79);
+    color: white;
+}
+
+
+
 
 
 /*CSS style for mobile device*/
@@ -500,6 +542,17 @@
 
 	.timepicker {
 		width: 100%;
+	}
+
+	.infowindow {
+		width: 100%;
+		font-size: 10px;
+		right: 0;
+	}
+
+	.fav-table td,
+	.fav-table th {
+		padding: 3px;
 	}
 
 }

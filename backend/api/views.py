@@ -206,13 +206,11 @@ class LocationView(APIView):
         time = request.GET.get("time", "")
 
         url = 'https://maps.googleapis.com/maps/api/directions/json?origin=' + origin_lat + ',' + origin_lng + '&departure_time='+ time + '&destination='+ dest_lat + ',' +dest_lng + '&mode=transit&transit_mode=bus&key=AIzaSyDjRsP2Z4JM86ag3hkbRMmfS1a72YBlD8w'
-        r = requests.get(url)
         print(url)
+        r = requests.get(url)
         r = r.json()
-
-        # return Response(r)
+        print(r)
         steps = r['routes'][0]["legs"][0]["steps"]
-
         predict_result = []
 
         for eachstep in steps:

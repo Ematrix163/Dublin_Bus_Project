@@ -2,8 +2,6 @@ import React from 'react';
 import './css/App.css';
 import './css/signin.css'
 
-import { Redirect, Link } from 'react-router-dom'
-
 class Login extends React.Component {
 	constructor(props) {
 		super(props);
@@ -41,7 +39,7 @@ class Login extends React.Component {
 								placeholder="Username"
 								value={this.state.username}
 								onChange={this.handleuser}/>
-							<a href="#" className="icon user"></a>
+							<i className="sign-icon user"></i>
 						</li>
 						 <li>
 							<input
@@ -49,11 +47,11 @@ class Login extends React.Component {
 								value={this.state.password}
 								placeholder="password"
 								onChange={this.handlepwd}/>
-							<a href="#" className="icon lock"></a>
+							<i className="sign-icon lock"></i>
 						</li>
 					</ul>
 				</form>
-				<div>Click to <span className='signup-alert'>sign up!</span></div>
+				<div style={{float: 'right'}}>Click to <span className='signup-alert' onClick={this.props.switchsignup}>sign up!</span></div>
 				<div className="submit">
 					<input
 						type="submit"

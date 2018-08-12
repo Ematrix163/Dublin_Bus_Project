@@ -47,9 +47,13 @@
     "dir1": "From Clongriffin To Ballycullen Rd.",
     "dir2": "From Ballycullen Rd. To Clongriffin "
   },
+  "15b": {
+  	"dir1": "From Ringsend Rd. (Barrow St.) Towards Stocking Ave.",
+  	"dir2": "From Stocking Ave. Towards Ringsend Rd. (Barrow St.)"
+  },
   "15a": {
     "dir1": "From Ringsend Road (Barrow Street) To Limekiln Ave.",
-    "dir2": "From Limekiln Ave. To Ringsend Road (Barrow Street) "
+    "dir2": "From Limekiln Ave. To Ringsend Road (Barrow Street)"
   },
   "15d": {
     "dir1": "From Ringsend Road (Barrow Street) To Whitechurch",

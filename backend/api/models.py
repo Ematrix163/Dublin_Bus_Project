@@ -185,7 +185,7 @@ class DublinbusScheduleCurrent(models.Model):
 class CoreUsersettings(models.Model):
     routeid = models.CharField(max_length=20)
     direction_id = models.CharField(max_length=10)
-    direction_name = models.CharField(max_length=40)
+    direction_name = models.CharField(max_length=100)
     originstop_id = models.CharField(max_length=10)
     originstop_name = models.CharField(max_length=40)
     destinationstop_id = models.CharField(max_length=10)
@@ -196,4 +196,3 @@ class CoreUsersettings(models.Model):
     class Meta:
         managed = False
         db_table = 'core_usersettings'
-

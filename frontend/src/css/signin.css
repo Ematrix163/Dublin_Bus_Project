@@ -175,7 +175,7 @@ form li {
     border: none;
 }
 
-.icon {
+.sign-icon {
     height: 20px;
     width: 20px;
     display: block;
@@ -394,7 +394,7 @@ input[type="submit"]:hover {
     input[type="text"], input[type="password"] {
         font-size: 13px;
     }
-    .icon {
+    .sign-icon {
         margin: 8px -29px 0px 0px;
         padding: 5px 14px 0 0;
     }
