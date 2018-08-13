@@ -147,7 +147,11 @@ class App extends React.Component {
     routeSubmit = () => {
         // Check all these fields are not blank
         if (this.state.selectedOption && this.state.start_stop && this.state.end_stop && this.state.time) {
-            this.setState({view: 'loading', toggle: false});
+            this.setState({
+				view: 'loading',
+				toggle: false,
+				mainView: 'Map'
+			});
             // Call the api to predict the time
             WebAPI.getTime(this.state.selectedOption.value, this.state.start_stop.value, this.state.end_stop.value, this.state.time, this.state.direction.value).then(r => {
                 if (r.status === 'success') {
@@ -187,22 +191,23 @@ class App extends React.Component {
     //Get the google data
     stationSubmit = () => {
         this.setState({submitFlag: true});
-        const start_loc = this.state.start_loc.lat();
-        const start_lng = this.state.start_loc.lng();
-        const end_loc = this.state.dest_loc.lat();
-        const end_lng = this.state.dest_loc.lng();
 		const time = this.state.time;
-
-
-		if (start_loc && start_lng && end_loc && end_lng && time) {
-			this.setState({view: 'loading'});
+		if (this.state.start_loc && this.state.dest_loc  && time) {
+			const start_loc = this.state.start_loc.lat();
+			const start_lng = this.state.start_loc.lng();
+			const end_loc = this.state.dest_loc.lat();
+			const end_lng = this.state.dest_loc.lng();
+			this.setState({
+				view: 'loading',
+				mainView: 'Map'
+			});
 			WebAPI.getGoogleDirection(start_loc, start_lng, end_loc, end_lng, time).then(r => {
 				if (r.status === 'success') {
 					this.setState({prediction: r, view: 'station_result'});
 				} else {
 					this.setState({
 						view: 'station',
-						show: 'false',
+						show: true,
 						alert: {
 							type: 'error',
 							title: 'Oops!',
@@ -221,7 +226,6 @@ class App extends React.Component {
 				}
 			})
 		}
-
     }
 
     switchUserLoc = (place) => {
