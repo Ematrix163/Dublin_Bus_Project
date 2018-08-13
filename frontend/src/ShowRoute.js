@@ -1,7 +1,21 @@
 import React from 'react';
 
+import Up from './image/up.png'
+import Down from './image/down.png'
+
 // function to show the user the route between stations with in between stations shown also
 class ShowRoute extends React.Component {
+
+	state = {
+		show: false
+	}
+
+	toggle = () => {
+
+		this.setState({
+			show: !this.state.show,
+		})
+	}
 
 	render() {
 
@@ -17,20 +31,37 @@ class ShowRoute extends React.Component {
 				<p><i className="fas fa-bus"></i><span className="start"> Bus Line: {this.props.routeid}</span></p>
 				<p className="from-to">From <span className="stop-name">{this.props.start}</span></p>
 				<p className="from-to">To <span className="stop-name">{this.props.end}</span></p>
-				<p className="from-to">Bus Arrive At:&nbsp;{start_formattedTime}</p>
-				<p className="from-to">Estimated Arrive At: &nbsp;{end_formattedTime}</p>
-				<p className="from-to"><i className="far fa-clock"></i> &nbsp; Duration: {this.props.prediction.data[0].totalDuration} miniutes</p>
+				<p className="from-to">Bus Will Arrive At:&nbsp;{start_formattedTime}</p>
+				<p className="from-to">Estimated Arrival Time: &nbsp;{end_formattedTime}</p>
+				<p className="from-to">
+					<i className="far fa-clock"></i> &nbsp; Duration:&nbsp;
+						<span className="start">{this.props.prediction.data[0].totalDuration}</span> miniutes
+						<span
+							className="detail"
+							onClick={()=>this.toggle()}>Deatils
+							<img className="bracket" alt="" src={this.state.show? Up: Down}/>
+						</span>
+				</p>
+
+
 				<hr/>
-				<p className="from-to"><span className="stops-num">{this.props.prediction.data[0].stopsNum} Stops</span></p>
-				<ul className='route-ul'>
-					{this.props.prediction.data[0].stopInfo.map(each => (
-						<li
-							key={each.stop_id}
-							className="stop-detail"
-							onMouseOver={this.props.handleOver.bind(this, each.stop_id)}
-							onMouseOut={this.props.handleOut}>· {each.stop_name}</li>
-					))}
-				</ul>
+				{this.state.show?
+					<div>
+						<p className="from-to"><span className="stops-num">{this.props.prediction.data[0].stopsNum} Stops</span></p>
+						<ul className='route-ul'>
+							{this.props.prediction.data[0].stopInfo.map(each => (
+								<li
+									key={each.stop_id}
+									className="stop-detail"
+									onMouseOver={this.props.handleOver.bind(this, each.stop_id)}
+									onMouseOut={this.props.handleOut}>· {each.stop_name}</li>
+							))}
+						</ul>
+					</div>
+					:
+					null
+				}
+
 			</div>
 		)
 	}

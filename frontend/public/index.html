@@ -8,13 +8,22 @@
       manifest.json provides metadata used when your web app is added to the
       homescreen on Android. See https://developers.google.com/web/fundamentals/engage-and-retain/web-app-manifest/
     -->
-    <link rel="manifest" href="%PUBLIC_URL%/manifest.json">
-    <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.png">
+    <link rel="manifest" href="%PUBLIC_URL%/static/manifest.json">
+    <link rel="shortcut icon" href="%PUBLIC_URL%/static/favicon.png">
 
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
 	<link href="https://fonts.googleapis.com/css?family=Libre+Franklin" rel="stylesheet">
 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDjRsP2Z4JM86ag3hkbRMmfS1a72YBlD8w"></script>
+	<script>
+		(function(h,e,a,t,m,p) {
+			m=e.createElement(a);
+			m.async=!0;
+			m.src=t;
+			p=e.getElementsByTagName(a)[0];
+			p.parentNode.insertBefore(m,p);
+		})(window,document,'script','https://u.heatmap.it/log.js');
+	</script>
 	<!--
       Notice the use of %PUBLIC_URL% in the tags above.
       It will be replaced with the URL of the `public` folder during the build.

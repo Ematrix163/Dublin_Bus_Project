@@ -163,5 +163,5 @@ CORS_ORIGIN_WHITELIST = (
 
 
 JWT_AUTH = {
-   'JWT_EXPIRATION_DELTA': datetime.timedelta(days=1),
+   'JWT_EXPIRATION_DELTA': datetime.timedelta(days=100),
 }

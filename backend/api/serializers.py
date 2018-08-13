@@ -13,6 +13,7 @@ class RoutesStopidSerializer(serializers.Serializer):
 
 
 class CoreUsersettingsSerializer(serializers.Serializer):
+    id = serializers.IntegerField()
     routeid = serializers.CharField(max_length=20)
     direction_id = serializers.CharField(max_length=10)
     direction_name = serializers.CharField(max_length=40)

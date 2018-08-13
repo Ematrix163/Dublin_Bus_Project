@@ -184,12 +184,12 @@ class SideBar extends React.Component {
                         <button
 							className={this.props.view === "route"? "button-view-activate" : "button-view"}
 							onClick={this.props.switchView.bind(this, 'route')}>
-							Route View
+							By Bus Line
 						</button>
                         <button
 							className={this.props.view === "station"? "button-view-activate" : "button-view"}
 							onClick={this.props.switchView.bind(this, 'station')}>
-							Station View
+							By Location
 						</button>
                     </div>
                     <div className="sidebar-container">
@@ -255,7 +255,7 @@ class SideBar extends React.Component {
 								type="button"
 								className="route-button btn btn-info btn-lg btn-block"
 								onClick={this.props.handlesave}
-							   >Save My Juorney
+							   >Save My Journey
 							 </button>
 							<button
 								type="button"
@@ -263,12 +263,7 @@ class SideBar extends React.Component {
 								onClick={this.props.routeSubmit}>Search
 							 </button>
                         </div>
-
-
-
                     </div>
-
-					<img src={PowerGoogle} className="google-logo" alt=""/>
 					<Link to='/term'><span className="term">Terms</span></Link>
                 </div>;
                 break;
@@ -280,11 +275,11 @@ class SideBar extends React.Component {
 						: null
 					}
                     <div className="logo">
-                        <img src={logo} alt="logo"/>
+                        <img src={logo} alt="logo" onClick={() => window.location.href='/'}/>
                     </div>
                     <div className="view">
-                        <button className="button-view" onClick={this.props.switchView.bind(this, 'route')}>Route View</button>
-                        <button className="button-view-activate" onClick={this.props.switchView.bind(this, 'station')}>Station View</button>
+                        <button className="button-view" onClick={this.props.switchView.bind(this, 'route')}>By Bus Line</button>
+                        <button className="button-view-activate" onClick={this.props.switchView.bind(this, 'station')}>By Location</button>
                     </div>
                     <div className="sidebar-container">
                         <div className="form">
@@ -324,7 +319,9 @@ class SideBar extends React.Component {
                             <button className="btn btn-block btn-primary" onClick={this.props.stationSubmit}>Submit</button>
                         </div>
                     </div>
-                </div>;
+					<img src={PowerGoogle} className="google-logo" alt=""/>
+					<Link to='/term'><span className="term">Terms</span></Link>
+                </div>
                 break;
 
             case 'result':

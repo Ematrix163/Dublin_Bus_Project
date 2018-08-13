@@ -10,7 +10,7 @@ class APIDoc extends React.Component {
 	}
 
 	componentDidMount() {
-		fetch('http://localhost:8000/api/static')
+		fetch('/api/static')
 		.then(res => res.json())
 			.then(r => {
 				this.setState({text: r});

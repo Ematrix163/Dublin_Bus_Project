@@ -204,15 +204,11 @@ class LocationView(APIView):
         dest_lat = request.GET.get("dest_lat", "")
         dest_lng = request.GET.get("dest_lng", "")
         time = request.GET.get("time", "")
-
         url = 'https://maps.googleapis.com/maps/api/directions/json?origin=' + origin_lat + ',' + origin_lng + '&departure_time='+ time + '&destination='+ dest_lat + ',' +dest_lng + '&mode=transit&transit_mode=bus&key=AIzaSyDjRsP2Z4JM86ag3hkbRMmfS1a72YBlD8w'
-        print(url)
         r = requests.get(url)
         r = r.json()
-        print(r)
         steps = r['routes'][0]["legs"][0]["steps"]
         predict_result = []
-
         for eachstep in steps:
             if eachstep['travel_mode'] == "TRANSIT":
                 # Get the line id of the route
@@ -224,7 +220,6 @@ class LocationView(APIView):
                 try:
                     dir1 = data_dir[lineid]["dir1"]
                 except KeyError:
-                    print(lineid)
                     return Response({"status":"fail", "msg":"Sorry, this is not Dublin Bus Company's route."})
                 if dir1.find(headsign) > dir1.find('To'):
                     direction = '1'
@@ -336,3 +331,14 @@ class SignUpView(APIView):
         user.save()
 
         return Response({"status":"success"})
+
+
+class DeleteView(APIView):
+    authentication_classes = (JSONWebTokenAuthentication,)
+    permission_classes = (IsAuthenticated,)
+
+    def post(self, request):
+        userid = request.user
+        id = request.data['journey_id']
+        CoreUsersettings.objects.filter(userid=userid, id=id).delete()
+        return Response({"status": "success"})

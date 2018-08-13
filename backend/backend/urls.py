@@ -18,7 +18,8 @@ from django.contrib import admin
 from django.urls import path, re_path, include
 from django.conf.urls import handler404, handler500, handler400, handler403
 
-from api.views import RouteIdView, RoutesStopidView, PredictTimeView, DirectionView, LocationView, error_404, error_500, StaticFileView, UserPlaceView, SavePlaceView, SignUpView
+from api.views import RouteIdView, RoutesStopidView, PredictTimeView, DirectionView, LocationView, \
+    error_404, error_500, StaticFileView, UserPlaceView, SavePlaceView, SignUpView, DeleteView
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from rest_framework_jwt.views import obtain_jwt_token
 
@@ -35,8 +36,9 @@ urlpatterns = [
     path('api/static',StaticFileView.as_view()),
     re_path(r'^api/login$', obtain_jwt_token),
     re_path(r'^api/userdata$', UserPlaceView.as_view()),
-    re_path(r'^api/savedata', SavePlaceView.as_view()),
-    re_path(r'^api/signup', SignUpView.as_view())
+    re_path(r'^api/savedata$', SavePlaceView.as_view()),
+    re_path(r'^api/signup$', SignUpView.as_view()),
+    re_path(r'^api/deletejourney$', DeleteView.as_view())
 ]
 
 urlpatterns += staticfiles_urlpatterns()

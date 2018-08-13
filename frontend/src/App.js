@@ -55,7 +55,7 @@ class App extends React.Component {
 		showfav: false,
 		favdata: '',
 		showTimePicker:false,
-		infowtimeisOpen: true
+		infowtimeisOpen: true,
     };
 
     /* Get the window size */
@@ -270,15 +270,27 @@ class App extends React.Component {
 					"password": pwd
 				}
 			)
-		}).then(res => res.json())
-			.then(data => {
+		})
+		.then(res =>{
+			console.log(res);
+			if (res.status === 200) {
+				const data = res.json();
 				localStorage.setItem('token', data.token);
 				const detail = atob(data.token.split('.')[1]);
 				const detail_json = JSON.parse(detail)
 				this.setState({logged_in: true, mainView: 'Map', username: detail_json['username']});
-			}).catch(e => {
-				console.log(e);
-			});
+			} else {
+				this.setState({
+					show: true,
+					alert: {
+						type: 'error',
+						title: '',
+						text: 'Wrong account, Please try again!'
+					}
+				})
+			}
+		}).catch(e => console.log(e));
+
 	}
 
 	logout = () => {
@@ -369,6 +381,27 @@ class App extends React.Component {
 		}
 	}
 
+	deleteFav = (id) => {
+		fetch('/api/deletejourney', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+				'Authorization': 'JWT ' + localStorage.getItem('token')
+			},
+			body: JSON.stringify({
+				journey_id: id
+			})
+		})
+		.then(r => r.json())
+		.then(r => {
+			if (r.status === "success") {
+				// Delete successfully
+			 	let temp  = this.state.favdata.data.filter(each => each.id != id);
+				this.setState({favdata: {data: temp}});
+			}
+		})
+	}
+
 	handlesave = () => {
 		// First decide whether the user is logged in or not
 		if (this.state.logged_in) {
@@ -395,7 +428,7 @@ class App extends React.Component {
 					alert: {
 						type: 'success',
 						title: 'Success!',
-						text: `You've succeed saved this jurney!`
+						text: `You've saved this journey!`
 					}
 				}))
 			} else {
@@ -405,7 +438,7 @@ class App extends React.Component {
 					alert: {
 						type: 'error',
 						title: 'Oops!',
-						text: 'Please finish the from!'
+						text: 'Please finish the form!'
 					},
 				});
 			}
@@ -448,7 +481,8 @@ class App extends React.Component {
 							destLoc={this.state.dest_loc}
 							view={this.state.view}
 							blink={this.state.blink}
-							submitFlag={this.state.submitFlag}/>
+							submitFlag={this.state.submitFlag}
+							/>
 				break;
 			case 'Twitter':
 				mainView = <TwitterDisplay/>
@@ -463,10 +497,6 @@ class App extends React.Component {
 				mainView = <SignUp
 						   		signup={this.signup}
 							/>
-				break;
-
-			case 'showuserdata':
-				mainView = <MyFav/>;
 				break;
 		}
 
@@ -559,6 +589,7 @@ class App extends React.Component {
 											 	<MyFav
 													favdata={this.state.favdata}
 													choose={this.chooseFav}
+													delete={this.deleteFav}
 													infowclose={() => this.setState({showfav: false})}/>
 											</div>
 										</div>:
@@ -567,7 +598,7 @@ class App extends React.Component {
 
 									{this.state.showTimePicker?
 										<div className="shadow-wrapper">
-											<div className="infowindow">
+											<div className="infowindow-small">
 												{this.state.width <= 700 ?
 													<DatePicker
 														isOpen={this.state.infowtimeisOpen}
@@ -580,17 +611,11 @@ class App extends React.Component {
 													/>
 													:
 													<div>
+														<h2 className="time-note">Please select time:</h2>
 														<Datetime
 															className="timepicker"
 															onChange={this.timeOnchange}
 															inputProps={{placeholder: 'Choose The Time'}}
-															timeConstraints={{
-																hours: {
-																	min: 0,
-																	max: 24,
-																	step: 2
-																}
-															}}
 															value={new Date()}
 														/>
 														<button
@@ -601,6 +626,17 @@ class App extends React.Component {
 															}}>
 															Submit
 														</button>
+														<button
+															className="info-submit btn btn-info"
+															onClick={() => {
+																this.setState({
+																	showTimePicker: false,
+																	showfav: true
+																});
+															}}>
+															Back
+														</button>
+
 													</div>
 												}
 											</div>
