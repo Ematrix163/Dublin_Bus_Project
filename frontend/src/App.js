@@ -271,25 +271,29 @@ class App extends React.Component {
 				}
 			)
 		})
-		.then(res =>{
-			console.log(res);
-			if (res.status === 200) {
-				const data = res.json();
+		.then(res => res.json())
+		.then(data => {
+
+			if (data.token) {
 				localStorage.setItem('token', data.token);
 				const detail = atob(data.token.split('.')[1]);
 				const detail_json = JSON.parse(detail)
-				this.setState({logged_in: true, mainView: 'Map', username: detail_json['username']});
+				this.setState({
+						logged_in: true,
+						mainView: 'Map',
+						username: detail_json['username']
+					});
 			} else {
 				this.setState({
 					show: true,
 					alert: {
 						type: 'error',
 						title: '',
-						text: 'Wrong account, Please try again!'
+						text: 'Incorrect username or password. Please try again!'
 					}
 				})
 			}
-		}).catch(e => console.log(e));
+		})
 
 	}
 
