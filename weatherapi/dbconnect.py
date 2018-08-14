@@ -10,7 +10,6 @@ import logging
 logging.basicConfig(filename='dbconnect.log',level=logging.INFO, format='%(asctime)s %(message)s', datefmt='%m/%d/%Y %I:%M:%S %p')
 
 
-
 def establishConnection():
     """This function connects to the mysql database on the VM"""
     while True:
@@ -24,6 +23,8 @@ def establishConnection():
                 print("This connection worked!")
                 global cursor
                 cursor = connection.cursor(buffered=True)  # create cursor object - this can execute sql statments
+
+                return cursor
                 break
 
             else:
