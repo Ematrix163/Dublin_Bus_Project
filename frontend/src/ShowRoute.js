@@ -35,10 +35,10 @@ class ShowRoute extends React.Component {
 				<p className="from-to">Estimated Arrival Time: &nbsp;{end_formattedTime}</p>
 				<p className="from-to">
 					<i className="far fa-clock"></i> &nbsp; Duration:&nbsp;
-						<span className="start">{this.props.prediction.data[0].totalDuration}</span> miniutes
+						<span className="start">{this.props.prediction.data[0].totalDuration}</span> minutes
 						<span
 							className="detail"
-							onClick={()=>this.toggle()}>Deatils
+							onClick={()=>this.toggle()}>Details
 							<img className="bracket" alt="" src={this.state.show? Up: Down}/>
 						</span>
 				</p>

@@ -11,8 +11,7 @@ class MyFav extends React.Component {
 			      <th align="center">Direction</th>
 			      <th align="center">Departure Stop</th>
 			      <th>Destination Stop</th>
-				  <th><i onClick={this.props.infowclose} className="info-close fas fa-window-close"></i></th>
-
+				  <th colspan="2"><i onClick={this.props.infowclose} className="info-close fas fa-window-close"></i></th>
 			    </tr>
 			    {this.props.favdata.data.map((j, index) => {
 					return (
@@ -23,10 +22,8 @@ class MyFav extends React.Component {
 					      <td>{j.destinationstop_name}</td>
 						  <td>
 							  <i className="far fa-check-square chose-journey"  onClick={this.props.choose.bind(this, j)}></i>
-							  {'\u00A0\u00A0\u00A0\u00A0'}
-							  <i className="far fa-trash-alt chose-journey" onClick={this.props.delete.bind(this, j.id)}></i>
 						  </td>
-
+						  <td><i className="far fa-trash-alt chose-journey" onClick={this.props.delete.bind(this, j.id)}></i></td>
 					    </tr>
 					)
 				})}

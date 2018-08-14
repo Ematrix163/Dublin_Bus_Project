@@ -21,6 +21,8 @@ class App extends React.Component {
         view: 'route',
         routes: [],
         station: [],
+		startOption: [],
+		endOption: [],
         selectedOption: '',
         start_stop: '',
         end_stop: '',
@@ -117,9 +119,20 @@ class App extends React.Component {
                 if (s['status'] === "success") {
                     let data = s.data;
                     data.map(each => {
-                        temp.push({value: each.true_stop_id, label: each.stop_name, lat: each.stop_lat, lng: each.stop_long, name: each.stop_name})
+                        temp.push({
+							value: each.true_stop_id,
+							label: each.stop_name,
+							lat: each.stop_lat,
+							lng: each.stop_long,
+							name: each.stop_name,
+							index: each.index
+						})
                     });
-                    this.setState({station: temp});
+                    this.setState({
+						station: temp,
+						startOption: temp,
+						endOption: temp
+					});
                 }
             })
         }
@@ -133,9 +146,21 @@ class App extends React.Component {
     }
 
     // If the start stop change
-    startChange = (val) => this.setState({start_stop: val})
+    startChange = (val) => {
+		const station = this.state.station;
+		this.setState({
+			start_stop: val,
+			endOption: station.slice(val.index)
+		})
+	}
     // If the end stop change
-    endChange = (val) => this.setState({end_stop: val})
+    endChange = (val) => {
+		const station = this.state.station;
+		this.setState({
+			end_stop: val,
+			startOption: station.slice(0, val.index)
+		})
+	}
     // When user choose another view
     switchView = (value) => {
         this.setState({view: value, station: []});
@@ -147,18 +172,30 @@ class App extends React.Component {
     routeSubmit = () => {
         // Check all these fields are not blank
         if (this.state.selectedOption && this.state.start_stop && this.state.end_stop && this.state.time) {
-            this.setState({
-				view: 'loading',
-				toggle: false,
-				mainView: 'Map'
-			});
-            // Call the api to predict the time
-            WebAPI.getTime(this.state.selectedOption.value, this.state.start_stop.value, this.state.end_stop.value, this.state.time, this.state.direction.value).then(r => {
-                if (r.status === 'success') {
-                    this.setState({prediction: r, view: 'result'});
-
-                }
-            });
+			const now = Math.round((new Date()).getTime() / 1000);
+			if (this.state.time >= now) {
+				if (this.state.start_stop)
+				this.setState({
+					view: 'loading',
+					toggle: false,
+					mainView: 'Map'
+				});
+				// Call the api to predict the time
+				WebAPI.getTime(this.state.selectedOption.value, this.state.start_stop.value, this.state.end_stop.value, this.state.time, this.state.direction.value).then(r => {
+					if (r.status === 'success') {
+						this.setState({prediction: r, view: 'result'});
+					}
+				})
+			} else {
+				this.setState({
+					show: true,
+					alert: {
+						type: 'error',
+						title: 'Oops!',
+						text: 'Sorry, you cannot choose past time!'
+					}
+				})
+			}
         } else {
             this.setState({
 				toggle: false,
@@ -193,29 +230,42 @@ class App extends React.Component {
         this.setState({submitFlag: true});
 		const time = this.state.time;
 		if (this.state.start_loc && this.state.dest_loc  && time) {
-			const start_loc = this.state.start_loc.lat();
-			const start_lng = this.state.start_loc.lng();
-			const end_loc = this.state.dest_loc.lat();
-			const end_lng = this.state.dest_loc.lng();
-			this.setState({
-				view: 'loading',
-				mainView: 'Map'
-			});
-			WebAPI.getGoogleDirection(start_loc, start_lng, end_loc, end_lng, time).then(r => {
-				if (r.status === 'success') {
-					this.setState({prediction: r, view: 'station_result'});
-				} else {
-					this.setState({
-						view: 'station',
-						show: true,
-						alert: {
-							type: 'error',
-							title: 'Oops!',
-							text: 'Sorry, the bus is not running by dublin bus company!'
-						}
-					})
-				}
-			})
+			const now = Math.round((new Date()).getTime() / 1000);
+			if (time >= now) {
+				const start_loc = this.state.start_loc.lat();
+				const start_lng = this.state.start_loc.lng();
+				const end_loc = this.state.dest_loc.lat();
+				const end_lng = this.state.dest_loc.lng();
+				this.setState({
+					view: 'loading',
+					mainView: 'Map'
+				});
+				WebAPI.getGoogleDirection(start_loc, start_lng, end_loc, end_lng, time).then(r => {
+					if (r.status === 'success') {
+						this.setState({prediction: r, view: 'station_result'});
+					} else {
+						this.setState({
+							view: 'station',
+							show: true,
+							alert: {
+								type: 'error',
+								title: 'Oops!',
+								text: 'Sorry, the bus is not running by dublin bus company!'
+							}
+						})
+					}
+				})
+			} else {
+				this.setState({
+					show: true,
+					alert: {
+						type: 'error',
+						title: 'Oops!',
+						text: 'Sorry, you cannot choose past time!'
+					}
+				})
+			}
+
 		} else {
 			this.setState({
 				show: true,
@@ -381,7 +431,6 @@ class App extends React.Component {
 				value: j.direction_id,
 				label: j.direction_name
 			},
-			showTimePicker: true
 		});
 
 		if (this.state.width < 700) {
@@ -404,7 +453,7 @@ class App extends React.Component {
 		.then(r => {
 			if (r.status === "success") {
 				// Delete successfully
-			 	let temp  = this.state.favdata.data.filter(each => each.id != id);
+			 	let temp  = this.state.favdata.data.filter(each => each.id !== id);
 				this.setState({favdata: {data: temp}});
 			}
 		})
@@ -457,7 +506,7 @@ class App extends React.Component {
 				alert: {
 					type: 'error',
 					title: 'Oops!',
-					text: 'Please finish the from!'
+					text: 'Please login first!'
 				},
 				mainView: 'login'
 			});
@@ -528,6 +577,8 @@ class App extends React.Component {
 								endChange={this.endChange}
 								switchView={this.switchView}
 								dirChange={this.dirChange}
+								startOption={this.state.startOption}
+								endOption={this.state.endOption}
 								routeSubmit={this.routeSubmit}
 								timeOnchange={this.timeOnchange}
 								startLocChange={this.startLocChange}
