@@ -675,7 +675,6 @@ class App extends React.Component {
 															className="timepicker"
 															onChange={this.timeOnchange}
 															inputProps={{placeholder: 'Choose The Time'}}
-															value={new Date()}
 														/>
 														<button
 															className="info-submit btn btn-primary"
