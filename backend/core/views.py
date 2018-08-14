@@ -1,4 +1,6 @@
-# Create your views here.
+# this code (in the core app folder) is adapted from the tutorial on Json web token authentication by Daktoa Lillie
+# https://medium.com/@dakota.lillie/django-react-jwt-authentication-5015ee00ef9a
+
 from django.shortcuts import render
 
 # Create your views here.
@@ -11,19 +13,13 @@ from .serializers import UserSerializer, UserSerializerWithToken
 
 @api_view(['GET'])
 def current_user(request):
-    """
-    Determine the current user by their token, and return their data
-    """
-
+    # Find out who the current user is
     serializer = UserSerializer(request.user)
     return Response(serializer.data)
 
 
 class UserList(APIView):
-    """
-    Create a new user. It's called 'UserList' because normally we'd have a get
-    method here too, for retrieving a list of all User objects.
-    """
+    # this creates a new user
 
     permission_classes = (permissions.AllowAny,)
 

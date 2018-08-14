@@ -1,4 +1,4 @@
-# this code is adapted from the tutorial on Json web token authentication by Daktoa Lillie
+# this code (in the core app folder) is adapted from the tutorial on Json web token authentication by Daktoa Lillie
 # https://medium.com/@dakota.lillie/django-react-jwt-authentication-5015ee00ef9a
 
 from rest_framework import serializers
@@ -16,11 +16,13 @@ class UserSerializer(serializers.ModelSerializer):
 
 
 class UserSerializerWithToken(serializers.ModelSerializer):
+    # A class to handle when a user signs up/registers.
 
     token = serializers.SerializerMethodField()
     password = serializers.CharField(write_only=True)
 
     def get_token(self, obj):
+        # this creates a new jwt token
         jwt_payload_handler = api_settings.JWT_PAYLOAD_HANDLER
         jwt_encode_handler = api_settings.JWT_ENCODE_HANDLER
 
