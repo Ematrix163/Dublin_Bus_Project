@@ -15,11 +15,11 @@ class SideBar extends React.Component {
 	constructor(props) {
 		super(props);
 		this.SMALL_SCREEN_WIDTH = 700;
+		this.state = {
+			mobileTime: ''
+		}
 	}
 
-	state = {
-		mobileTime: ''
-	}
 
 	handleSelect = (val) => {
 		this.props.handleSelect(val);
@@ -197,7 +197,7 @@ class SideBar extends React.Component {
                             <Select
 								className="selectbox"
 								name="form-field-name"
-								placeholder="Please Select a bus line"
+								placeholder="Please Select a Bus Line"
 								value={this.props.selectedOption}
 								options={stops}
 								onChange={this.props.routeChange}
@@ -206,7 +206,7 @@ class SideBar extends React.Component {
                             <Select
 								className="selectbox"
 								name="form-field-name"
-								placeholder="Please Choose A Direction"
+								placeholder="Please Choose a Direction"
 								value={this.props.direction}
 								options={this.props.allDirections}
 								onChange={this.props.dirChange}
@@ -217,16 +217,16 @@ class SideBar extends React.Component {
 								name="form-field-name"
 								placeholder="Start Stop"
 								value={this.props.startStop}
-								options={this.props.station}
+								options={this.props.startOption}
 								onChange={this.props.startChange}
 								isSearchable={this.props.windowwidth > this.SMALL_SCREEN_WIDTH ? true: false}
 							/>
                             <Select
 								className="selectbox"
 								name="form-field-name"
-								placeholder="Destination stop"
+								placeholder="Destination Stop"
 								value={this.props.endStop}
-								options={this.props.station}
+								options={this.props.endOption}
 								onChange={this.props.endChange}
 								isSearchable={this.props.windowwidth > this.SMALL_SCREEN_WIDTH ? true: false}
 							/>
@@ -285,13 +285,13 @@ class SideBar extends React.Component {
                         <div className="form">
                             <SearchBox
 								locChange={this.props.startLocChange}
-								 text='Please enter your departure place'
+								 text='Please Enter Your Departure Place'
 								 type='origin'
 								 switchUserLoc={this.props.switchUserLoc}
 							/>
                             <SearchBox
 								locChange={this.props.destLocChange}
-								text='Please enter your destination'
+								text='Please Enter Your Destination'
 								type='dest'
 							/>
 							{this.props.windowwidth <= this.SMALL_SCREEN_WIDTH?

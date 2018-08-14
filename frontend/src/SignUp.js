@@ -25,7 +25,7 @@ class SignUp extends React.Component {
 			<div className="login">
 				<div className="ribbon-wrapper h2 ribbon-red">
 					<div className="ribbon-front">
-						<h2>Sign Up Your Account</h2>
+						<h2>Create Your Account</h2>
 					</div>
 					<div className="ribbon-edge-topleft2"></div>
 					<div className="ribbon-edge-bottomleft"></div>

@@ -315,7 +315,14 @@
     margin-left: 20px;
 }
 
-.timepicker-station {}
+.timepicker-station {
+	-webkit-box-shadow:  1px 2px 4px #b6b6b6;
+	-moz-box-shadow:  1px 2px 4px #b6b6b6;
+	box-shadow: 1px 2px 4px #b6b6b6;
+	background-color: #DDDDDD;
+	color: #888888;
+	text-align: center;
+}
 
 .toggle {
     margin: 5px 0 0 15px;
@@ -433,6 +440,23 @@
     color: white;
 }
 
+.log-container {
+	text-align: center;
+}
+
+.login-alert {
+	background-color: rgb(255,163,0);
+	display: inline-block;
+	padding: 10px 20px 10px 20px;
+	max-width: 50%;
+}
+
+.login-alert p{
+	color: white;
+	font-size: 1.3em;
+	text-align: left;
+}
+
 /*infowindow style*/
 
 .shadow-wrapper {
@@ -485,7 +509,7 @@
 
 .chose-journey {
     cursor: pointer;
-    font-size: 15px;
+    font-size: 16px;
 }
 
 .chose-journey:hover {

@@ -22,6 +22,7 @@ class Login extends React.Component {
 
     render() {
         return (
+			<div className="log-container">
 			<div className="login">
 				<div className="ribbon-wrapper h2 ribbon-red">
 					<div className="ribbon-front">
@@ -59,6 +60,10 @@ class Login extends React.Component {
 						onClick={this.props.login.bind(this, this.state.username, this.state.password)}/>
 				</div>
 			</div>
+			<div className="login-alert">
+				<p>Dublin Route enables the user to store their favorite bus line journeys.</p>
+			</div>
+		</div>
 		)
 	}
 }

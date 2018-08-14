@@ -42,6 +42,11 @@ class RoutesStopidView(APIView):
             for j in range(i, length):
                 if data[str(result[i]['true_stop_id'])] > data[str(result[j]['true_stop_id'])]:
                     result[i], result[j] = result[j], result[i]
+
+        length = len(result)
+        for i in range(length):
+            result[i]["index"] = i
+
         return Response({"status":"success","data": result})
 
 
