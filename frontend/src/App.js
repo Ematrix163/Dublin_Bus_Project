@@ -9,7 +9,6 @@ import TwitterDisplay from './TwitterDisplay';
 import SweetAlert from 'sweetalert2-react';
 import { Link, Route } from 'react-router-dom'
 import Term from './Term'
-import APIDoc from './APIDoc'
 import SignUp from './SignUp'
 import MyFav from './MyFav'
 import * as Datetime from 'react-datetime';
@@ -58,6 +57,8 @@ class App extends React.Component {
 		favdata: '',
 		showTimePicker:false,
 		infowtimeisOpen: true,
+		start_loc_name: '',
+		dest_loc_name: ''
     };
 
     /* Get the window size */
@@ -210,11 +211,18 @@ class App extends React.Component {
     }
 
     startLocChange = (places) => {
-        this.setState({start_loc: places[0].geometry.location})
+		console.log(places);
+        this.setState({
+			start_loc: places[0].geometry.location,
+			start_loc_name: places[0].formatted_address
+		})
     }
 
     destLocChange = (places) => {
-        this.setState({dest_loc: places[0].geometry.location})
+        this.setState({
+			dest_loc: places[0].geometry.location,
+			dest_loc_name: places[0].formatted_address
+		})
     }
 
     handleOver = (id) => {
@@ -242,7 +250,10 @@ class App extends React.Component {
 				});
 				WebAPI.getGoogleDirection(start_loc, start_lng, end_loc, end_lng, time).then(r => {
 					if (r.status === 'success') {
-						this.setState({prediction: r, view: 'station_result'});
+						this.setState({
+							prediction: r,
+							view: 'station_result'
+						});
 					} else {
 						this.setState({
 							view: 'station',
@@ -265,7 +276,6 @@ class App extends React.Component {
 					}
 				})
 			}
-
 		} else {
 			this.setState({
 				show: true,
@@ -279,7 +289,10 @@ class App extends React.Component {
     }
 
     switchUserLoc = (place) => {
-        this.setState({start_loc: place});
+        this.setState({
+			start_loc: place,
+			start_loc_name: 'Your Location'
+		});
     }
 
     //Toggle the SideBar
@@ -298,7 +311,6 @@ class App extends React.Component {
     }
 
 	handleinfowSelect = (val) => {
-		console.log(val);
 		const time = Math.floor(val.getTime() / 1000);
 		this.setState({
 			infowtimeisOpen: false,
@@ -513,6 +525,16 @@ class App extends React.Component {
 		}
 	}
 
+
+download = () => {
+	const response = {
+		file: '/api/static',
+	};
+
+      window.open(response.file);
+}
+
+
     render() {
 		const monthMap = {
 		    '01': 'Jan',
@@ -593,7 +615,10 @@ class App extends React.Component {
 								handleCancel={this.handleCancel}
 								isOpen={this.state.timepickerOpen}
 								openTimePicker={this.openTimePicker}
-								handlesave={this.handlesave}/>
+								handlesave={this.handlesave}
+								startName={this.state.start_loc_name}
+								endName={this.state.dest_loc_name}
+								/>
                             : null
                     }
                     <SweetAlert
@@ -611,9 +636,9 @@ class App extends React.Component {
 	                                            ? <i className="toggle fas fa-angle-double-left" onClick={this.toggleSideBar}></i>
 	                                            : <i className="toggle fas fa-angle-double-right" onClick={this.toggleSideBar}></i>
                                             }
-                                            <Link to='/apidoc'>
-                                                <li>API</li>
-                                            </Link>
+
+                                                <li onClick={this.download}>API</li>
+
                                             <li onClick={this.toggleClick}>
 												{this.state.toggle? 'Map': 'Twitter'}
 											</li>
@@ -707,7 +732,7 @@ class App extends React.Component {
                 </div>)}/>
             <Route exact path="/twitter" render={() => (<TwitterDisplay/>)}/>
             <Route exact path="/term" render={() => (<Term/>)}/>
-            <Route exact path="/apidoc" render={() => (<APIDoc/>)}/>
+			<Route exact path="/api/static"/>
         </div>)
     }
 }

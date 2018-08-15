@@ -148,17 +148,20 @@
     left: 20px;
 }
 
+.blank {
+	height:  calc(100vh - 550px);
+}
+
 .google-logo {
-    position: absolute;
     width: 150px;
-    bottom: 15px;
-    left: 15px;
+	margin-left: 20px;
+	margin-top: 20px;
 }
 
 .term {
-    position: absolute;
-    right: 15px;
-    bottom: 15px;
+	float: right;
+	margin-right: 20px;
+	margin-top: 20px;
 }
 
 .term:hover {
@@ -292,6 +295,12 @@
     border: 1px solid #1d53cb;
     border-radius: 20px;
     padding: 20px;
+}
+
+
+.separator {
+	width: 100%;
+	margin: 30px 0 30px 0;
 }
 
 .fa-arrow-left {
@@ -576,8 +585,6 @@
     .fav-table td, .fav-table th {
         padding: 0;
     }
-
-
 }
 
 /*CSS style for mid-size device*/

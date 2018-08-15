@@ -1,5 +1,5 @@
 
-# Use django restful framework
+# Use django rest framework
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from django.shortcuts import render
@@ -7,6 +7,8 @@ from .models import Routes, Forecastweather, Stopsstatic, DublinbusScheduleCurre
 from rest_framework_jwt.authentication import JSONWebTokenAuthentication
 from rest_framework.permissions import IsAuthenticated
 from django.contrib.auth.models import User
+from django.http import HttpResponse
+from wsgiref.util import FileWrapper
 from .serializers import RouteSerializer, RoutesStopidSerializer, CoreUsersettingsSerializer
 from django.conf import settings
 from sklearn.externals import joblib
@@ -15,6 +17,7 @@ import pandas as pd
 import datetime
 import requests
 import json
+import os
 
 
 class RouteIdView(APIView):
@@ -113,11 +116,6 @@ class PredictTimeView(APIView):
         format_start_stop = '0' + str(start_stop)
         bus_time = DublinbusScheduleCurrent.objects.filter(stop_id=format_start_stop[-4:], line_id=routeid).values_list('arrival_time').order_by('arrival_time')
         dep_seconds = time % 86400
-        # bus_seconds = dep_seconds
-        # bus_readble_hour = int(bus_seconds / 3600)
-        # bus_readble_min = int((bus_seconds - bus_readble_hour * 3600) / 60)
-        # bus_readble_sec = bus_seconds - bus_readble_hour * 3600 - bus_readble_min * 60
-        # bus_readble = str(bus_readble_hour) + ':' + str(bus_readble_min) + ':' + str(bus_readble_sec)
 
         # Try to find the next coming bus after user's input time
         for t in bus_time:
@@ -214,6 +212,7 @@ class LocationView(APIView):
         r = r.json()
         steps = r['routes'][0]["legs"][0]["steps"]
         predict_result = []
+        totalduration = 0
         for eachstep in steps:
             if eachstep['travel_mode'] == "TRANSIT":
                 # Get the line id of the route
@@ -254,13 +253,20 @@ class LocationView(APIView):
                     if temp_end < min_end:
                         min_end = temp_end
                         end_stop_id = eachstop["true_stop_id"]
-                predict_result.append(PredictTimeView.predict(lineid, direction, start_stop_id, end_stop_id, int(time)))
+                tempResult = PredictTimeView.predict(lineid, direction, start_stop_id, end_stop_id, int(time))
+                totalduration += tempResult['totalDuration']
+                predict_result.append(tempResult)
+            else:
+                totalduration = totalduration + eachstep['duration']["value"]/60
 
-        # result["data"]["google"] = r
+
+
+
         result = {
             "status": "success",
             "data": predict_result,
-            "google": r
+            "google": r,
+            "totalduration":int(totalduration)
         }
         return Response(result)
 
@@ -275,10 +281,11 @@ def error_500(request):
 
 class StaticFileView(APIView):
     def get(self, request):
-        path = settings.STATICFILES_DIRS[0]+'/APIOutline.md'
-        with open(path, encoding='utf-8') as f:
-            result = f.read()
-        return Response(result)
+        path = settings.STATICFILES_DIRS[0] + '/DublinRouteAPI.pdf'
+        wrapper = FileWrapper(open(path, 'rb'))
+        response = HttpResponse(wrapper, content_type='application/force-download')
+        response['Content-Disposition'] = 'inline; filename=' + os.path.basename(path)
+        return response
 
 
 class UserPlaceView(APIView):

@@ -186,11 +186,12 @@ class SideBar extends React.Component {
 							onClick={this.props.switchView.bind(this, 'route')}>
 							By Bus Line
 						</button>
-                        <button
+						<button
 							className={this.props.view === "station"? "button-view-activate" : "button-view"}
 							onClick={this.props.switchView.bind(this, 'station')}>
 							By Location
 						</button>
+
                     </div>
                     <div className="sidebar-container">
                         <div className="input-container">
@@ -278,8 +279,8 @@ class SideBar extends React.Component {
                         <img src={logo} alt="logo" onClick={() => window.location.href='/'}/>
                     </div>
                     <div className="view">
-                        <button className="button-view" onClick={this.props.switchView.bind(this, 'route')}>By Bus Line</button>
-                        <button className="button-view-activate" onClick={this.props.switchView.bind(this, 'station')}>By Location</button>
+						<button className="button-view" onClick={this.props.switchView.bind(this, 'route')}>By Bus Line</button>
+						<button className="button-view-activate" onClick={this.props.switchView.bind(this, 'station')}>By Location</button>
                     </div>
                     <div className="sidebar-container">
                         <div className="form">
@@ -319,6 +320,7 @@ class SideBar extends React.Component {
                             <button className="btn btn-block btn-primary" onClick={this.props.stationSubmit}>Submit</button>
                         </div>
                     </div>
+					<div className="blank"></div>
 					<img src={PowerGoogle} className="google-logo" alt=""/>
 					<Link to='/term'><span className="term">Terms</span></Link>
                 </div>
@@ -367,7 +369,12 @@ class SideBar extends React.Component {
 						}
 						<div className="route-result"><i className="fas fa-arrow-left" onClick={this.props.switchView.bind(this,'station')}></i></div>
 						<div className="sidebar-container">
-							<ShowStationResult data={this.props.prediction}/>
+							<ShowStationResult
+								startName={this.props.startName}
+								endName={this.props.endName}
+								data={this.props.prediction}
+								time={this.props.time}
+							/>
 						</div>
 					</div>
 				break;

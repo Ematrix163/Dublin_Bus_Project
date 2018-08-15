@@ -63,12 +63,7 @@ class Map extends React.PureComponent {
         isMarkerShown: true,
         isRouteShown: true
     }
-
-    componentDidMount() {
-
-    }
-
-
+	
     handleMarkerClick = () => {
         this.setState({ isMarkerShown: false })
         this.delayedShowMarker()
