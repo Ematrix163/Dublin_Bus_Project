@@ -2,17 +2,16 @@
     box-sizing: border-box;
     margin: 0;
     font-family: 'Libre Franklin', sans-serif;
-    -webkit-touch-callout: none;
+}
+
+
+*:not(input) {
     -webkit-user-select: none;
     -khtml-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
 }
-
-
-
-
 
 
 .base-container {
@@ -427,7 +426,7 @@
 .dropdown-content {
     display: none;
     position: absolute;
-    top: 15px;
+    top: 20px;
     right: -100px;
     background-color: #f9f9f9;
     min-width: 200px;

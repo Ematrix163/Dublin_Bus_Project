@@ -46,18 +46,14 @@ class ShowStationResult extends React.Component {
 
 	render() {
 		const temp = this.props.data.google ? this.props.data.google.routes[0].legs[0].steps : [];
-
 		const start_time = this.props.time % 86400;
 		const start_hour = Math.floor(start_time / 3600);
 		const start_min = ('00' + Math.floor((start_time - start_hour * 3600) / 60)).substr(-2);
 		const start_formattedTime = start_hour + ':' + start_min + ':00';
-
-
 		const end_time = (this.props.time + this.props.data.totalduration * 60)  % 86400;
 		const end_hour = Math.floor(end_time / 3600);
 		const end_min = ('00' + Math.floor((end_time - end_hour * 3600) / 60)).substr(-2);
 		const end_formattedTime = end_hour + ':' + end_min + ':00';
-
 		return (
 			<div className="station-result">
 				<div className="summury">
@@ -67,7 +63,6 @@ class ShowStationResult extends React.Component {
 						<i className="far fa-clock"></i> &nbsp; Duration:&nbsp;
 							<span className="start">{this.props.data.totalduration}</span> minutes
 					</p>
-
 					<p className="from-to">You Departure At: &nbsp; {start_formattedTime}</p>
 					<p className="from-to">Estimated Arrival Time:  &nbsp;{end_formattedTime} </p>
 				</div>
@@ -81,9 +76,6 @@ class ShowStationResult extends React.Component {
 						<i className="fas fa-arrow-down"></i>
 					}
 				</button>
-
-
-
 					{this.state.showAll && temp.map((step, index) => (
 						<div key={index}>
 							{step.travel_mode === 'WALKING'?
@@ -125,7 +117,6 @@ class ShowStationResult extends React.Component {
 						}
 						</div>
 					))}
-
 			</div>
 		)
 	}

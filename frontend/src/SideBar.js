@@ -285,7 +285,7 @@ class SideBar extends React.Component {
                     <div className="sidebar-container">
                         <div className="form">
                             <SearchBox
-								locChange={this.props.startLocChange}
+								 locChange={this.props.startLocChange}
 								 text='Please Enter Your Departure Place'
 								 type='origin'
 								 switchUserLoc={this.props.switchUserLoc}

@@ -13,6 +13,19 @@ import SignUp from './SignUp'
 import MyFav from './MyFav'
 import * as Datetime from 'react-datetime';
 import DatePicker from 'react-mobile-datepicker'
+import { OpenWeatherMap,GenericWeather  } from 'react-weather';
+
+
+
+
+
+
+
+
+
+
+
+
 
 class App extends React.Component {
 
@@ -69,6 +82,17 @@ class App extends React.Component {
 
     componentWillUnmount() {
         window.removeEventListener('resize', this.updateWindowDimensions);
+		//
+		// fetch(`https://samples.openweathermap.org/data/2.5/weather?q=Dublin,IE&appid=5703a8bcd83f51be906d501c79a71e53`)
+		// 	.then(res => res.json())
+		// 	.then(res => {
+		// 		const icon = 'w ' + res.weather.icon;
+		// 		const temp = res.main.temp;
+		// 		const desc = res.weather.description;
+		// 	})
+
+
+
     }
 
     updateWindowDimensions() {
@@ -526,13 +550,21 @@ class App extends React.Component {
 	}
 
 
-download = () => {
-	const response = {
-		file: '/api/static',
-	};
+	handleCancel = () => {
+		this.setState({
+			infowtimeisOpen: false,
+			timepickerOpen: false
+		})
+	}
 
-      window.open(response.file);
-}
+
+
+	download = () => {
+		const response = {
+			file: '/api/static',
+		};
+	     window.open(response.file);
+	}
 
 
     render() {
@@ -621,6 +653,8 @@ download = () => {
 								/>
                             : null
                     }
+
+
                     <SweetAlert
 						show={this.state.show}
 						type={this.state.alert.type}
@@ -637,10 +671,9 @@ download = () => {
 	                                            : <i className="toggle fas fa-angle-double-right" onClick={this.toggleSideBar}></i>
                                             }
 
-                                                <li onClick={this.download}>API</li>
-
+                                            <li onClick={this.download}>API</li>
                                             <li onClick={this.toggleClick}>
-												{this.state.toggle? 'Map': 'Twitter'}
+												{this.state.toggle? 'Map': 'Traffic'}
 											</li>
 												<li>
 													{this.state.logged_in?
@@ -653,15 +686,20 @@ download = () => {
 														</div>
 													</i>
 													:
-													<i className="far fa-user dropdown">
+													<div className="dropdown">Login&nbsp;
+													<i className="far fa-user">
 														<div className="dropdown-content">
 															<p className="log-options" onClick={this.switchlogin.bind(this, 'login')}>Log In</p>
 															<p className="log-options" onClick={this.switchlogin.bind(this, 'signup')}>Sign Up</p>
 														</div>
 													</i>
+												</div>
 													}
 												</li>
+
+
                                         </ul>
+
                                     </div>
                                     <div id="map">
 										{mainView}
