@@ -2,7 +2,7 @@
 
 Dublin Route's main goal is to do everything we can to dramatically improve the user experience of bus riders in the Dublin area. Therefore, Dublin Route created a RESTful API to enable developers to take advantage of our bus line predictions. 
 
-
+__Note__: Dublin Route's bus line and stop information is automatically downloaded on a weekly basis so our API always has the most recent [GTFS data from National Transport Ireland](https://data.gov.ie/dataset/gtfs-dublin-bus).
 
 The RESTful API enables developers to download JSON data over HTTPS. The API allows for the following data to be requested:
 
