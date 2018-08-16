@@ -1,5 +1,7 @@
 [unit]
-Description=Start forecast api service
+Description=Start forecast api service. This starts the forecast.py module in backend, and keeps it running as a service.
+             # Forecast.py makes an api request to the openweathermap website, gets in return a 5-day weather forecast
+             # It then writes this forecast to the forecastWeather table in our database on the VM. New forecast fetched every 3 hours
 
 [Service]
 WorkingDirectory=/home/student/weatherapi/
