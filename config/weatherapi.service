@@ -1,5 +1,14 @@
 [unit]
-Description = Start weather api python script
+Description = Start
+Start weatheapi.py script in backend and keeps it running as a service service.
+             # weatherapi.py makes an api request to the openweathermap website, gets in return a the current weather data
+             # It then writes this forecast to the currentWeather table in our database on the VM. New forecast fetched every hour
+
+
+
+
+
+
 [Service]
 WorkingDirectory=/home/student/weatherapi/
 Type=simple

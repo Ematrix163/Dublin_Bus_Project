@@ -34,6 +34,7 @@ class Forecast:
         self.dictionary=None
 
     def api_request(self):
+        # sends api request to openweathermap, if successful gets  response with forecast data, turns it into a dictionary and returns it.
         url = "http://api.openweathermap.org/data/2.5/forecast?id=" + self.cityid + "&APPID=" + self.key
         response = requests.get(url)
         print("Status code: ", response.status_code)
@@ -42,6 +43,7 @@ class Forecast:
         return self.dictionary
 
     def read_api_response(self, dictionary):
+        # breaks down forecast response dictionary into discrete variables and then writes these to the forecastWeather database
         self.weatherlist = self.dictionary['list']
         print("List is a: ", type(self.weatherlist))
         print("lenght of list is ", len(self.weatherlist))
