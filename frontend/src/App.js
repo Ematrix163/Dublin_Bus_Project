@@ -22,6 +22,8 @@ import { OpenWeatherMap,GenericWeather  } from 'react-weather';
 
 class App extends React.Component {
 
+
+	// Initialize the state
     state = {
         view: 'route',
         routes: [],
@@ -227,14 +229,15 @@ class App extends React.Component {
         }
     }
 
+	// When start location change
     startLocChange = (places) => {
-		console.log(places);
         this.setState({
 			start_loc: places[0].geometry.location,
 			start_loc_name: places[0].formatted_address
 		})
     }
 
+	// When destination location change
     destLocChange = (places) => {
         this.setState({
 			dest_loc: places[0].geometry.location,
@@ -242,14 +245,14 @@ class App extends React.Component {
 		})
     }
 
+	// When user's mouse in
     handleOver = (id) => {
         this.setState({blink: id});
     }
-
+	// When use's mouse out
     handleOut = () => {
         this.setState({blink: ''});
     }
-
     //Get the google data
     stationSubmit = () => {
         this.setState({submitFlag: true});
@@ -306,6 +309,7 @@ class App extends React.Component {
 		}
     }
 
+	// When user click use their location
     switchUserLoc = (place) => {
         this.setState({
 			start_loc: place,
@@ -320,6 +324,7 @@ class App extends React.Component {
         })
     }
 
+	// When user select a time
     handleSelect = (val) => {
         const time = Math.floor(val.getTime() / 1000);
         this.setState({
@@ -328,6 +333,7 @@ class App extends React.Component {
 		});
     }
 
+	// When user select a time in infowindow
 	handleinfowSelect = (val) => {
 		const time = Math.floor(val.getTime() / 1000);
 		this.setState({
@@ -342,6 +348,8 @@ class App extends React.Component {
         this.setState({timepickerOpen: true});
     }
 
+
+	// The function is to handle user's login in
 	login = (username, pwd) => {
 		fetch('/api/login', {
 			method: 'POST',
@@ -381,6 +389,7 @@ class App extends React.Component {
 
 	}
 
+	// When user log out, clear the localStorage
 	logout = () => {
 		localStorage.removeItem('token');
 		this.setState({logged_in: false, username: ''});

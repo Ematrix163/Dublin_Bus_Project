@@ -21,6 +21,11 @@ import os
 
 
 class RouteIdView(APIView):
+
+    '''
+    The function is to return all bus line ids
+    '''
+
     def get(self, request):
         route = Routes.objects.all()
         route_ser = RouteSerializer(route, many=True)
@@ -28,6 +33,11 @@ class RouteIdView(APIView):
 
 
 class RoutesStopidView(APIView):
+
+    '''
+    The function is to return all stops of one line id and one direction
+    '''
+
     def get(self, request):
         routeid = request.GET.get("route", "").lower()
         direction = request.GET.get("direction", "")
@@ -64,6 +74,8 @@ class DirectionView(APIView):
 
 
 class PredictTimeView(APIView):
+
+    # This is a static method that can return all stops (including coordinate, name and id) between two stops
     @staticmethod
     def getInfo(start_id, end_id, route, direction):
         # Read local JSON File to get all stops sequence of one bus route
@@ -88,6 +100,8 @@ class PredictTimeView(APIView):
         result = PredictTimeView.predict(routeid, direction, start_stop, end_stop,  time)
         return Response({"status":"success","data":[result]})
 
+
+    # This is a static method that can predict bus running time between two stops by calling local pkl file.
     @staticmethod
     def predict(routeid, direction, start_stop, end_stop, time):
         # Inilize the dataframe
@@ -160,7 +174,6 @@ class PredictTimeView(APIView):
         length = len(stops)
         detail = [];
         total_time = 0
-        # pd.set_option('display.max_columns', 500)
         average_time = {}
         with open(settings.MODEL_URL + '/averages.csv') as f:
             temp = f.read().strip('\n').split('\n')
@@ -201,6 +214,8 @@ class PredictTimeView(APIView):
 
 
 class LocationView(APIView):
+
+    # This is the view function of 'by location', calling google api to get the route and then use local pkl file to predict the durations
     def get(self, request):
         origin_lat = request.GET.get("origin_lat", "")
         origin_lng = request.GET.get("origin_lng", "")
@@ -258,10 +273,6 @@ class LocationView(APIView):
                 predict_result.append(tempResult)
             else:
                 totalduration = totalduration + eachstep['duration']["value"]/60
-
-
-
-
         result = {
             "status": "success",
             "data": predict_result,
@@ -280,6 +291,8 @@ def error_500(request):
 
 
 class StaticFileView(APIView):
+
+    # This is to return static file (API documentation)
     def get(self, request):
         path = settings.STATICFILES_DIRS[0] + '/DublinRouteAPI.pdf'
         wrapper = FileWrapper(open(path, 'rb'))
@@ -301,6 +314,10 @@ class UserPlaceView(APIView):
 
 
 class SavePlaceView(APIView):
+
+    '''
+    This class is to handle user saving operations, user can save their places
+    '''
     authentication_classes = (JSONWebTokenAuthentication,)
     permission_classes = (IsAuthenticated,)
 
@@ -331,6 +348,11 @@ class SavePlaceView(APIView):
 
 
 class SignUpView(APIView):
+
+    '''
+    This is to handle user sigup operation
+    '''
+
     def post(self,request):
         username = request.data['username']
         password = request.data['password']
@@ -346,6 +368,9 @@ class SignUpView(APIView):
 
 
 class DeleteView(APIView):
+
+    # This is to handle user delete operations
+
     authentication_classes = (JSONWebTokenAuthentication,)
     permission_classes = (IsAuthenticated,)
 
