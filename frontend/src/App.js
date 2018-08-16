@@ -184,6 +184,8 @@ class App extends React.Component {
         }
     // In route View, when user click submit button
     routeSubmit = () => {
+	// Make sure the mainiew is map whenever the routeSubmit button is clicked
+	this.setState({mainView: 'Map'});
         // Check all these fields are not blank
         if (this.state.selectedOption && this.state.start_stop && this.state.end_stop && this.state.time) {
 			const now = Math.round((new Date()).getTime() / 1000);
@@ -255,7 +257,7 @@ class App extends React.Component {
     }
     //Get the google data
     stationSubmit = () => {
-        this.setState({submitFlag: true});
+        this.setState({submitFlag: true, mainView: 'Map'});
 		const time = this.state.time;
 		if (this.state.start_loc && this.state.dest_loc  && time) {
 			const now = Math.round((new Date()).getTime() / 1000);
