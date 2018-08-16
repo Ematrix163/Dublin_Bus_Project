@@ -20,13 +20,6 @@ import { OpenWeatherMap,GenericWeather  } from 'react-weather';
 
 
 
-
-
-
-
-
-
-
 class App extends React.Component {
 
     state = {
@@ -71,7 +64,8 @@ class App extends React.Component {
 		showTimePicker:false,
 		infowtimeisOpen: true,
 		start_loc_name: '',
-		dest_loc_name: ''
+		dest_loc_name: '',
+		mapcenter: { lat: 53.350140, lng: -6.266155 }
     };
 
     /* Get the window size */
@@ -82,17 +76,6 @@ class App extends React.Component {
 
     componentWillUnmount() {
         window.removeEventListener('resize', this.updateWindowDimensions);
-		//
-		// fetch(`https://samples.openweathermap.org/data/2.5/weather?q=Dublin,IE&appid=5703a8bcd83f51be906d501c79a71e53`)
-		// 	.then(res => res.json())
-		// 	.then(res => {
-		// 		const icon = 'w ' + res.weather.icon;
-		// 		const temp = res.main.temp;
-		// 		const desc = res.weather.description;
-		// 	})
-
-
-
     }
 
     updateWindowDimensions() {
@@ -188,7 +171,11 @@ class App extends React.Component {
 	}
     // When user choose another view
     switchView = (value) => {
-        this.setState({view: value, station: []});
+        this.setState({
+			view: value,
+			station: [],
+			submitFlag: false
+		});
         //Clear the markers when user switch to another view
         if (value === 'station')
             this.setState({prediction: {}});
@@ -208,7 +195,13 @@ class App extends React.Component {
 				// Call the api to predict the time
 				WebAPI.getTime(this.state.selectedOption.value, this.state.start_stop.value, this.state.end_stop.value, this.state.time, this.state.direction.value).then(r => {
 					if (r.status === 'success') {
-						this.setState({prediction: r, view: 'result'});
+						const lat = parseFloat(r.data[0].stopInfo[0].stop_lat);
+						const lng = parseFloat(r.data[0].stopInfo[0].stop_long);
+						this.setState({
+							prediction: r,
+							view: 'result',
+							mapcenter: {lat: lat, lng: lng}
+						});
 					}
 				})
 			} else {
@@ -286,7 +279,8 @@ class App extends React.Component {
 								type: 'error',
 								title: 'Oops!',
 								text: 'Sorry, the bus is not running by dublin bus company!'
-							}
+							},
+							submitFlag: false
 						})
 					}
 				})
@@ -593,6 +587,7 @@ class App extends React.Component {
 							view={this.state.view}
 							blink={this.state.blink}
 							submitFlag={this.state.submitFlag}
+							mapcenter={this.state.mapcenter}
 							/>
 				break;
 			case 'Twitter':

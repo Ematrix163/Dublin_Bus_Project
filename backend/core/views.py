@@ -19,7 +19,7 @@ def current_user(request):
 
 
 class UserList(APIView):
-    # this creates a new user
+    # this creates a new user - ie a new instance of UserSerializerWithToken class from serializers.py
 
     permission_classes = (permissions.AllowAny,)
 

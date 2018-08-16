@@ -63,7 +63,7 @@ class ShowStationResult extends React.Component {
 						<i className="far fa-clock"></i> &nbsp; Duration:&nbsp;
 							<span className="start">{this.props.data.totalduration}</span> minutes
 					</p>
-					<p className="from-to">You Departure At: &nbsp; {start_formattedTime}</p>
+					<p className="from-to">Leave At: &nbsp; {start_formattedTime}</p>
 					<p className="from-to">Estimated Arrival Time:  &nbsp;{end_formattedTime} </p>
 				</div>
 				<button
@@ -85,7 +85,7 @@ class ShowStationResult extends React.Component {
 									<br/>
 									<i className="far fa-clock"></i>
 									<span className="time"> {step.duration.text}</span>
-									<span className="detail" onClick={()=>this.toggle(index)}>Deatils<img className="bracket" alt="" src={this.state.show[index]? Up: Down}/></span>
+									<span className="detail" onClick={()=>this.toggle(index)}>Details<img className="bracket" alt="" src={this.state.show[index]? Up: Down}/></span>
 										{this.state.show[index]?
 											<ul className="inf-detail-walk">
 												{step.steps.map((detail, index1)=> (
@@ -102,7 +102,7 @@ class ShowStationResult extends React.Component {
 										<i className="fas fa-bus"></i><span className="start"> Bus: {step.transit_details.line.short_name}&nbsp;</span><span className='dest-name'>{step.html_instructions}</span>
 										<span className="stops-num">{this.props.data.data[this.state.seq[index]].stopsNum} stops</span>
 										<br/>
-										<i className="far fa-clock"></i>{this.props.data.data[this.state.seq[index]].totalDuration} mins<span className="detail" onClick={()=>this.toggle(index)}>Deatils
+										<i className="far fa-clock"></i>{this.props.data.data[this.state.seq[index]].totalDuration} mins<span className="detail" onClick={()=>this.toggle(index)}>Details
 											<img className="bracket" alt=""  src={this.state.show[index]? Up: Down}/></span>
 										{this.state.show[index]?
 											<ul className="inf-detail-bus">

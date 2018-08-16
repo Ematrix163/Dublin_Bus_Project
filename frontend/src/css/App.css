@@ -168,6 +168,16 @@
     color: blue;
 }
 
+
+.route-blank {
+	height: calc(100vh - 650px)
+}
+
+.route-term {
+	float: right;
+	margin: 20px 20px 0 0;
+}
+
 /*Switch Button and Activate*/
 
 .button-view {
