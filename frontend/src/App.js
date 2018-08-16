@@ -279,7 +279,8 @@ class App extends React.Component {
 								type: 'error',
 								title: 'Oops!',
 								text: 'Sorry, the bus is not running by dublin bus company!'
-							}
+							},
+							submitFlag: false
 						})
 					}
 				})

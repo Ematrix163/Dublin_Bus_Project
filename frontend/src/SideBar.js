@@ -265,7 +265,8 @@ class SideBar extends React.Component {
 							 </button>
                         </div>
                     </div>
-					<Link to='/term'><span className="term">Terms</span></Link>
+					<div className="route-blank"></div>
+					<Link to='/term'><span className="route-term">Terms</span></Link>
                 </div>;
                 break;
 
