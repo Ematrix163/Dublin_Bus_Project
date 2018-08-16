@@ -63,7 +63,7 @@ class ShowStationResult extends React.Component {
 						<i className="far fa-clock"></i> &nbsp; Duration:&nbsp;
 							<span className="start">{this.props.data.totalduration}</span> minutes
 					</p>
-					<p className="from-to">Your depart at: &nbsp; {start_formattedTime}</p>
+					<p className="from-to">Leave At: &nbsp; {start_formattedTime}</p>
 					<p className="from-to">Estimated Arrival Time:  &nbsp;{end_formattedTime} </p>
 				</div>
 				<button
