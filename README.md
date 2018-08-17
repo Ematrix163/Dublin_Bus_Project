@@ -31,9 +31,9 @@ readme.md
 
 *Frontend*: All code used to create  user interface. 
 
-*Tests*: Unit test files
+*Tests*: Unit tests were performed using the Python UnitTest module. Each test file can be run with the command: `python -m unittest tests/test_something.py`
 
-*Twitter_aler*t: code to create React Twitter component for UI display
+*Twitter_alert*: code to create React Twitter component for UI display
 
 *Weatherapi*: Scripts to collect current weather and  forecast data and write them to database
 
@@ -85,9 +85,11 @@ Prepare the files:
 Train the neural network prediction model for each bus line
    `python /datanalytics/prediction_model/run.py`  
 
+
 **Note**: Many of the files in this project require passwords in order to successfully run. Enter your login info where needed (eg in the dbconnect.py file in the weatherapi directory)
 
 ## Starting the web-server
+
 To start serving the application, the Nginx and uWSGI servers needs to be started
 
 1. Enter the command:
@@ -95,6 +97,7 @@ To start serving the application, the Nginx and uWSGI servers needs to be starte
    `systemctl nginx start`
    
 2. Enter the command:
+
     `uwsgi /backend/uwsgi.ini`
 
 
