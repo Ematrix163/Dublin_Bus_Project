@@ -59,15 +59,15 @@
     height: calc(100vh - 60px);
     box-sizing: border-box;
     overflow: hidden;
+	text-align: center;
 }
 
-.TwitterDisplay {
-    position: relative;
-    top: 50%;
-    transform: translateY(-50%);
-    margin-left: auto;
-    margin-right: auto;
-    width: 90%;
+
+.twitter-display {
+	position: relative;
+	top: 20px;
+	width: 90%;
+	display: inline-block;
 }
 
 .navigator {
@@ -438,7 +438,7 @@
 .dropdown-content {
     display: none;
     position: absolute;
-    top: 20px;
+    top: 15px;
     right: -100px;
     background-color: #f9f9f9;
     min-width: 200px;

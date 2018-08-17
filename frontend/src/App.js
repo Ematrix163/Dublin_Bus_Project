@@ -33,7 +33,7 @@ class App extends React.Component {
         selectedOption: '',
         start_stop: '',
         end_stop: '',
-        time: '',
+        time: parseInt(new Date().valueOf()/1000),
         blink: '',
         prediction: {},
         allDirections: [],
@@ -189,7 +189,7 @@ class App extends React.Component {
         // Check all these fields are not blank
         if (this.state.selectedOption && this.state.start_stop && this.state.end_stop && this.state.time) {
 			const now = Math.round((new Date()).getTime() / 1000);
-			if (this.state.time >= now) {
+			if (this.state.time + 120 >= now) {
 				if (this.state.start_stop)
 				this.setState({
 					view: 'loading',
@@ -261,7 +261,7 @@ class App extends React.Component {
 		const time = this.state.time;
 		if (this.state.start_loc && this.state.dest_loc  && time) {
 			const now = Math.round((new Date()).getTime() / 1000);
-			if (time >= now) {
+			if (time + 120>= now) {
 				const start_loc = this.state.start_loc.lat();
 				const start_lng = this.state.start_loc.lng();
 				const end_loc = this.state.dest_loc.lat();
@@ -283,7 +283,7 @@ class App extends React.Component {
 							alert: {
 								type: 'error',
 								title: 'Oops!',
-								text: 'Sorry, the bus is not running by dublin bus company!'
+								text: r.msg
 							},
 							submitFlag: false
 						})
@@ -744,6 +744,7 @@ class App extends React.Component {
 															className="timepicker"
 															onChange={this.timeOnchange}
 															inputProps={{placeholder: 'Choose The Time'}}
+															defaultValue={new Date()}
 														/>
 														<button
 															className="info-submit btn btn-primary"
