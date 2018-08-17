@@ -14,8 +14,6 @@ The repository consists of the following folders:
 
 *Backend*: The python code that returns journey time estimates, interacts with our database, allows us to create user logins, etc. Diagram below.
 
--backend
-
 ```
 ├── api
 ├── backend
@@ -37,9 +35,7 @@ The repository consists of the following folders:
 
 *Frontend*: 
 
-All javascript files used to create the user interface. Built using React javascript framework. Diagram below.
-
--frontend
+All JavaScript files used to create the user interface. Built using React JavaScript framework. Diagram below.
 
 ```
 ├── public
