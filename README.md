@@ -14,20 +14,19 @@ The repository consists of the following folders:
 
 *Backend*: The python code that returns journey time estimates, interacts with our database, allows us to create user logins, etc. Diagram below.
 
+
 ```
-├── api
 ├── backend
-├── core
-├── manage.py
-├── requirements.txt
-├── static
-├── templates
-└── uwsgi.ini
+├── config
+├── data_analytics
+├── frontend
+├── otherScript
+├── tests
+├── twitter_alert
+└── weatherapi
+gitignore.git
+readme.md
 ```
-
-
-
-
 
 *Config*: Service files that allow a number of processes to continue in the background (eg continually updating weather data, etc)
 
@@ -36,32 +35,6 @@ The repository consists of the following folders:
 *Frontend*: 
 
 All JavaScript files used to create the user interface. Built using React JavaScript framework. Diagram below.
-
-```
-├── public
-└── src
-    ├── App.js
-    ├── App.test.js
-    ├── css
-    ├── fonts
-    ├── image
-    │   └── weather
-    ├── index.js
-    ├── Login.js
-    ├── Map.js
-    ├── MyFav.js
-    ├── ShowRoute.js
-    ├── ShowStationResult.js
-    ├── SideBar.js
-    ├── SignUp.js
-    ├── StandaloneSearchBox.js
-    ├── Term.js
-    ├── TwitterDisplay.js
-    └── WebAPI.js
-
-```
-
-
 
 *Tests*: Unit test files
 
