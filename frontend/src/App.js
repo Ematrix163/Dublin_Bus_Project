@@ -105,17 +105,10 @@ class App extends React.Component {
         if (val) {
             this.setState({selectedOption: val, start_stop: '', end_stop: '', direction: ''})
             WebAPI.getDirection(val.value).then(r => {
-                this.setState({
-                    allDirections: [
-                        {
-                            label: r.dir1,
-                            value: 1
-                        }, {
-                            label: r.dir2,
-                            value: 2
-                        }
-                    ]
-                });
+				if (r.dir1 !== "")
+                	this.setState({allDirections: [{label: r.dir1,value: 1}, {label: r.dir2,value: 2}]});
+				else
+					this.setState({allDirections: [{label: r.dir2,value: 2}]});
             })
         }
     }

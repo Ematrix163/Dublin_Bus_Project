@@ -235,6 +235,10 @@
     "dir1": "From Lower Abbey St. To Rolestown ",
     "dir2": "From Rolestown To Lower Abbey St. "
   },
+  "41a": {
+    "dir1": "",
+    "dir2": "From City Centre Towards Swords Manor"
+  },
   "41c": {
     "dir1": "From Lower Abbey St. To Swords Manor",
     "dir2": "From Swords Manor To Lower Abbey St. "
@@ -272,16 +276,16 @@
     "dir2": "From Glencullen To Dundrum Luas Station "
   },
   "45a": {
-    "dir1": "From D\u7164n Laoghaire (Rail Station) To Kilmacanogue",
-    "dir2": "From Kilmacanogue To D\u7164n Laoghaire (Rail Station) "
+    "dir1": "From Dun Laoghaire (Rail Station) To Kilmacanogue",
+    "dir2": "From Kilmacanogue To Dun Laoghaire (Rail Station) "
   },
   "46a": {
     "dir1": "From Phoenix Park To Dun Laoghaire",
     "dir2": "From Dun Laoghaire To Phoenix Park "
   },
   "46e": {
-    "dir1": "From Blackrock Station To Mountjoy Sq.",
-    "dir2": "From Mountjoy Sq. To Blackrock Station "
+    "dir2": "From Mountjoy Sq. To Blackrock Station",
+    "dir1": ""
   },
   "46n": {
     "dir1": "From D'Olier St. To Dundrum ",
@@ -304,8 +308,8 @@
     "dir2": "From Clondalkin To Aston Quay "
   },
   "51x": {
-    "dir1": "From Dunawley To UCD Belfield ",
-    "dir2": "From UCD Belfield To Dunawley "
+    "dir2": "From Dunawley To UCD Belfield ",
+    "dir1": ""
   },
   "53": {
     "dir1": "From Talbot St. To Dublin Ferryport",
@@ -376,8 +380,8 @@
     "dir2": "From Newcastle / Greenogue Business Park To Hawkins St. "
   },
   "68x": {
-    "dir1": "From Newcastle / Greenogue Business Park To Hawkins Street",
-    "dir2": "From Hawkins Street To Newcastle / Greenogue Business Park "
+    "dir1": "",
+    "dir2": "From Newcastle / Greenogue Business Park Towards Hawkins St."
   },
   "69": {
     "dir1": "From Hawkins St. To Rathcoole",
@@ -424,8 +428,12 @@
     "dir2": "From Tallaght (Westbrook Estate) To D'Olier St. "
   },
   "77x": {
-    "dir1": "From Citywest To UCD Belfield",
-    "dir2": "From UCD Belfield To Citywest "
+    "dir2": "From Citywest To UCD Belfield",
+    "dir1": ""
+  },
+  "79": {
+    "dir1": "From Aston Quay Towards Spiddal Park",
+    "dir2": "From Spiddal Park Towards Aston Quay"
   },
   "79a": {
     "dir1": "From Aston Quay To Spiddal Park / Park West (79a)",
@@ -434,6 +442,10 @@
   "83": {
     "dir1": "From Harristown To Kimmage",
     "dir2": "From Kimmage To Harristown "
+  },
+  "84": {
+    "dir1": "From Blackrock Towards Newcastle",
+    "dir2": "From Newcastle Towards Blackrock"
   },
   "84a": {
     "dir1": "From Blackrock To Newcastle",
