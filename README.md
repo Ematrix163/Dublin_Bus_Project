@@ -23,19 +23,19 @@ gitignore.git
 readme.md
 ```
 
-*Backend*: The python code that returns journey time estimates, interacts with our database, allows us to create user logins, etc. Diagram below.
+*Backend*: code that returns journey estimates, interacts with database, creates logins, etc.
 
-*Config*: Service files that allow a number of processes to continue in the background (eg continually updating weather data, etc)
+*Config*: Service files for background processes (eg weather api).
 
-*Data Analytics*: All code and jupyter notebooks related to the model creation stage of our project, including data cleaning notebooks, model training, bus line extraction scripts etc.
+*Data Analytics*: Code and  notebooks related to the data cleaning and model creation stages
 
-*Frontend*: 
-
-All JavaScript files used to create the user interface. Built using React JavaScript framework. Diagram below.
+*Frontend*: All code used to create  user interface. 
 
 *Tests*: Unit test files
 
-*Weatherapi*: Python scripts that collect current weather and weather forecast data and write them to our database
+*Twitter_aler*t: code to create React Twitter component for UI display
+
+*Weatherapi*: Scripts to collect current weather and  forecast data and write them to database
 
 
 
