@@ -1,14 +1,14 @@
 [unit]
 Description=current_schedule service downloads the current gtfs format schedule for DublinBus.
-
+StartLimitBurst=5
 [Service]
 WorkingDirectory=/home/student/data_analytics/scripts/
 Type=simple
 # Restart on-failure means to restart whenever the program exits with an error code
-Restart=on-failure
-RestartSec=30
+Restart=always
+RestartSec=500
 UMask=022
-ExecStart=/home/student/anaconda3/bin/python3 current_schedule.py
+ExecStart=/home/student/anaconda3/bin/python3 -W ignore run_gtfs_schedule.py
 # Killmode specifies how processes of this unit shall be killed - control-group sends kill signal to all processes in control-group
 KillMode=control-group
 

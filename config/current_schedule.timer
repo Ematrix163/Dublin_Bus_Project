@@ -2,7 +2,7 @@
 Description=Run current_schedule.service daily
 
 [Timer]
-OnCalendar=daily
+OnCalendar=weekly
 Persistent=true
 RandomizedDelaySec=true
 
