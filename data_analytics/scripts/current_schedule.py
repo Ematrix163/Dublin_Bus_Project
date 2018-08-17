@@ -8,9 +8,9 @@ import unittest
 import subprocess
 import signal
 import warnings
+import requests
 
 
-import wget
 import zipfile
 import sys
 
@@ -87,9 +87,12 @@ class CurrentSchedule:
         print("loading data finished")
 
     def download(self):
-        import requests
+        print("Downloading starting...")
         url = 'http://www.transportforireland.ie/transitData/google_transit_dublinbus.zip'
-        req = requests.get(url)
+
+        req = requests.get(url, allow_redirects=True)
+        open(self._schedule_file, 'wb').write(req.content)
+        print("Downloaded status:", req.status_code)
         return req.status_code
 
 
