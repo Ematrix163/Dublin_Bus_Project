@@ -100,10 +100,16 @@ All javascript files used to create the user interface. Built using React javasc
 
    This will create a Neural Network pickl files for each line. 
 
-5. To start the application, cd into backend folder and enter the following at the command line 
-
-   `python manage.py runserver`
-
 6. Naturally, users will have to insert their own api keys, passwords for database access (eg in the dbconnect.py file in the weatherapi directory), etc in order to run the web app
+
+### Starting the web-server
+To start serving the application, the Nginx and uWSGI servers needs to be started
+
+1. Enter the command:
+
+   `systemctl nginx start`
+   
+2. From the /backend folder, enter the command:
+    `uwsgi uwsgi.ini`
 
 
