@@ -35,7 +35,6 @@ class NeuralNetworkModel:
         self._df_test_y = None
         self._scaler = None
         self._clf = None
-        self._results = None
 
         self.split_df()
         self.scaler()
@@ -116,11 +115,6 @@ class NeuralNetworkModel:
         results = [self._output_file_name]
         predictions = self._clf.predict(self._df_test_X)
         mae = mean_absolute_error(self._df_test_y, predictions)
-        y_true, y_pred = np.array(self._df_test_y), np.array(predictions)
-        if y_true != 0:
-            mape = np.mean(np.abs((y_true - y_pred) / y_true)) * 100
-        else:
-            mape = 0
         scoreTrain = self._clf.score(self._df_train_X, self._df_train_y)
         scoreTest = self._clf.score(self._df_test_X, self._df_test_y)
         results.append(mae)
@@ -154,12 +148,4 @@ y = 'duration'
 instance = NeuralNetworkModel(filepath, model_dir, y)
 print('finished')
 
-print('RESULTS for 66-1:')
-print("train score", instance._scoreTrain)
-print('test score', instance._scoreTest)
-print('mae', instance._mae)
-print('mape', instance._mape)
-
-#instance.testScaler()
-#print(instance._test_scaled_set)
 '''

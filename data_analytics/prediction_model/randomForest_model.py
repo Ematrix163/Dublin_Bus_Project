@@ -7,6 +7,8 @@ import math
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.externals import joblib
 from sklearn.metrics import mean_absolute_error
+from sklearn.preprocessing import StandardScaler
+import csv
 
 
 class RandomForestModel:
@@ -39,6 +41,15 @@ class RandomForestModel:
         self._df_test_y = None
         self._rf = None
         self._headers = None
+        self._scaler = None
+
+        self.split_df()
+        self.scaler()
+        self.initialize_model()
+        self.get_results()
+        self.save_results()
+        self.save_model()
+        self.save_features()
 
     @property
     def input_file_path(self):
@@ -95,6 +106,14 @@ class RandomForestModel:
         self._df_train_X, self._df_test_X, self._df_train_y, self._df_test_y = train_test_split(self._X, self._y,
                                                                                                 test_size=0.25,random_state=1)
 
+    # scaling data for normalisation
+    def scaler(self):
+        self._scaler = StandardScaler()
+        self._scaler.fit(self._df_train_X)
+        self._df_train_X = self._scaler.transform(self._df_train_X)
+        self._df_test_X = self._scaler.transform(self._df_test_X)
+        joblib.dump(self._scaler, self._output_path + 'scaler_' + self._output_file_name + '.pkl')
+
     # Initialize the random forest model:
     def initialize_model(self):
         self._rf = RandomForestRegressor(random_state=0, n_estimators=20, max_features=25, max_depth=25, min_samples_split=50, n_jobs=-1)
@@ -102,11 +121,23 @@ class RandomForestModel:
 
     # gets the results for the regression model
     def get_results(self):
-        self._predictions = self._rf.predict(self._df_test_X)
-        self._mae = mean_absolute_error(self._df_test_y, self._predictions)
+        results = [self._output_file]
+        predictions = self._rf.predict(self._df_test_X)
+        mae = mean_absolute_error(self._df_test_y, predictions)
         # Calculate Score
-        self._scoreTrain = self._rf.score(self._df_train_X, self._df_train_y)
-        self._scoreTest = self._rf.score(self._df_test_X, self._df_test_y)
+        scoreTrain = self._rf.score(self._df_train_X, self._df_train_y)
+        scoreTest = self._rf.score(self._df_test_X, self._df_test_y)
+        results.append(mape)
+        results.append(scoreTrain)
+        results.append(scoreTest)
+        return results
+
+    # save results to csv file
+    def save_results(self):
+        output = self.get_results()
+        with open('/home/student/data_analytics/prediction_model/RFmodel_results.csv', 'a') as file:
+            wr = csv.writer(file, dialect='excel')
+            wr.writerow(output)
 
     def save_model(self):
         joblib.dump(self._rf, self._output_file_path + self._output_file + ".pkl")
@@ -124,12 +155,5 @@ y = 'duration'
 
 # Create instance
 instance = RandomForestModel(clean_file_path, output_file_path, y)
-instance.split_df()
-instance.initialize_model()
-instance.get_results()
-print(instance._scoreTrain)
-print(instance._scoreTest)
-print('Mean Absolute Error',instance._mae)
-instance.save_model()
 print("finished")
 '''
