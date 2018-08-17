@@ -11,14 +11,15 @@ logging.basicConfig(filename='dbconnect.log',level=logging.INFO, format='%(ascti
 
 
 def establishConnection():
-    """This function connects to the mysql database on the VM"""
+    """This function connects to the mysql database on the VM
+    NB user must enter their own password details below"""
     while True:
         try:
             global connection
-            connection = mysql.connector.connect(host='localhost',
-                                           database='dublinBus',
-                                           user='front_end',
-                                           password='12345')
+            connection = mysql.connector.connect(host='',
+                                           database='',
+                                           user='',
+                                           password='')
             if connection.is_connected():
                 print("This connection worked!")
                 global cursor

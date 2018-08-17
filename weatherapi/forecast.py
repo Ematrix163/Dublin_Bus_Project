@@ -22,7 +22,7 @@ logging.basicConfig(filename='forecastApi.log',level=logging.INFO, format='%(asc
 def connecting_method():
     """Creates an instance of class forecast. Sends api key and city id """
     print("connecting method called")
-    apikey='66040549d2cc38abfa2a0be1019ad3b5'
+    apikey=''
     cityid='2964574'
     return Forecast(apikey,cityid)
 

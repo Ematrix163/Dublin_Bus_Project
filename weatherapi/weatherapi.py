@@ -18,7 +18,7 @@ logging.basicConfig(filename='weatherApi.log',level=logging.INFO, format='%(asct
 
 def connecting_method():
     """Creates an instance of class weather. Sends api key and city id """
-    apikey='66040549d2cc38abfa2a0be1019ad3b5'
+    apikey=''
     cityid='2964574'
     return Weather(apikey,cityid)
 
