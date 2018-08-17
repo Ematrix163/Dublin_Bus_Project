@@ -10,11 +10,6 @@ It is currently hosted at www.dublinroute.com
 
 ### Folder structure
 
-The repository consists of the following folders:
-
-*Backend*: The python code that returns journey time estimates, interacts with our database, allows us to create user logins, etc. Diagram below.
-
-
 ```
 ├── backend
 ├── config
@@ -27,6 +22,8 @@ The repository consists of the following folders:
 gitignore.git
 readme.md
 ```
+
+*Backend*: The python code that returns journey time estimates, interacts with our database, allows us to create user logins, etc. Diagram below.
 
 *Config*: Service files that allow a number of processes to continue in the background (eg continually updating weather data, etc)
 
