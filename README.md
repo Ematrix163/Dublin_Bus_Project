@@ -64,14 +64,15 @@ First, clone the Dublin_Bus_Project repo from GitHub
 
 Start the following backend services:
 
+Weather forecast - Obtains the 5 day weather forecast and puts it in the database:
 `systemctl forecast.service start`
-- Obtains the 5 day weather forecast and puts it in the database
 
+Weather api - Obtains the current weather and puts it in the database:
 `systemctl weatherapi.service start`
-- Obtains the current weather and puts it in the datase
+
+Current GTFS schedule - Starts a SystemD timer so that a new GTFS schedule will be downloaded and uploaded to the database on a weekly basis:
 
 `systemctl current_schedule.timer start`
-- Starts a SystemD timer so that a new GTFS schedule will be downloaded and uploaded to the database on a weekly basis
 
 ### Prediction model
 
