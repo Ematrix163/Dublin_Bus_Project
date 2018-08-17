@@ -93,7 +93,7 @@ To start serving the application, the Nginx and uWSGI servers needs to be starte
 
    `systemctl nginx start`
    
-2. From the /backend folder, enter the command:
-    `uwsgi uwsgi.ini`
+2. Enter the command:
+    `uwsgi /backend/uwsgi.ini`
 
 
