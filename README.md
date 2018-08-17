@@ -1,4 +1,4 @@
-## About Dublin Bus Project 
+## Dublin Bus Project 
 
 Dublin Bus Project is a web application that estimates journey times for trips on the Dublin Bus network using predictive data analytics. It was created as part of the research practicum for UCD MSc in Computer Science during the summer of 2018 by Chen Yiming, Thomas Anderson, Rosanna Hanly and Sheena Davitt.
 
@@ -8,7 +8,7 @@ It allows the user to enter details of a Dublin Bus route (or subsection of rout
 
 It is currently hosted at www.dublinroute.com
 
-### *Folders*
+### *Folder structure*
 
 The repository consists of the following folders:
 
@@ -73,22 +73,45 @@ All javascript files used to create the user interface. Built using React javasc
 
 
 
-## To deploy
+## Deploying the application from Github
 
-1. First, clone the Dublin_Bus_Project repo from GitHub
-2. To recreate our database, create an empty database called dublinBus, then run the SQL commands in the database.sql file in the config directory to create the tables
-3. Then cd into the /config directory. Type the following into the command line
+### Clone the application from Github
 
-`sudo service forecast.service start`
+First, clone the Dublin_Bus_Project repo from GitHub
 
-`sudo service weatherapi.service start`
+### Install environment requirements
 
-`sudo service current_schedule.timer start`
+1. Install anaconda
 
-4. Then, in the same directory, enter the following command
+2. Create your environment with conda. For example `conda create --name myenv`
+
+3. Activate the newly created environment: `source activate myenv`
+
+4. Install requirements.txt using pip. For example `pip install -r requirements.txt`
+
+### Setup the database
+
+1. Create an empty relational database called dublinBus
+2. Run the SQL commands in the /config/database.sql file to create the tables
+
+### Setup the database
+
+Start the following backend services:
+
+`systemctl forecast.service start`
+- Obtains the 5 day weather forecast and puts it in the database
+
+`systemctl weatherapi.service start`
+- Obtains the current weather and puts it in the datase
+
+`systemctl current_schedule.timer start`
+- Starts a SystemD timer so that a new GTFS schedule will be downloaded and uploaded to the database on a weekly basis
 
 
-`sudo service bus_extract.service start`
+### Prediction model
+
+
+`systemctl bus_extract.service start`
 
 
 ​	This will take a significant amount of time. The bus_extract.service runs the job master.sh script, which in turn runs the extract_bus_line.sh 		script, which extracts each bus line. 
@@ -102,7 +125,7 @@ All javascript files used to create the user interface. Built using React javasc
 
 6. Naturally, users will have to insert their own api keys, passwords for database access (eg in the dbconnect.py file in the weatherapi directory), etc in order to run the web app
 
-### Starting the web-server
+## Starting the web-server
 To start serving the application, the Nginx and uWSGI servers needs to be started
 
 1. Enter the command:
