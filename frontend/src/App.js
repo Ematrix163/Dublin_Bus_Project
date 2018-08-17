@@ -189,7 +189,7 @@ class App extends React.Component {
         // Check all these fields are not blank
         if (this.state.selectedOption && this.state.start_stop && this.state.end_stop && this.state.time) {
 			const now = Math.round((new Date()).getTime() / 1000);
-			if (this.state.time + 120 >= now) {
+			if (this.state.time + 350 >= now) {
 				if (this.state.start_stop)
 				this.setState({
 					view: 'loading',
@@ -261,7 +261,7 @@ class App extends React.Component {
 		const time = this.state.time;
 		if (this.state.start_loc && this.state.dest_loc  && time) {
 			const now = Math.round((new Date()).getTime() / 1000);
-			if (time + 120>= now) {
+			if (time + 350>= now) {
 				const start_loc = this.state.start_loc.lat();
 				const start_lng = this.state.start_loc.lng();
 				const end_loc = this.state.dest_loc.lat();
