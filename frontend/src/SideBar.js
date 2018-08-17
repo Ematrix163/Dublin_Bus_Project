@@ -250,6 +250,7 @@ class SideBar extends React.Component {
 									className="timepicker"
 									onChange={this.props.timeOnchange}
 									inputProps={{placeholder: 'Choose The Time'}}
+									defaultValue={new Date()}
 								/>
 							}
 							<button
@@ -315,6 +316,7 @@ class SideBar extends React.Component {
 									className="timepicker-station"
 									onChange={this.props.timeOnchange}
 									inputProps={{placeholder: 'Choose The Time'}}
+									defaultValue={new Date()}
 								/>
 							}
                             <br/>

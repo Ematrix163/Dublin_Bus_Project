@@ -223,8 +223,12 @@ class LocationView(APIView):
         dest_lng = request.GET.get("dest_lng", "")
         time = request.GET.get("time", "")
         url = 'https://maps.googleapis.com/maps/api/directions/json?origin=' + origin_lat + ',' + origin_lng + '&departure_time='+ time + '&destination='+ dest_lat + ',' +dest_lng + '&mode=transit&transit_mode=bus&key=AIzaSyDjRsP2Z4JM86ag3hkbRMmfS1a72YBlD8w'
+
         r = requests.get(url)
         r = r.json()
+
+        if r["status"] == "ZERO_RESULTS" or r["status"] == "INVALID_REQUEST":
+            return Response({"status":"fail", "msg":"Sorry, the bus is out of service from your selected time."})
         steps = r['routes'][0]["legs"][0]["steps"]
         predict_result = []
         totalduration = 0
@@ -239,7 +243,7 @@ class LocationView(APIView):
                 try:
                     dir1 = data_dir[lineid]["dir1"]
                 except KeyError:
-                    return Response({"status":"fail", "msg":"Sorry, this is not Dublin Bus Company's route."})
+                    return Response({"status":"fail", "msg":"Sorry, DublinBus doesn't go to that destination!"})
                 if dir1.find(headsign) > dir1.find('To'):
                     direction = '1'
                 else:

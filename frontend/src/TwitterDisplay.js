@@ -11,7 +11,7 @@ class TwitterDisplay extends React.Component {
     render() {
 		return (
 		    // use linkProps if you want to pass attributes to all links
-            <div className="TwitterDisplay">
+			<div className="twitter-display">
 				<Timeline
 					dataSource={{
 					  sourceType: 'profile',
@@ -19,12 +19,11 @@ class TwitterDisplay extends React.Component {
 					}}
 					options={{
 					  username: 'TwitterDev',
-					  height: '400',
+					  height: 'calc(100vh - 100px)',
 
 					}}
-					onLoad={() => console.log('Timeline is loaded!')}
 				/>
-            </div>
+		</div>
         )
     }
 }
